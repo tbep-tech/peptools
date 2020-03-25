@@ -1,0 +1,23 @@
+Package: pepreporting
+Title: Analysis Tools for Importing, Wrangling, and Summarizing Suffolk County Water Quality Data
+Version: 0.0.0.9000
+Date: 2020-03-25
+Authors@R: 
+    person(given = "Marcus",
+           family = "Beck",
+           role = c("aut", "cre"),
+           email = "mbeck@tbep.org",
+           comment = c(ORCID = "0000-0002-4996-0059"))
+Description: Analysis tools for importing, wrangling, and summarizing Suffolk County water quality data
+Depends: 
+  R (>= 3.5)
+Imports:
+  dplyr, 
+  ggplot2, 
+  readxl
+Remotes: 
+  tbep-tech/tbeptools
+License: CC0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
