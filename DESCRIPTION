@@ -14,7 +14,8 @@ Depends:
 Imports:
   dplyr, 
   ggplot2, 
-  readxl
+  readxl,
+  tidry
 Remotes: 
   tbep-tech/tbeptools
 License: CC0
