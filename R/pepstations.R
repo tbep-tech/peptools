@@ -27,7 +27,7 @@
 #' # e1 <- editMap(p)
 #' # locs[e1$finished, ] %>% pull(BayStation) %>% dput
 #' 
-#' stations <- list(
+#' pepstations <- list(
 #'   Western = c("60280", "60275", "60270", "60265", "60266", "60260", "60250", 
 #'               "60240", "60230", "60210", "60220", "60170", "60101", "60130", 
 #'               "60290", "60148", "60102", "60103", "60113", "60104"),
@@ -39,8 +39,8 @@
 #'   tibble::enframe('bay_segment', 'BayStation') %>%
 #'   unnest(BayStation) %>%
 #'   left_join(locs, ., by = 'BayStation')
-#' crds <- st_coordinates(stations)
-#' stations <- stations %>%
+#' crds <- st_coordinates(pepstations)
+#' pepstations <- pepstations %>%
 #'   st_set_geometry(NULL) %>%
 #'   mutate(
 #'     Longitude = crds[, 1],
@@ -48,6 +48,6 @@
 #'     bay_segment = factor(bay_segment, levels = c('Western', 'Central', 'Eastern'))
 #'   )
 #' 
-#' save(stations, file = 'data/stations.RData', compress = 'xz')
+#' save(pepstations, file = 'data/pepstations.RData', compress = 'xz')
 #'}
-"stations"
+"pepstations"
