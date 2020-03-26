@@ -14,8 +14,8 @@
 #'
 #' @examples
 #' # view average estimates
-#' anlz_avepep(rawdat)
-anlz_avepep <- function(dat){
+#' anlz_medpep(rawdat)
+anlz_medpep <- function(dat){
 
   # chlorophyll monthly averages
   monchla <- dat %>%
