@@ -13,9 +13,9 @@
 #' library(mapedit)
 #' library(mapview)
 #' 
-#' prj <- '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+#' prj <- 4326
 #' 
-#' locs <- read_xlsx('data/data-raw/2017 SCDHS Peconics stations and proposed WQ mgmnt zones.xlsx') %>%
+#' locs <- read_xlsx('inst/extdata/stationmeta.xlsx') %>%
 #'   select(BayStation = `Station Number`, StationName, Longitude = LON, Latitude = LAT) %>%
 #'   mutate(
 #'     BayStation = as.character(BayStation)
@@ -44,10 +44,10 @@
 #'   st_set_geometry(NULL) %>%
 #'   mutate(
 #'     Longitude = crds[, 1],
-#'     Latitude = crds[, 2]
+#'     Latitude = crds[, 2], 
+#'     bay_segment = factor(bay_segment, levels = c('Western', 'Central', 'Eastern'))
 #'   )
 #' 
 #' save(stations, file = 'data/stations.RData', compress = 'xz')
-#' 
 #'}
 "stations"

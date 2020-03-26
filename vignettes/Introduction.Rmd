@@ -1,0 +1,67 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, message = F, warning = F}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = F, warning = F)
+
+library(pepreporting)
+library(ggplot2)
+library(mapview)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+library(sf)
+```
+
+
+The package includes a `stations` data object that includes metadata for each station, including lat/lon and bay segment.  
+
+```{r}
+prj <- 4326
+locs <- stations %>% 
+  st_as_sf(coords = c('Longitude', 'Latitude'), crs = prj)
+
+mapview(locs, zcol = 'bay_segment', layer.name = 'Bay segment')            
+```
+
+The water quality data can be imported using the `read_pepwq()` function.  A compressed folder that inludesthe data can be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d).  After the data are downloaded and extracted, the Excel file with the raw data is named "Peconics SCDHS WQ data - up to 2019 so far.xlsx", or something similar depending on when the data were downloaded.  The location of this file on your computer is passed to the import function. Below, a local file renamed as "currentdata.xlsx" that contains the water quality data is downloaded. 
+
+```{r}
+dat <- read_pepwq('../inst/extdata/currentdata.xlsx')
+head(dat)
+```
+
+The raw data includes multiple fields, but only the chlorophyll and secchi data are retained for reporting.  Each station is grouped by major bay segment, defined as `r levels(dat$bay_segment)`. 
+
+A quick view of the number of observations and length of record at each stations shows that effort was not continuous. 
+
+```{r}
+toplo <- dat %>% 
+  mutate(
+    yr = year(Date)
+  ) %>% 
+  group_by(bay_segment, BayStation, name, yr) %>% 
+  summarise(`Obs. (n)` = n())
+
+p <- ggplot(toplo, aes(x = yr, y = BayStation, fill = `Obs. (n)`)) + 
+  geom_tile()+ #colour = 'lightgrey') + 
+  facet_grid(bay_segment ~ name, scales = 'free_y', space = 'free_y') + 
+  theme_bw() + 
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.grid.minor= element_blank(),
+    strip.background = element_blank(), 
+    axis.title.x = element_blank(), 
+    legend.position = 'top'
+  ) + 
+  scale_fill_viridis_c()
+
+p
+```
+

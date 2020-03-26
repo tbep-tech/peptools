@@ -13,9 +13,12 @@ Raw data from Suffolk County
 }
 \examples{
 \dontrun{
-rawdat <- read_xlsx('data/data-raw/Peconics SCDHS WQ data - up to 2019 so far.xlsx', col_types = 'text')
+rawdat <- read_xlsx('extdata/currentdata.xlsx', col_types = 'text')
 save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 }
+}
+\seealso{
+Other utilities: \code{\link{stations}}
 }
 \concept{utilities}
 \keyword{datasets}

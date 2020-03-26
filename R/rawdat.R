@@ -6,7 +6,7 @@
 #' @family utilities
 #' @examples 
 #' \dontrun{
-#' rawdat <- read_xlsx('data/data-raw/Peconics SCDHS WQ data - up to 2019 so far.xlsx', col_types = 'text')
+#' rawdat <- read_xlsx('extdata/currentdata.xlsx', col_types = 'text')
 #' save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 #' }
 "rawdat"
