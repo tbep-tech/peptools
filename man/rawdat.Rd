@@ -19,7 +19,8 @@ save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 }
 }
 \seealso{
-Other utilities: \code{\link{stations}}
+Other utilities: \code{\link{pepstations}},
+  \code{\link{peptargets}}
 }
 \concept{utilities}
 \keyword{datasets}

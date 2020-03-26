@@ -16,53 +16,89 @@
 #' # view average estimates
 #' anlz_avepep(rawdat)
 anlz_avepep <- function(dat){
-  
+
   # chlorophyll monthly averages
   monchla <- dat %>%
-    dplyr::select(yr, mo, bay_segment, chla) %>%
+    dplyr::select(bay_segment, yr, mo, chla) %>%
     tidyr::drop_na() %>%
-    dplyr::group_by(yr, mo, bay_segment) %>%
-    dplyr::summarise(mean_chla = mean(chla)) %>%
-    dplyr::ungroup()
+    dplyr::group_by(bay_segment, yr, mo) %>%
+    dplyr::summarise(val = median(chla, na.rm = TRUE)) %>%
+    dplyr::ungroup() %>% 
+    dplyr::mutate(
+      est = 'medv',
+      var = 'chla'
+      ) 
   
   # chlorophyll annual values
-  yrchla <- monchla %>%
-    dplyr::select(bay_segment, yr, mean_chla) %>%
+  yrchla <-  dat %>%
+    dplyr::select(bay_segment, yr, chla) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(bay_segment, yr) %>%
-    dplyr::summarise(mean_chla = mean(mean_chla)) %>%
-    dplyr::ungroup()
+    tidyr::nest() %>% 
+    dplyr::mutate(
+      mdv = purrr::map(data, function(x){
+
+        try({DescTools::MedianCI(x$chla)}, silent = TRUE)
+      
+      })
+    ) %>% 
+    dplyr::select(-data) %>% 
+    dplyr::rowwise() %>% 
+    filter(!inherits(mdv, 'try-error')) %>% 
+    dplyr::ungroup() %>% 
+    tidyr::unnest_longer(mdv, values_to = 'val', indices_to = 'est') %>% 
+    dplyr::mutate(
+      est = dplyr::case_when(
+        est %in% 'median' ~ 'medv', 
+        TRUE ~ est
+      ),
+      var = 'chla'
+    )
   
   # secchi monthly averages
   monsd <- dat %>%
-    dplyr::select(yr, mo, bay_segment, sd) %>%
+    dplyr::select(bay_segment, yr, mo, sd) %>%
     tidyr::drop_na() %>%
-    dplyr::group_by(yr, mo, bay_segment) %>%
-    dplyr::summarise(mean_sd = mean(sd)) %>%
-    dplyr::ungroup()
+    dplyr::group_by(bay_segment, yr, mo) %>%
+    dplyr::summarise(val = median(sd, na.rm = TRUE)) %>%
+    dplyr::ungroup() %>% 
+    dplyr::mutate(
+      est = 'medv',
+      var = 'sd'
+    ) 
   
   # secchi annual values
-  yrsd <- monsd %>%
-    dplyr::select(bay_segment, yr, mean_sd) %>%
+  yrsd <- dat %>%
+    dplyr::select(bay_segment, yr, sd) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(bay_segment, yr) %>%
-    dplyr::summarise(mean_sd = mean(mean_sd)) %>%
-    dplyr::ungroup()
+    tidyr::nest() %>% 
+    dplyr::mutate(
+      mdv = purrr::map(data, function(x){
+        
+        try({DescTools::MedianCI(x$sd)}, silent = TRUE)
+        
+      })
+    ) %>% 
+    dplyr::select(-data) %>% 
+    dplyr::rowwise() %>% 
+    filter(!inherits(mdv, 'try-error')) %>% 
+    dplyr::ungroup() %>% 
+    tidyr::unnest_longer(mdv, values_to = 'val', indices_to = 'est') %>% 
+    dplyr::mutate(
+      est = dplyr::case_when(
+        est %in% 'median' ~ 'medv', 
+        TRUE ~ est
+      ),
+      var = 'sd'
+    )
   
   # combine chla and sd monthly data
-  chlamodata <- monchla %>% 
-    tidyr::pivot_longer(mean_chla, names_to = 'var', values_to = 'val') 
-  sdmodata <- monsd %>% 
-    tidyr::pivot_longer(mean_sd, names_to = 'var', values_to = 'val')
-  moout <- bind_rows(chlamodata, sdmodata)
+  moout <- bind_rows(monchla, monsd)
   
   # combine mtb ests with others, annual
   # geisson factors for secchi depth for % light availability
-  chladata <- yrchla %>% 
-    tidyr::pivot_longer(mean_chla, names_to = 'var', values_to = 'val') 
-  sddata <-  yrsd %>% 
-    tidyr::pivot_longer(mean_sd, names_to = 'var', values_to = 'val') 
-  anout <- bind_rows(chladata, sddata)
+  anout <- bind_rows(yrchla, yrsd)
   
   # combine all
   out <- list(

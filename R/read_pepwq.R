@@ -21,7 +21,7 @@ read_pepwq <- function(path){
   
   out <- readxl::read_xlsx(path, col_types = 'text') %>% 
     dplyr::select(Date, BayStation, sd = Secchi, chla = `Chlorophyll A - Total`) %>% 
-    dplyr::filter(BayStation %in% stations$BayStation) %>% 
+    dplyr::filter(BayStation %in% pepstations$BayStation) %>% 
     tidyr::pivot_longer(c('sd', 'chla')) %>% 
     na.omit() %>% 
     dplyr::mutate(
@@ -36,7 +36,7 @@ read_pepwq <- function(path){
       yr = lubridate::year(Date), 
       mo = lubridate::month(Date)
     ) %>% 
-    dplyr::left_join(stations, by = 'BayStation') %>% 
+    dplyr::left_join(pepstations, by = 'BayStation') %>% 
     dplyr::select(BayStation, bay_segment, Date, yr, mo, name, value) %>% 
     tidyr::pivot_wider()
   

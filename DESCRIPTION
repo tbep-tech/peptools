@@ -12,6 +12,7 @@ Description: Analysis tools for importing, wrangling, and summarizing Suffolk Co
 Depends: 
   R (>= 3.5)
 Imports:
+  DescTools,
   dplyr, 
   ggplot2, 
   lubridate,
