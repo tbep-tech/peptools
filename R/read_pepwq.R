@@ -32,10 +32,13 @@ read_pepwq <- function(path){
     dplyr::summarise(value = mean(value, na.rm = T)) %>% 
     dplyr::ungroup() %>% 
     dplyr::mutate(
-      Date = as.Date(as.numeric(Date), origin = '1899-12-30')
+      Date = as.Date(as.numeric(Date), origin = '1899-12-30'),
+      yr = lubridate::year(Date), 
+      mo = lubridate::month(Date)
     ) %>% 
     dplyr::left_join(stations, by = 'BayStation') %>% 
-    dplyr::select(BayStation, bay_segment, Date, name, value)
+    dplyr::select(BayStation, bay_segment, Date, yr, mo, name, value) %>% 
+    tidyr::pivot_wider()
   
   return(out)
   

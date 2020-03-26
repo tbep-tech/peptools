@@ -41,11 +41,8 @@ The raw data includes multiple fields, but only the chlorophyll and secchi data 
 
 A quick view of the number of observations and length of record at each stations shows that effort was not continuous. 
 
-```{r}
+```{r, fig.height = 7, fig.width = 11}
 toplo <- dat %>% 
-  mutate(
-    yr = year(Date)
-  ) %>% 
   group_by(bay_segment, BayStation, name, yr) %>% 
   summarise(`Obs. (n)` = n())
 

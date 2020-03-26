@@ -14,6 +14,7 @@ Depends:
 Imports:
   dplyr, 
   ggplot2, 
+  lubridate,
   readxl,
   tidyr
 Remotes: 
@@ -24,7 +25,6 @@ LazyData: true
 RoxygenNote: 6.1.1
 Suggests: 
     knitr, 
-    lubridate,
     mapview,
     sf
 VignetteBuilder: knitr
