@@ -2,3 +2,9 @@
 
 language: R
 cache: packages
+apt_packages:
+  - libpoppler-cpp-dev
+  - libudunits2-dev
+  - libgdal-dev
+  - libgeos-dev
+  - libproj-dev
