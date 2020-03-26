@@ -16,6 +16,7 @@ Imports:
   dplyr, 
   ggplot2, 
   lubridate,
+  purrr,
   readxl,
   tidyr
 Remotes: 

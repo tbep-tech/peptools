@@ -43,7 +43,9 @@ A quick view of the number of observations and length of record at each stations
 
 ```{r, fig.height = 7, fig.width = 11}
 toplo <- dat %>% 
-  group_by(bay_segment, BayStation, name, yr) %>% 
+  select(bay_segment, BayStation, chla, sd) %>% 
+  pivot_longer(c('chla', 'sd')) %>% 
+  group_by(bay_segment, BayStation, name) %>% 
   summarise(`Obs. (n)` = n())
 
 p <- ggplot(toplo, aes(x = yr, y = BayStation, fill = `Obs. (n)`)) + 
