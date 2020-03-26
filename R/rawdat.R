@@ -6,7 +6,9 @@
 #' @family utilities
 #' @examples 
 #' \dontrun{
-#' rawdat <- read_xlsx('extdata/currentdata.xlsx', col_types = 'text')
+#' path <- system.file("extdata", "currentdata.xlsx", package="pepreporting")
+#' rawdat <- read_pepwq(path)
+#' rawdat
 #' save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 #' }
 "rawdat"
