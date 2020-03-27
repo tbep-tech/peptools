@@ -2,7 +2,7 @@
 #'
 #' @description Plot annual water quality values and thresholds for a bay segment
 #'
-#' @param dat data frame of epc data returned by \code{\link{read_pepwq}}
+#' @param dat data frame of data returned by \code{\link{read_pepwq}}
 #' @param bay_segment chr string for the bay segment, one of "Western", "Central", or "Eastern"
 #' @param param chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll and "sd" for secchi depth
 #' @param trgs optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}

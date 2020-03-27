@@ -18,6 +18,8 @@ library(mapview)
 library(dplyr)
 library(lubridate)
 library(tidyr)
+library(tibble)
+library(patchwork)
 library(sf)
 ```
 
@@ -202,6 +204,34 @@ Use a sufficiently large number to view the entire matrix.
 
 ```{r}
 show_matrixpep(rawdat, asreact = TRUE, nrows = 200)
+```
+
+## Testing different thresholds
+
+By default, all plotting functions use the `peptargets` data frame included with the package, which assigns a threshold of 6.5 ft for secchi depth and 5.5 ug/L for chlorophyll to all segments. All plotting arguments have an optional argument called `trgs` that accepts user-provided thresholds.  A new data frame can be passed to this argument to evaluate different thresholds. The following demonstrates how to create a custom thresholds data frame (a tibble specifically) and use it to evaluate changes on reporting outcomes. For examples, perhaps less stringent thresholds are required for the Western segment (lower secchi, higher chlorophyll) and more stringent thresholds are required for the Eastern segment (higher secchi, lower chlorophyll). 
+
+```{r}
+segs <- c('Western', 'Central', 'Eastern')
+newtrgs <- tibble( 
+  bay_segment = factor(segs, levels = segs),
+  name = factor(segs, levels = segs),
+  sd_thresh = c(5.5, 6.5, 7.5),
+  chla_thresh = c(6, 5.5, 5)
+)
+```
+
+This new data frame can be passed to the plotting functions. 
+
+```{r, fig.height = 7, fig.width = 3}
+newthr <- show_matrixpep(rawdat, trgs = newtrgs, yrrng = c(1989, 2019))
+newthr
+```
+
+Comparing the default values with the new results can easily be done by plotting the two side by side. 
+
+```{r, fig.height = 7, fig.width = 6}
+oldthr <- show_matrixpep(rawdat, yrrng = c(1989, 2019))
+oldthr + newthr + plot_layout(ncol = 2)
 ```
 
 # References

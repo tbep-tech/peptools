@@ -27,5 +27,7 @@ RoxygenNote: 6.1.1
 Suggests: 
     knitr, 
     mapview,
-    sf
+    patchwork,
+    sf,
+    tibble
 VignetteBuilder: knitr

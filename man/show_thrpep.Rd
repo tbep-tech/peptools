@@ -9,7 +9,7 @@ show_thrpep(dat, bay_segment = c("Western", "Central", "Eastern"),
   family = NA, labelexp = TRUE, txtlab = TRUE)
 }
 \arguments{
-\item{dat}{data frame of epc data returned by \code{\link{read_pepwq}}}
+\item{dat}{data frame of data returned by \code{\link{read_pepwq}}}
 
 \item{bay_segment}{chr string for the bay segment, one of "Western", "Central", or "Eastern"}
 
