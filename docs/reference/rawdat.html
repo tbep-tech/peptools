@@ -129,11 +129,13 @@
     <p>A <code>data.frame</code> object</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other utilities: <code><a href='stations.html'>stations</a></code></p></div>
+    <div class='dont-index'><p>Other utilities: <code><a href='pepstations.html'>pepstations</a></code>,
+  <code><a href='peptargets.html'>peptargets</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>rawdat</span> <span class='kw'>&lt;-</span> <span class='fu'>read_xlsx</span>(<span class='st'>'extdata/currentdata.xlsx'</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='st'>'text'</span>)
+<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"currentdata.xlsx"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"pepreporting"</span>)
+<span class='no'>rawdat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pepwq.html'>read_pepwq</a></span>(<span class='no'>path</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='no'>rawdat</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>'data/rawdat.RData'</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='st'>'xz'</span>)
 }</div></pre>
   </div>

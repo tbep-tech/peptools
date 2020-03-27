@@ -2,13 +2,11 @@
 #'
 #' Estimate annual means by segment for chlorophyll and secchi data
 #'
-#' @param dat\code{data.frame} formatted from \code{read_pepwq}
+#' @param dat \code{data.frame} formatted from \code{\link{read_pepwq}}
 #'
 #' @return Mean estimates for chlorophyll and secchi
 #'
 #' @family analyze
-#'
-#' @importFrom magrittr %>%
 #'
 #' @export
 #'
@@ -43,8 +41,7 @@ anlz_medpep <- function(dat){
       })
     ) %>% 
     dplyr::select(-data) %>% 
-    dplyr::rowwise() %>% 
-    filter(!inherits(mdv, 'try-error')) %>% 
+    dplyr::filter(purrr::map(mdv, length) == 3) %>%
     dplyr::ungroup() %>% 
     tidyr::unnest_longer(mdv, values_to = 'val', indices_to = 'est') %>% 
     dplyr::mutate(
@@ -81,8 +78,7 @@ anlz_medpep <- function(dat){
       })
     ) %>% 
     dplyr::select(-data) %>% 
-    dplyr::rowwise() %>% 
-    filter(!inherits(mdv, 'try-error')) %>% 
+    dplyr::filter(purrr::map(mdv, length) == 3) %>%
     dplyr::ungroup() %>% 
     tidyr::unnest_longer(mdv, values_to = 'val', indices_to = 'est') %>% 
     dplyr::mutate(
@@ -94,11 +90,30 @@ anlz_medpep <- function(dat){
     )
   
   # combine chla and sd monthly data
-  moout <- bind_rows(monchla, monsd)
+  # create complete year cases
+  moout <- dplyr::bind_rows(monchla, monsd) %>%
+    dplyr::mutate(
+      yr = factor(yr, levels = seq(min(yr), max(yr)))
+    ) %>% 
+    tidyr::complete(bay_segment, yr, mo, est, var) %>% 
+    dplyr::mutate(
+      yr = as.numeric(as.character(yr))
+    ) %>% 
+    dplyr::select(bay_segment, yr, mo, val, est, var) %>% 
+    dplyr::arrange(var, bay_segment, yr, mo)
   
-  # combine mtb ests with others, annual
-  # geisson factors for secchi depth for % light availability
-  anout <- bind_rows(yrchla, yrsd)
+  # combine chla and sd monthly data
+  # create complete year cases
+  anout <- dplyr::bind_rows(yrchla, yrsd) %>% 
+    dplyr::mutate(
+      yr = factor(yr, levels = seq(min(yr), max(yr)))
+    ) %>% 
+    tidyr::complete(bay_segment, yr, est, var) %>% 
+    dplyr::mutate(
+      yr = as.numeric(as.character(yr))
+    ) %>% 
+    dplyr::select(bay_segment, yr, val, est, var) %>% 
+    dplyr::arrange(var, bay_segment, yr)
   
   # combine all
   out <- list(

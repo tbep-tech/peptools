@@ -20,11 +20,11 @@ library(sf)
 ```
 
 
-The package includes a `stations` data object that includes metadata for each station, including lat/lon and bay segment.  
+The package includes a `pepstations` data object that includes metadata for each station, including lat/lon and bay segment.  
 
 ```{r}
 prj <- 4326
-locs <- stations %>% 
+locs <- pepstations %>% 
   st_as_sf(coords = c('Longitude', 'Latitude'), crs = prj)
 
 mapview(locs, zcol = 'bay_segment', layer.name = 'Bay segment')            
@@ -39,13 +39,13 @@ head(dat)
 
 The raw data includes multiple fields, but only the chlorophyll and secchi data are retained for reporting.  Each station is grouped by major bay segment, defined as `r levels(dat$bay_segment)`. 
 
-A quick view of the number of observations and length of record at each stations shows that effort was not continuous. 
+A quick view of the number of observations and length of record at each station shows that effort was not continuous. 
 
-```{r, fig.height = 7, fig.width = 11}
+```{r, fig.height = 8, fig.width = 11}
 toplo <- dat %>% 
-  select(bay_segment, BayStation, chla, sd) %>% 
+  select(bay_segment, BayStation, yr, chla, sd) %>% 
   pivot_longer(c('chla', 'sd')) %>% 
-  group_by(bay_segment, BayStation, name) %>% 
+  group_by(bay_segment, BayStation, yr, name) %>% 
   summarise(`Obs. (n)` = n())
 
 p <- ggplot(toplo, aes(x = yr, y = BayStation, fill = `Obs. (n)`)) + 
@@ -57,7 +57,8 @@ p <- ggplot(toplo, aes(x = yr, y = BayStation, fill = `Obs. (n)`)) +
     panel.grid.minor= element_blank(),
     strip.background = element_blank(), 
     axis.title.x = element_blank(), 
-    legend.position = 'top'
+    legend.position = 'top', 
+    axis.text.y = element_text(size = 7)
   ) + 
   scale_fill_viridis_c()
 

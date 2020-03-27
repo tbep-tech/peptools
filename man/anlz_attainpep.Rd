@@ -4,10 +4,10 @@
 \alias{anlz_attainpep}
 \title{Get attainment categories}
 \usage{
-anlz_attainpep(avedat, magdurout = FALSE, trgs = NULL)
+anlz_attainpep(meddat, magdurout = FALSE, trgs = NULL)
 }
 \arguments{
-\item{avedat}{result returned from \code{\link{anlz_medpep}}}
+\item{meddat}{result returned from \code{\link{anlz_medpep}}}
 
 \item{magdurout}{logical indicating if the separate magnitude and duration estimates are returned}
 

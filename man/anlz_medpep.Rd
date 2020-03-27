@@ -7,7 +7,7 @@
 anlz_medpep(dat)
 }
 \arguments{
-\item{dat\code{data.frame}}{formatted from \code{read_pepwq}}
+\item{dat}{\code{data.frame} formatted from \code{\link{read_pepwq}}}
 }
 \value{
 Mean estimates for chlorophyll and secchi
