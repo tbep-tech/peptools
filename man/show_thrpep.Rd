@@ -4,14 +4,16 @@
 \alias{show_thrpep}
 \title{Plot annual water quality value and thresholds for a segment}
 \usage{
-show_thrpep(epcdata, bay_segment = c("OTB", "HB", "MTB", "LTB"),
-  thr = c("chla", "la"), trgs = NULL, yrrng = c(1975, 2018),
+show_thrpep(dat, bay_segment = c("Western", "Central", "Eastern"),
+  param = c("chla", "sd"), trgs = NULL, yrrng = c(1976, 2019),
   family = NA, labelexp = TRUE, txtlab = TRUE)
 }
 \arguments{
+\item{dat}{data frame of epc data returned by \code{\link{read_pepwq}}}
+
 \item{bay_segment}{chr string for the bay segment, one of "Western", "Central", or "Eastern"}
 
-\item{thr}{chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll and "sd" for secchi depth}
+\item{param}{chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll and "sd" for secchi depth}
 
 \item{trgs}{optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}}
 
@@ -22,8 +24,6 @@ show_thrpep(epcdata, bay_segment = c("OTB", "HB", "MTB", "LTB"),
 \item{labelexp}{logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}}
 
 \item{txtlab}{logical indicating if a text label for the target value is shown in the plot}
-
-\item{dat}{data frame of epc data returned by \code{\link{read_pepwq}}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object
@@ -32,6 +32,9 @@ A \code{\link[ggplot2]{ggplot}} object
 Plot annual water quality values and thresholds for a bay segment
 }
 \examples{
-show_thrpep(epcdata, bay_segment = 'Western', thr = 'chl')
+show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
+}
+\seealso{
+Other visualize: \code{\link{show_boxpep}}
 }
 \concept{visualize}

@@ -3,6 +3,7 @@
 export(anlz_attainpep)
 export(anlz_medpep)
 export(read_pepwq)
+export(show_boxpep)
 export(show_thrpep)
 importFrom(dplyr,"%>%")
 importFrom(stats,median)
