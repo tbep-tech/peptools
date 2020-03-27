@@ -35,6 +35,8 @@ Plot annual water quality values and thresholds for a bay segment
 show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
 }
 \seealso{
-Other visualize: \code{\link{show_boxpep}}
+Other visualize: \code{\link{show_boxpep}},
+  \code{\link{show_matrixpep}},
+  \code{\link{show_reactablepep}}
 }
 \concept{visualize}

@@ -80,12 +80,12 @@ anlz_attainpep <- function(meddat, magdurout = FALSE, trgs = NULL){
     dplyr::select(bay_segment, yr, var, outcome) %>%
     tidyr::spread(var, outcome) %>%
     # na.omit %>%
-    tidyr::unite('chl_sd', chla, sd) %>%
+    tidyr::unite('chla_sd', chla, sd) %>%
     dplyr::mutate(
       outcome = dplyr::case_when(
-        chl_sd %in% '0_0' ~ 'green',
-        chl_sd %in% c('1_0', '2_0', '3_0', '0_1', '1_1', '2_1', '0_2', '1_2', '0_3') ~ 'yellow',
-        chl_sd %in% c('3_1', '2_2', '3_2', '1_3', '2_3', '3_3') ~ 'red'
+        chla_sd %in% '0_0' ~ 'green',
+        chla_sd %in% c('1_0', '2_0', '3_0', '0_1', '1_1', '2_1', '0_2', '1_2', '0_3') ~ 'yellow',
+        chla_sd %in% c('3_1', '2_2', '3_2', '1_3', '2_3', '3_3') ~ 'red'
       )
     )
   

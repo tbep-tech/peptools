@@ -43,6 +43,8 @@ Points not included in \code{yrsel} are plotted over the box plots using \code{\
 show_boxpep(rawdat, bay_segment = 'Western')
 }
 \seealso{
-Other visualize: \code{\link{show_thrpep}}
+Other visualize: \code{\link{show_matrixpep}},
+  \code{\link{show_reactablepep}},
+  \code{\link{show_thrpep}}
 }
 \concept{visualize}
