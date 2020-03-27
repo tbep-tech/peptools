@@ -19,7 +19,6 @@ library(tidyr)
 library(sf)
 ```
 
-
 The package includes a `pepstations` data object that includes metadata for each station, including lat/lon and bay segment.  
 
 ```{r}
@@ -63,5 +62,20 @@ p <- ggplot(toplo, aes(x = yr, y = BayStation, fill = `Obs. (n)`)) +
   scale_fill_viridis_c()
 
 p
+```
+
+The function `anlz_pepdat()` summarizes the station data by bay segment.  The funciton returns annual means for chlorophyll and secchi depth and monthly means by year for chlorophyll and secchi depth. These summaries are then used to determine if bay segment targets for water quality are met using the anlz_attain() and `anlz_attainpep()` function.
+
+Below shows how to use `anlz_pepdat()` to summarize the data by bay segment to estimate annual and monthly means for chlorophyll and secchi depth. The output is a two-element list for the annual (ann) and monthly (mos) means by segment.
+
+```{r}
+medpep <- anlz_medpep(dat)
+medpep
+```
+
+This output can then be further analyzed with `anlz_attainpep()` to determine if the bay segment outcomes are met in each year. The results are used by the plotting functions described below. In short, the `chl_sd` column indicates the categorical outcome for chlorophyll and light attenuation for each segment. The outcomes are integer values from zero to three. The relative exceedances of water quality thresholds for each segment, both in duration and magnitude, are indicated by higher integer values.
+
+```{r}
+anlz_attainpep(medpep)
 ```
 
