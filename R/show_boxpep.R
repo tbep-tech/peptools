@@ -138,7 +138,7 @@ show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1
   
   if(txtlab)
     p <- p +
-      ggplot2::geom_text(ggplot2::aes(x = factor('Dec'), max(aves$val, na.rm = TRUE)), 
+      ggplot2::geom_text(ggplot2::aes(x = factor('Dec'), max(toplo1$val, na.rm = TRUE)), 
                          parse = labelexp, label = thrlab, hjust = 1, vjust = 1, colour = 'blue', family = family)
   
   return(p)

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get attainment categories — anlz_attainpep • pepreporting</title>
+<title>Plot annual water quality value and thresholds for a segment — show_thrpep • pepreporting</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Get attainment categories — anlz_attainpep" />
-<meta property="og:description" content="Get attainment categories for each year and bay segment using chlorophyll and secchi depth" />
+<meta property="og:title" content="Plot annual water quality value and thresholds for a segment — show_thrpep" />
+<meta property="og:description" content="Plot annual water quality values and thresholds for a bay segment" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,57 +112,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get attainment categories</h1>
+    <h1>Plot annual water quality value and thresholds for a segment</h1>
     
-    <div class="hidden name"><code>anlz_attainpep.Rd</code></div>
+    <div class="hidden name"><code>show_thrpep.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get attainment categories for each year and bay segment using chlorophyll and secchi depth</p>
+    <p>Plot annual water quality values and thresholds for a bay segment</p>
     </div>
 
-    <pre class="usage"><span class='fu'>anlz_attainpep</span>(<span class='no'>meddat</span>, <span class='kw'>magdurout</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>trgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>show_thrpep</span>(<span class='no'>dat</span>, <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>),
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chla"</span>, <span class='st'>"sd"</span>), <span class='kw'>trgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yrrng</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1976</span>, <span class='fl'>2019</span>),
+  <span class='kw'>family</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>labelexp</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>txtlab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>meddat</th>
-      <td><p>result returned from <code><a href='anlz_medpep.html'>anlz_medpep</a></code></p></td>
+      <th>dat</th>
+      <td><p>data frame of epc data returned by <code><a href='read_pepwq.html'>read_pepwq</a></code></p></td>
     </tr>
     <tr>
-      <th>magdurout</th>
-      <td><p>logical indicating if the separate magnitude and duration estimates are returned</p></td>
+      <th>bay_segment</th>
+      <td><p>chr string for the bay segment, one of "Western", "Central", or "Eastern"</p></td>
+    </tr>
+    <tr>
+      <th>param</th>
+      <td><p>chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll and "sd" for secchi depth</p></td>
     </tr>
     <tr>
       <th>trgs</th>
-      <td><p>optional <code>data.frame</code> for annual bay segment water quality targets, defaults to <code><a href='peptargets.html'>peptargets</a></code></p></td>
+      <td><p>optional <code>data.frame</code> for annual bay segment water quality thresholds, defaults to <code><a href='peptargets.html'>peptargets</a></code></p></td>
+    </tr>
+    <tr>
+      <th>yrrng</th>
+      <td><p>numeric vector indicating min, max years to include</p></td>
+    </tr>
+    <tr>
+      <th>family</th>
+      <td><p>optional chr string indicating font family for text labels</p></td>
+    </tr>
+    <tr>
+      <th>labelexp</th>
+      <td><p>logical indicating if y axis and target labels are plotted as expressions, default <code>TRUE</code></p></td>
+    </tr>
+    <tr>
+      <th>txtlab</th>
+      <td><p>logical indicating if a text label for the target value is shown in the plot</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code> for each year and bay segment showing the attainment category</p>
+    <p>A <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></code> object</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other analyze: <code><a href='anlz_medpep.html'>anlz_medpep</a></code></p></div>
+    <div class='dont-index'><p>Other visualize: <code>show_boxpep</code>,
+  <code>show_matrixpep</code>,
+  <code>show_reactablepep</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>meddat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='anlz_medpep.html'>anlz_medpep</a></span>(<span class='no'>rawdat</span>)
-<span class='fu'>anlz_attainpep</span>(<span class='no'>meddat</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 132 x 4</span><span>
-#&gt;    bay_segment    yr chla_sd outcome
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
-#&gt; </span><span style='color: #555555;'> 1</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>976 3_3     red    
-#&gt; </span><span style='color: #555555;'> 2</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>977 NA_3    </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 3</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>978 NA_3    </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 4</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>979 NA_2    </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 5</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>980 NA_NA   </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 6</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>981 NA_3    </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 7</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>982 NA_NA   </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 8</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>983 NA_NA   </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'> 9</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>984 NA_NA   </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'>10</span><span> Western      </span><span style='text-decoration: underline;'>1</span><span>985 NA_3    </span><span style='color: #BB0000;'>NA</span><span>     
-#&gt; </span><span style='color: #555555;'># ... with 122 more rows</span><span></div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>show_thrpep</span>(<span class='no'>rawdat</span>, <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='st'>'Western'</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>'chl'</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11 rows containing missing values (geom_point).</span></div><div class='img'><img src='show_thrpep-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
