@@ -23,6 +23,19 @@ library(patchwork)
 library(sf)
 ```
 
+## Installing pepreporting
+
+Begin by installing the package from GitHub.  The source code is available on the tbep-tech GitHub group web page: <https://github.com/tbep-tech/pepreporting>.  
+
+First, install the devtools package, load devtools, then install and load pepreporting.  Note that pepreporting only needs to be installed once, but it needs to be loaded every new R session (i.e., `library(pepreporting)`).
+
+```{r, eval = F}
+install.packages('devtools')
+library(devtools)
+install_github('tbep-tech/pepreporting')
+library(pepreporting)
+```
+
 The following shows all functions provided in pepreporting, organized by prefix. 
 
 #### Read
