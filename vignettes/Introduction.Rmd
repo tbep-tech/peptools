@@ -81,14 +81,13 @@ dat <- read_pepwq('../inst/extdata/currentdata.xlsx')
 head(dat)
 ```
 
-The raw data includes multiple fields, but only the chlorophyll and secchi data are retained for reporting.  Each station is grouped by major bay segment, defined as `r levels(dat$bay_segment)`. 
+The raw data includes multiple fields, but only the chlorophyll and secchi data are retained for reporting.  The data are in long format with the `name` column showing which observation (chlorophyll or secchi) the row `value` shows and the `status` showing if the observation was above or below detection (indicated as `>` or `<`).  Each station is also grouped by major bay segment, defined as `r levels(dat$bay_segment)`. 
 
 A quick view of the number of observations and length of record at each station shows that effort was not continuous. 
 
 ```{r, fig.height = 8, fig.width = 11}
 toplo <- dat %>% 
-  select(bay_segment, BayStation, yr, chla, sd) %>% 
-  pivot_longer(c('chla', 'sd')) %>% 
+  select(bay_segment, BayStation, yr, name, value) %>% 
   group_by(bay_segment, BayStation, yr, name) %>% 
   summarise(`Obs. (n)` = n())
 
@@ -133,37 +132,37 @@ The `show_sitemappep()` function produces an interactive map of annual medians o
 Here, the 2019 chlorophyll medians are shown for stations in all bay segments. 
 
 ```{r}
-show_sitemappep(rawdat, 2019)
+show_sitemappep(dat, 2019)
 ```
 
 A different year, parameter, and bay segment can also be chosen. 
 
 ```{r}
-show_sitemappep(rawdat, 2010, 'sd', c('Central', 'Eastern'))
+show_sitemappep(dat, 2010, 'sd', c('Central', 'Eastern'))
 ```
 
 The `show_thrpep()` function provides a more descriptive assessment of annual trends for a chosen bay segment relative to thresholds. In this plot we show the annual medians and non-parametric confidence internals (95%) across stations for a segment.  The red line shows annual trends and the horizontal blue line indicates the threshold for chlorophyll-a.
 
 ```{r, fig.height = 5, fig.width = 8}
-show_thrpep(rawdat, bay_segment = "Western", param = "chla")
+show_thrpep(dat, bay_segment = "Western", param = "chla")
 ```
 
 We can show the same plot but for secchi depth by changing the `param = "chla"` to `param = "sd"`.  Note the change in the horizontal reference lines for the secchi depth target.  Secchi trends must also be interpreted inversely to chlorophyll, such that lower values generally indicate less desirable water quality.
 
 ```{r, fig.height = 5, fig.width = 8}
-show_thrpep(rawdat, bay_segment = "Western", param = "sd")
+show_thrpep(dat, bay_segment = "Western", param = "sd")
 ```
 
 The year range to plot can also be specified using the `yrrng` argument, where the default is `yrrng = c(1976, 2019)`.
 
 ```{r, fig.height = 5, fig.width = 8}
-show_thrpep(rawdat, bay_segment = "Western", param = "chla", yrrng = c(1988, 2019))
+show_thrpep(dat, bay_segment = "Western", param = "chla", yrrng = c(1988, 2019))
 ```
 
 The `show_thrpep()` function uses results from the `anlz_medpep()` function.  For example, you can retrieve the values from the above plot as follows: 
 
 ```{r}
-rawdat %>% 
+dat %>% 
   anlz_medpep %>% 
   .[['ann']] %>% 
   filter(bay_segment == 'Western') %>% 
@@ -174,14 +173,14 @@ rawdat %>%
 Similarly, the `show_boxpep()` function provides an assessment of seasonal changes in chlorophyll or secchi depth values by bay segment.  The most recent year is highlighted in red by default. This allows a simple evaluation of how the most recent year compared to historical averages.  The threshold value is shown in blue text and as the dotted line.  This is the same dotted line shown in `show_thrpep()`.    
 
 ```{r, fig.height = 5, fig.width = 8}
-show_boxpep(rawdat, param = 'chla', bay_segment = "Western")
-show_boxpep(rawdat, param = 'sd', bay_segment = "Eastern")
+show_boxpep(dat, param = 'chla', bay_segment = "Western")
+show_boxpep(dat, param = 'sd', bay_segment = "Eastern")
 ```
 
 A different subset of years and selected year of interest can also be viewed by changing the `yrrng` and `yrsel` arguments.  Here we show 1980 compared to monthly averages for the last ten years. 
 
 ```{r, fig.height = 5, fig.width = 8}
-show_boxpep(rawdat, param = 'chla', bay_segment = "Western", yrrng = c(2008, 2018), yrsel = 1990)
+show_boxpep(dat, param = 'chla', bay_segment = "Western", yrrng = c(2008, 2018), yrsel = 1990)
 ```
 
 The `show_thrpep()` function is useful to understand annual variation in chlorophyll and secchi depth relative to thresholds for each bay segment.  The information from these plots can provide an understanding of how the annual reporting outcomes are determined.  An outcome integer from zero to three is assigned to each bay segment for each annual estimate of chlorophyll and secchi depth.  These outcomes are based on both the exceedance of the annual estimate above the threshold (blue lines in `show_thrpep()`) and duration of the exceedance for the years prior.  The following graphic describes this logic [@Janicki99]. 
@@ -213,13 +212,13 @@ knitr::include_graphics('matrixcats.png')
 The results can be viewed with `show_matrixpep()`.
 
 ```{r, fig.height = 8, fig.width = 3}
-show_matrixpep(rawdat)
+show_matrixpep(dat)
 ```
 
 The matrix is also a `ggplot` object and its layout can be changed using `ggplot` elements. Note the use of `txtsz = NULL` to remove the color labels. 
 
 ```{r, fig.height = 1.5, fig.width = 8}
-show_matrixpep(rawdat, txtsz = NULL) +
+show_matrixpep(dat, txtsz = NULL) +
   scale_y_continuous(expand = c(0,0), breaks = c(1976:2019)) + 
   coord_flip() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 7))
@@ -228,13 +227,13 @@ show_matrixpep(rawdat, txtsz = NULL) +
 If preferred, the matrix can also be returned in an HTML table that can be sorted and scrolled. 
 
 ```{r}
-show_matrixpep(rawdat, asreact = TRUE)
+show_matrixpep(dat, asreact = TRUE)
 ```
 
 Use a sufficiently large number to view the entire matrix.
 
 ```{r}
-show_matrixpep(rawdat, asreact = TRUE, nrows = 200)
+show_matrixpep(dat, asreact = TRUE, nrows = 200)
 ```
 
 ## Testing different thresholds
@@ -254,14 +253,14 @@ newtrgs <- tibble(
 This new data frame can be passed to the plotting functions. 
 
 ```{r, fig.height = 7, fig.width = 3}
-newthr <- show_matrixpep(rawdat, trgs = newtrgs, yrrng = c(1989, 2019))
+newthr <- show_matrixpep(dat, trgs = newtrgs, yrrng = c(1989, 2019))
 newthr
 ```
 
 Comparing the default values with the new results can easily be done by plotting the two side by side. 
 
 ```{r, fig.height = 7, fig.width = 6}
-oldthr <- show_matrixpep(rawdat, yrrng = c(1989, 2019))
+oldthr <- show_matrixpep(dat, yrrng = c(1989, 2019))
 oldthr + newthr + plot_layout(ncol = 2)
 ```
 

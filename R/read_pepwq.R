@@ -18,27 +18,29 @@
 #' dat <- read_pepwq(path)
 #' dat
 read_pepwq <- function(path){
-  
+
   out <- readxl::read_xlsx(path, col_types = 'text') %>% 
     dplyr::select(Date, BayStation, sd = Secchi, chla = `Chlorophyll A - Total`) %>% 
     dplyr::filter(BayStation %in% pepstations$BayStation) %>% 
     tidyr::pivot_longer(c('sd', 'chla')) %>% 
-    na.omit() %>% 
+    na.omit %>% 
     dplyr::mutate(
+      status = stringr::str_extract(value, '>|<'),
       value = gsub('>|<', '', value), 
-      value = as.numeric(value)
+      value = as.numeric(value), 
     ) %>% 
     dplyr::group_by(Date, BayStation, name) %>%
-    dplyr::summarise(value = mean(value, na.rm = T)) %>% 
+    dplyr::summarise(
+      value = mean(value, na.rm = T), 
+      status = paste(unique(na.omit(status)), collapse = ', ')
+      ) %>% 
     dplyr::ungroup() %>% 
     dplyr::mutate(
       Date = as.Date(as.numeric(Date), origin = '1899-12-30'),
       yr = lubridate::year(Date), 
       mo = lubridate::month(Date)
     ) %>% 
-    dplyr::left_join(pepstations, by = 'BayStation') %>% 
-    dplyr::select(BayStation, bay_segment, Date, yr, mo, name, value) %>% 
-    tidyr::pivot_wider()
+    dplyr::left_join(pepstations, by = 'BayStation')
   
   return(out)
   

@@ -30,9 +30,10 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
 
   # get site averages for selected year
   locs <- dat %>%
-    dplyr::select(BayStation, bay_segment, yr, val = !!param) %>% 
+    dplyr::filter(name %in% !!param) %>% 
     dplyr::filter(bay_segment %in% !!bay_segment) %>% 
     dplyr::filter(yr %in% !!yrsel) %>% 
+    dplyr::select(BayStation, bay_segment, yr, val = value) %>% 
     dplyr::group_by(BayStation, yr) %>% 
     dplyr::summarise(val = median(val, na.rm = TRUE)) %>% 
     dplyr::ungroup() %>% 

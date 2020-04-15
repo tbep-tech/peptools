@@ -17,10 +17,11 @@ anlz_medpep <- function(dat){
 
   # chlorophyll monthly averages
   monchla <- dat %>%
-    dplyr::select(bay_segment, yr, mo, chla) %>%
+    dplyr::filter(name %in% 'chla') %>% 
+    dplyr::select(bay_segment, yr, mo, value) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(bay_segment, yr, mo) %>%
-    dplyr::summarise(val = median(chla, na.rm = TRUE)) %>%
+    dplyr::summarise(val = median(value, na.rm = TRUE)) %>%
     dplyr::ungroup() %>% 
     dplyr::mutate(
       est = 'medv',
@@ -29,14 +30,15 @@ anlz_medpep <- function(dat){
   
   # chlorophyll annual values
   yrchla <-  dat %>%
-    dplyr::select(bay_segment, yr, chla) %>%
+    dplyr::filter(name %in% 'chla') %>% 
+    dplyr::select(bay_segment, yr, mo, value) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(bay_segment, yr) %>%
     tidyr::nest() %>% 
     dplyr::mutate(
       mdv = purrr::map(data, function(x){
 
-        try({DescTools::MedianCI(x$chla)}, silent = TRUE)
+        try({DescTools::MedianCI(x$value)}, silent = TRUE)
       
       })
     ) %>% 
@@ -54,10 +56,11 @@ anlz_medpep <- function(dat){
   
   # secchi monthly averages
   monsd <- dat %>%
-    dplyr::select(bay_segment, yr, mo, sd) %>%
+    dplyr::filter(name %in% 'sd') %>% 
+    dplyr::select(bay_segment, yr, mo, value) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(bay_segment, yr, mo) %>%
-    dplyr::summarise(val = median(sd, na.rm = TRUE)) %>%
+    dplyr::summarise(val = median(value, na.rm = TRUE)) %>%
     dplyr::ungroup() %>% 
     dplyr::mutate(
       est = 'medv',
@@ -66,14 +69,15 @@ anlz_medpep <- function(dat){
   
   # secchi annual values
   yrsd <- dat %>%
-    dplyr::select(bay_segment, yr, sd) %>%
+    dplyr::filter(name %in% 'sd') %>% 
+    dplyr::select(bay_segment, yr, mo, value) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(bay_segment, yr) %>%
     tidyr::nest() %>% 
     dplyr::mutate(
       mdv = purrr::map(data, function(x){
         
-        try({DescTools::MedianCI(x$sd)}, silent = TRUE)
+        try({DescTools::MedianCI(x$value)}, silent = TRUE)
         
       })
     ) %>% 

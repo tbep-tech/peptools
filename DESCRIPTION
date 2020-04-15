@@ -24,6 +24,7 @@ Imports:
   RColorBrewer,
   scales,
   sf,
+  stringr,
   tidyr
 License: CC0
 Encoding: UTF-8
