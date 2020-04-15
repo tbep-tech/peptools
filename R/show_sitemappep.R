@@ -1,6 +1,6 @@
-#' Map site attainment categories or water quality data for a selected year
+#' Map water quality data for a selected year
 #'
-#' Map site attainment categories or water quality data for a selected year
+#' Map water quality data for a selected year
 #'
 #' @param dat data frame of data returned by \code{\link{read_pepwq}}
 #' @param yrsel numeric for year to plot

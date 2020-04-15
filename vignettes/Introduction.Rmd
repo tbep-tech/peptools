@@ -58,6 +58,8 @@ The following shows all functions provided in pepreporting, organized by prefix.
 
 * `show_reactablepep()`: Create a reactable table for reporting matrices, used internally only
 
+* `show_sitemappep()`: Map water quality data for a selected year
+
 * `show_thrpep()`: Plot annual water quality values and thresholds for a bay segment
 
 ## Basic use
@@ -72,7 +74,7 @@ locs <- pepstations %>%
 mapview(locs, zcol = 'bay_segment', layer.name = 'Bay segment', map.types = mptyps)            
 ```
 
-The water quality data can be imported using the `read_pepwq()` function.  A compressed folder that inludesthe data can be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d).  After the data are downloaded and extracted, the Excel file with the raw data is named "Peconics SCDHS WQ data - up to 2019 so far.xlsx", or something similar depending on when the data were downloaded.  The location of this file on your computer is passed to the import function. Below, a local file renamed as "currentdata.xlsx" that contains the water quality data is downloaded. 
+The water quality data can be imported using the `read_pepwq()` function.  A compressed folder that includes the data can be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d).  After the data are downloaded and extracted, the Excel file with the raw data is named "Peconics SCDHS WQ data - up to 2019 so far.xlsx", or something similar depending on when the data were downloaded.  The location of this file on your computer is passed to the import function. Below, a local file renamed as "currentdata.xlsx" that contains the water quality data is downloaded. 
 
 ```{r}
 dat <- read_pepwq('../inst/extdata/currentdata.xlsx')
@@ -107,7 +109,7 @@ p <- ggplot(toplo, aes(x = yr, y = BayStation, fill = `Obs. (n)`)) +
 p
 ```
 
-The function `anlz_pepdat()` summarizes the station data by bay segment.  The funciton returns annual means for chlorophyll and secchi depth and monthly means by year for chlorophyll and secchi depth. These summaries are then used to determine if bay segment targets for water quality are met using the anlz_attain() and `anlz_attainpep()` function.
+The function `anlz_pepdat()` summarizes the station data by bay segment.  The function returns annual means for chlorophyll and secchi depth and monthly means by year for chlorophyll and secchi depth. These summaries are then used to determine if bay segment targets for water quality are met using the anlz_attain() and `anlz_attainpep()` function.
 
 Below shows how to use `anlz_pepdat()` to summarize the data by bay segment to estimate annual and monthly means for chlorophyll and secchi depth. The output is a two-element list for the annual (ann) and monthly (mos) means by segment.
 
@@ -124,7 +126,21 @@ anlz_attainpep(medpep)
 
 ## Plotting
 
-The plotting functions are used to view long-term trends for each bay segment and annual results for the overall water quality assessment. 
+The plotting functions are used to view station data, long-term trends for each bay segment, and annual results for the overall water quality assessment. 
+
+The `show_sitemappep()` function produces an interactive map of annual medians of water quality conditions at each station.  Medians can be shown for chlorophyll or secchi depth and for all stations or only stations from selected bay segments.  Each point on the map shows the annual median for the parameter, with the size and color of the point in proportion to the other median values shown on the map.  The color scale for the median shows higher concentrations of chlorophyll or shallower secchi depths in red and lower concentrations of chlorophyll or deeper secchi depths in blue.  Hovering the mouse pointer over a site location will indicate the site name and the median value.  Clicking on a station point will reveal the underlying plot data. 
+
+Here, the 2019 chlorophyll medians are shown for stations in all bay segments. 
+
+```{r}
+show_sitemappep(rawdat, 2019)
+```
+
+A different year, parameter, and bay segment can also be chosen. 
+
+```{r}
+show_sitemappep(rawdat, 2010, 'sd', c('Central', 'Eastern'))
+```
 
 The `show_thrpep()` function provides a more descriptive assessment of annual trends for a chosen bay segment relative to thresholds. In this plot we show the annual medians and non-parametric confidence internals (95%) across stations for a segment.  The red line shows annual trends and the horizontal blue line indicates the threshold for chlorophyll-a.
 
@@ -174,7 +190,7 @@ The `show_thrpep()` function is useful to understand annual variation in chlorop
 knitr::include_graphics('outints.png')
 ```
 
-For the Peconic Estuary, light attenuation is replaced with Secchi depth. The outcomes above are assigned for both chlorophyll and secchi depth. The duration criteria are determined based on whether the exceedance was observed for years prior to the current year. The exceedance criteria for chlorophyll and light-attenuation are currenlty the same for each segment.  The pepreporting package contains a `peptargets` data file that is a reference for determining annual outcomes.  This file is loaded automatically with the package and can be viewed from the command line.
+For the Peconic Estuary, light attenuation is replaced with Secchi depth. The outcomes above are assigned for both chlorophyll and secchi depth. The duration criteria are determined based on whether the exceedance was observed for years prior to the current year. The exceedance criteria for chlorophyll and light-attenuation are currently the same for each segment.  The pepreporting package contains a `peptargets` data file that is a reference for determining annual outcomes.  This file is loaded automatically with the package and can be viewed from the command line.
 
 ```{r}
 peptargets
