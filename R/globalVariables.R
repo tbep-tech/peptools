@@ -4,3 +4,6 @@ globalVariables(c('BayStation', 'Chlorophyll A - Total', 'Date', 'Secchi', 'bay_
 
 #' @importFrom stats median na.omit sd
 NULL
+
+#' @importFrom grDevices colorRampPalette
+NULL

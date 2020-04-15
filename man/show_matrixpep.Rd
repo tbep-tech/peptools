@@ -39,6 +39,6 @@ show_matrixpep(rawdat)
 \seealso{
 Other visualize: \code{\link{show_boxpep}},
   \code{\link{show_reactablepep}},
-  \code{\link{show_thrpep}}
+  \code{\link{show_sitemappep}}, \code{\link{show_thrpep}}
 }
 \concept{visualize}

@@ -15,10 +15,15 @@ Imports:
   DescTools,
   dplyr, 
   ggplot2, 
+  leaflet, 
   lubridate,
+  mapview,
   purrr,
   reactable,
   readxl,
+  RColorBrewer,
+  scales,
+  sf,
   tidyr
 License: CC0
 Encoding: UTF-8
@@ -26,8 +31,6 @@ LazyData: true
 RoxygenNote: 6.1.1
 Suggests: 
     knitr, 
-    mapview,
     patchwork,
-    sf,
     tibble
 VignetteBuilder: knitr

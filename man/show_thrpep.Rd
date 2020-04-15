@@ -37,6 +37,7 @@ show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
 \seealso{
 Other visualize: \code{\link{show_boxpep}},
   \code{\link{show_matrixpep}},
-  \code{\link{show_reactablepep}}
+  \code{\link{show_reactablepep}},
+  \code{\link{show_sitemappep}}
 }
 \concept{visualize}
