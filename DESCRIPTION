@@ -25,6 +25,7 @@ Imports:
   scales,
   sf,
   stringr,
+  survival,
   tidyr
 License: CC0
 Encoding: UTF-8

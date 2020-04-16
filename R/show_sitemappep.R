@@ -28,15 +28,43 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
   mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
   prj <- '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
-  # get site averages for selected year
+  # get data to process
   locs <- dat %>%
     dplyr::filter(name %in% !!param) %>% 
     dplyr::filter(bay_segment %in% !!bay_segment) %>% 
     dplyr::filter(yr %in% !!yrsel) %>% 
-    dplyr::select(BayStation, bay_segment, yr, val = value) %>% 
-    dplyr::group_by(BayStation, yr) %>% 
-    dplyr::summarise(val = median(val, na.rm = TRUE)) %>% 
-    dplyr::ungroup() %>% 
+    dplyr::select(BayStation, bay_segment, yr, val = value, status) 
+  
+  if(param == 'chla')
+    locs <- locs %>% 
+      dplyr::group_by(BayStation, yr) %>% 
+      dplyr::summarise(val = median(val, na.rm = TRUE)) %>% 
+      dplyr::ungroup()
+  
+  if(param == 'sd')
+    locs <- locs %>% 
+      dplyr::mutate(
+        status = dplyr::case_when(
+          status == '>' ~ 0, 
+          T ~ 1
+        )
+      ) %>% 
+      survival::survfit(survival::Surv(val, status) ~ BayStation + yr, data = .) %>% 
+      summary() %>% 
+      .$table %>% 
+      as.data.frame %>% 
+      dplyr::select(
+        val = median
+      ) %>% 
+      tibble::rownames_to_column(var = 'tosep') %>% 
+      dplyr::mutate(tosep = gsub('BayStation=|yr=', '', tosep)) %>% 
+      tidyr::separate(tosep, into = c('BayStation', 'yr'), sep = ', ') %>% 
+      dplyr::mutate(
+        yr = as.numeric(yr)
+      ) 
+
+  # join with pepsetations, make sf
+  locs <- locs %>% 
     dplyr::left_join(pepstations, .,by = c('BayStation')) %>% 
     na.omit() %>% 
     dplyr::mutate(
