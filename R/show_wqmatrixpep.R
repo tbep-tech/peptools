@@ -48,10 +48,10 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
     dplyr::mutate(
       bay_segment = factor(bay_segment, levels = c("Western", "Central", "Eastern")),
       outcome = dplyr::case_when(
-        var == 'sd' & upr.ci >= thresh ~ 'green',
-        var == 'sd' & upr.ci < thresh ~ 'red', 
-        var == 'chla' & upr.ci < thresh ~ 'green',
-        var == 'chla' & upr.ci >= thresh ~ 'red'
+        var == 'sd' & medv >= thresh ~ 'green',
+        var == 'sd' & medv < thresh ~ 'red', 
+        var == 'chla' & medv < thresh ~ 'green',
+        var == 'chla' & medv >= thresh ~ 'red'
       )
     )
   
@@ -114,7 +114,7 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
     dplyr::mutate(
       segval = paste0('(', segval, ')')
     ) %>%
-    unite(Result, c('Result', 'segval'), sep = ' ')
+    tidyr::unite(Result, c('Result', 'segval'), sep = ' ')
   
   # ggplot
   p <- ggplot(toplo, aes(x = bay_segment, y = yr, fill = outcome)) +

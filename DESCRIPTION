@@ -17,6 +17,7 @@ Imports:
   ggplot2, 
   leaflet, 
   lubridate,
+  magrittr,
   mapview,
   plotly,
   purrr,
