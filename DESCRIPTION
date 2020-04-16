@@ -18,6 +18,7 @@ Imports:
   leaflet, 
   lubridate,
   mapview,
+  plotly,
   purrr,
   reactable,
   readxl,

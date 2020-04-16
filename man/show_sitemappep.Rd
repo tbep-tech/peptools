@@ -2,7 +2,7 @@
 % Please edit documentation in R/show_sitemappep.R
 \name{show_sitemappep}
 \alias{show_sitemappep}
-\title{Map site attainment categories or water quality data for a selected year}
+\title{Map water quality data for a selected year}
 \usage{
 show_sitemappep(dat, yrsel, param = c("chla", "sd"),
   bay_segment = c("Western", "Central", "Eastern"))
@@ -20,7 +20,7 @@ show_sitemappep(dat, yrsel, param = c("chla", "sd"),
 A \code{\link[leaflet]{leaflet}} object
 }
 \description{
-Map site attainment categories or water quality data for a selected year
+Map water quality data for a selected year
 }
 \details{
 Year estimates for the selected parameter are based on median observations across months.  The color ramp is reversed for Secchi observations.
@@ -31,7 +31,8 @@ show_sitemappep(rawdat, yrsel = 2018)
 \seealso{
 Other visualize: \code{\link{show_boxpep}},
   \code{\link{show_matrixpep}},
+  \code{\link{show_plotlypep}},
   \code{\link{show_reactablepep}},
-  \code{\link{show_thrpep}}
+  \code{\link{show_thrpep}}, \code{\link{show_wqmatrixpep}}
 }
 \concept{visualize}
