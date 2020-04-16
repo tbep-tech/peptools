@@ -5,7 +5,7 @@
 \title{Plot monthly chlorophyll or secchi values values for a segment}
 \usage{
 show_boxpep(dat, param = c("chla", "sd"), yrsel = NULL,
-  yrrng = c(1976, 2019), ptsz = 0.5, bay_segment = c("Western",
+  yrrng = c(1990, 2019), ptsz = 0.5, bay_segment = c("Western",
   "Central", "Eastern"), trgs = NULL, family = NA, labelexp = TRUE,
   txtlab = TRUE)
 }

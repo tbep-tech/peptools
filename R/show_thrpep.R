@@ -19,7 +19,7 @@
 #'
 #' @examples
 #' show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
-show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), param = c('chla', 'sd'), trgs = NULL, yrrng = c(1976, 2019), family = NA, labelexp = TRUE, txtlab = TRUE){
+show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), param = c('chla', 'sd'), trgs = NULL, yrrng = c(1990, 2019), family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # default targets from data file
   if(is.null(trgs))

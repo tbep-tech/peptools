@@ -5,7 +5,7 @@
 \title{Plot annual water quality value and thresholds for a segment}
 \usage{
 show_thrpep(dat, bay_segment = c("Western", "Central", "Eastern"),
-  param = c("chla", "sd"), trgs = NULL, yrrng = c(1976, 2019),
+  param = c("chla", "sd"), trgs = NULL, yrrng = c(1990, 2019),
   family = NA, labelexp = TRUE, txtlab = TRUE)
 }
 \arguments{

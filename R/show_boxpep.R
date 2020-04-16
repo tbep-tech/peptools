@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' show_boxpep(rawdat, bay_segment = 'Western')
-show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1976, 2019), ptsz = 0.5, bay_segment = c('Western', 'Central', 'Eastern'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1990, 2019), ptsz = 0.5, bay_segment = c('Western', 'Central', 'Eastern'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # parameter
   param <- match.arg(param)

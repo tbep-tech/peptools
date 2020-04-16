@@ -39,7 +39,6 @@ show_plotlypep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern')
   p2$x$data[[1]]$showlegend <- FALSE
   p2$x$data[[2]]$showlegend <- FALSE
   p2$x$data[[3]]$showlegend <- FALSE
-  # p2$x$data[[4]]$showlegend <- FALSE
   
   # remove unnecessary hover text
   p1$x$data[[1]]$text <- gsub('colour:\\sAnnual\\sMean$', '', p1$x$data[[1]]$text)

@@ -62,6 +62,12 @@ The following shows all functions provided in pepreporting, organized by prefix.
 
 * `show_thrpep()`: Plot annual water quality values and thresholds for a bay segment
 
+* `show_plotlypep()`: Plot chlorophyll and secchi data together with matrix outcomes
+
+* `show_wqmatrixpep()`: Create a colorized table for chlorophyll or secchi exceedances
+
+* `show_segmatrixpep()`: Create a colorized table for water quality outcomes and exceedances by segment
+
 ## Basic use
 
 The package includes a `pepstations` data object that includes metadata for each station, including lat/lon and bay segment.  
@@ -153,10 +159,10 @@ We can show the same plot but for secchi depth by changing the `param = "chla"` 
 show_thrpep(dat, bay_segment = "Western", param = "sd")
 ```
 
-The year range to plot can also be specified using the `yrrng` argument, where the default is `yrrng = c(1976, 2019)`.
+The year range to plot can also be specified using the `yrrng` argument, where the default is `yrrng = c(1990, 2019)`.
 
 ```{r, fig.height = 5, fig.width = 8}
-show_thrpep(dat, bay_segment = "Western", param = "chla", yrrng = c(1988, 2019))
+show_thrpep(dat, bay_segment = "Western", param = "chla", yrrng = c(1976, 2019))
 ```
 
 The `show_thrpep()` function uses results from the `anlz_medpep()` function.  For example, you can retrieve the values from the above plot as follows: 
@@ -236,6 +242,30 @@ Use a sufficiently large number to view the entire matrix.
 show_matrixpep(dat, asreact = TRUE, nrows = 200)
 ```
 
+Bay segment exceedances can also be viewed in a matrix using `show_wqmatrixpep()`.  The red/green outcome categories indicate if the median was above/below the threshold.  However, the small/large exceedances used for the overall report card depend on degree of overlap of the confidence intervals with the threshold. The matrix outcome below are a simplification that shows a binary outcome (red/green) for location of the median relative to the threshold.
+
+```{r, fig.height = 8, fig.width = 3}
+show_wqmatrixpep(dat)
+```
+
+By default, the `show_wqmatrixpep()` function returns chlorophyll exceedances by segment.  Secchi depth exceedances can be viewed by changing the `param` argument.  Note that exceedances are reversed, i.e., lower values are considered less desirable water quality conditions for Secchi. 
+
+```{r, fig.height = 8, fig.width = 3}
+show_wqmatrixpep(dat, param = 'sd')
+```
+
+The results from `show_matrixpep()` and `show_wqmatrixpep()` can be combined for an individual segment using the `show_segmatrixpep()` function.  This is useful to understand which water quality parameter is driving the outcome for a given year. The plot shows the secchi and chlorophyll outcomes from `show_wqmatrixpep()` next to the segment management outcomes from `show_matrixpep()`.  Only one segment can be plotted for each function call. 
+
+```{r, fig.height = 8, fig.width = 2.5}
+show_segmatrixpep(dat, bay_segment = 'Western')
+```
+
+Finally, all segment plots can be shown together using the `show_plotlypep()` function that combines chlorophyll and secchi data for a given segment.  This function combines outputs from `show_thrpep()` and `show_segmatrixpep()`. The final plot is interactive and can be zoomed by dragging the mouse pointer over a section of the plot. Information about each cell or value can be seen by hovering over a location in the plot.  Please note that the scaling here is horrible, but this can be changed when creating the plot on your own. 
+
+```{r}
+show_plotlypep(rawdat)
+```
+
 ## Testing different thresholds
 
 By default, all plotting functions use the `peptargets` data frame included with the package, which assigns a threshold of 6.5 ft for secchi depth and 5.5 ug/L for chlorophyll to all segments. All plotting arguments have an optional argument called `trgs` that accepts user-provided thresholds.  A new data frame can be passed to this argument to evaluate different thresholds. The following demonstrates how to create a custom thresholds data frame (a tibble specifically) and use it to evaluate changes on reporting outcomes. For examples, perhaps less stringent thresholds are required for the Western segment (lower secchi, higher chlorophyll) and more stringent thresholds are required for the Eastern segment (higher secchi, lower chlorophyll). 
@@ -253,14 +283,14 @@ newtrgs <- tibble(
 This new data frame can be passed to the plotting functions. 
 
 ```{r, fig.height = 7, fig.width = 3}
-newthr <- show_matrixpep(dat, trgs = newtrgs, yrrng = c(1989, 2019))
+newthr <- show_matrixpep(dat, trgs = newtrgs)
 newthr
 ```
 
 Comparing the default values with the new results can easily be done by plotting the two side by side. 
 
 ```{r, fig.height = 7, fig.width = 6}
-oldthr <- show_matrixpep(dat, yrrng = c(1989, 2019))
+oldthr <- show_matrixpep(dat)
 oldthr + newthr + plot_layout(ncol = 2)
 ```
 

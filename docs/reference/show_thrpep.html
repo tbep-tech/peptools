@@ -125,7 +125,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>show_thrpep</span>(<span class='no'>dat</span>, <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>),
-  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chla"</span>, <span class='st'>"sd"</span>), <span class='kw'>trgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yrrng</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1976</span>, <span class='fl'>2019</span>),
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chla"</span>, <span class='st'>"sd"</span>), <span class='kw'>trgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yrrng</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1990</span>, <span class='fl'>2019</span>),
   <span class='kw'>family</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>labelexp</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>txtlab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -172,11 +172,14 @@
 
     <div class='dont-index'><p>Other visualize: <code><a href='show_boxpep.html'>show_boxpep</a></code>,
   <code><a href='show_matrixpep.html'>show_matrixpep</a></code>,
+  <code>show_plotlypep</code>,
   <code><a href='show_reactablepep.html'>show_reactablepep</a></code>,
-  <code><a href='show_sitemappep.html'>show_sitemappep</a></code></p></div>
+  <code>show_segmatrixpep</code>,
+  <code><a href='show_sitemappep.html'>show_sitemappep</a></code>,
+  <code>show_wqmatrixpep</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>show_thrpep</span>(<span class='no'>rawdat</span>, <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='st'>'Western'</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>'chl'</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11 rows containing missing values (geom_point).</span></div><div class='img'><img src='show_thrpep-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>show_thrpep</span>(<span class='no'>rawdat</span>, <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='st'>'Western'</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>'chl'</span>)</div><div class='img'><img src='show_thrpep-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' show_matrixpep(rawdat)
-show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1976, 2019), bay_segment = c('Western', 'Central', 'Eastern'), asreact = FALSE, nrows = 10, abbrev = FALSE, family = NA){
+show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019), bay_segment = c('Western', 'Central', 'Eastern'), asreact = FALSE, nrows = 10, abbrev = FALSE, family = NA){
   
   # default targets from data file
   if(is.null(trgs))
@@ -87,7 +87,7 @@ show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1976, 2019), b
     dplyr::left_join(lbs, by = 'outcome') %>%
     tidyr::separate(chla_sd, c('chla', 'sd'), sep = '_', remove = F) %>%
     dplyr::mutate(
-      chl = paste0('chla: ', chla),
+      chla = paste0('chla: ', chla),
       sd = paste0('sd: ', sd)
     ) %>%
     tidyr::unite(chla_sd, c('chla', 'sd'), sep = ', ') %>%

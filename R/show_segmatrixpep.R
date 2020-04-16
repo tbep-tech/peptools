@@ -29,7 +29,7 @@
 show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019), bay_segment = c('Western', 'Central', 'Eastern'), abbrev = FALSE, family = NA) {
   
   bay_segment <- match.arg(bay_segment)
-  
+
   # outcome data
   outdat <- show_matrixpep(dat, bay_segment = bay_segment, txtsz = NULL, trgs = trgs, yrrng = yrrng, abbrev = abbrev)
   outdat <- outdat$data %>%
@@ -51,7 +51,7 @@ show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019)
       bay_segment = as.character(bay_segment)
     )
   
-  # outcome results for chlorophyll and la, e.g., large/small, short/long exceedances
+  # outcome results for chlorophyll and sd, e.g., large/small, short/long exceedances
   vals <- anlz_medpep(dat) %>%
     anlz_attainpep(magdurout = T) %>%
     dplyr::filter(bay_segment %in% !!bay_segment) %>%

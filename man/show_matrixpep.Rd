@@ -4,7 +4,7 @@
 \alias{show_matrixpep}
 \title{Create a colorized table for indicator reporting}
 \usage{
-show_matrixpep(dat, txtsz = 3, trgs = NULL, yrrng = c(1976, 2019),
+show_matrixpep(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019),
   bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE,
   nrows = 10, abbrev = FALSE, family = NA)
 }
