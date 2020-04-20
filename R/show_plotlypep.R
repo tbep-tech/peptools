@@ -16,20 +16,24 @@ show_plotlypep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern')
   
   bay_segment <- match.arg(bay_segment)
 
-  p1 <- show_thrpep(dat, bay_segment = bay_segment, param = "chla", yrrng = yrrng, txtlab = F, labelexp = F) + 
-    ggtitle(NULL) +
-    scale_x_continuous(expand = c(0.01, 0.01), breaks = seq(yrrng[1], yrrng[2]))
-  p2 <- show_thrpep(dat, bay_segment = bay_segment, param = "sd", yrrng = yrrng, txtlab = F, labelexp = F) + 
-    ggtitle(NULL) +
-    scale_x_continuous(expand = c(0.01, 0.01), breaks = seq(yrrng[1], yrrng[2]))
-  
-  p3 <- show_segmatrixpep(dat, bay_segment = bay_segment, yrrng = yrrng, txtsz = NULL) + 
-    scale_y_continuous(expand = c(0,0), breaks = c(yrrng[1]:yrrng[2])) +
-    coord_flip() +
-    theme(
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 7),
-      axis.text = element_text(size = 12)
-    ) 
+  suppressMessages({
+      
+    p1 <- show_thrpep(dat, bay_segment = bay_segment, param = "chla", yrrng = yrrng, txtlab = F, labelexp = F) + 
+      ggtitle(NULL) +
+      scale_x_continuous(expand = c(0.01, 0.01), breaks = seq(yrrng[1], yrrng[2]))
+    p2 <- show_thrpep(dat, bay_segment = bay_segment, param = "sd", yrrng = yrrng, txtlab = F, labelexp = F) + 
+      ggtitle(NULL) +
+      scale_x_continuous(expand = c(0.01, 0.01), breaks = seq(yrrng[1], yrrng[2]))
+    
+    p3 <- show_segmatrixpep(dat, bay_segment = bay_segment, yrrng = yrrng, txtsz = NULL) + 
+      scale_y_continuous(expand = c(0,0), breaks = c(yrrng[1]:yrrng[2])) +
+      coord_flip() +
+      theme(
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 7),
+        axis.text = element_text(size = 12)
+      ) 
+    
+  })
   
   p3 <- plotly::ggplotly(p3, tooltip = 'Result') 
   for(i in 1:length(p3$x$data)) p3$x$data[[i]]$showlegend <- FALSE    
