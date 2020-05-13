@@ -6,7 +6,9 @@
 #' @param yrsel numeric for year to plot
 #' @param param chr string indicating which water quality value to plot, one of "chla" for chlorophyll and "sd" for secchi depth
 #' @param bay_segment chr string for the bay segment, one or all of "Western", "Central", or "Eastern"
-#'
+#' @param maxrel numeric for the maximum quantile value for scaling if \code{relative = T}, this prevents outliers from skewing the scale
+#' @param relative logical indicating if sizes and colors are relative to the entire water quality data base, otherwise scaling is relative only for the points on the map
+#' 
 #' @details Year estimates for the selected parameter are based on median observations across months.  The color ramp is reversed for Secchi observations.
 #' 
 #' @family visualize
@@ -17,7 +19,7 @@
 #'
 #' @examples
 #' show_sitemappep(rawdat, yrsel = 2018)
-show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c('Western', 'Central', 'Eastern')){
+show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c('Western', 'Central', 'Eastern'), maxrel = 0.95, relative = FALSE){
 
   # sanity check
   if(!yrsel %in% dat$yr)
@@ -27,7 +29,7 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
   
   mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
   prj <- '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
-
+  
   # get data to process
   locs <- dat %>%
     dplyr::filter(name %in% !!param) %>% 
@@ -63,12 +65,22 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
         yr = as.numeric(yr)
       ) 
 
+  # get max/min values for scaling, uses whole dataset if relative is true
+  relvls <- range(locs$val, na.rm = TRUE)
+  if(relative){
+    relvls <- dat %>% 
+      dplyr::filter(name %in% param) %>% 
+      dplyr::pull(value)
+    relvls <- c(min(relvls), quantile(relvls, maxrel, na.rm = T))
+  }
+  
   # join with pepstations, make sf
   locs <- locs %>% 
     dplyr::left_join(pepstations, .,by = c('BayStation')) %>% 
     na.omit() %>% 
     dplyr::mutate(
-      cexs = scales::rescale(val, to = c(4, 17), from = range(val))
+      val2 = pmin(val, max(relvls)), 
+      cexs = scales::rescale(val2, to = c(4, 17), from = relvls)
     ) %>% 
     sf::st_as_sf(coords = c('Longitude', 'Latitude'), crs = prj)
 
@@ -83,8 +95,8 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
   cols <- RColorBrewer::brewer.pal(11, 'RdYlBu')
   if(param == 'chla')
     cols <- rev(cols)
-  colfun <- colorRampPalette(cols)
-  
+  colfun <- leaflet::colorNumeric(palette = cols, domain = relvls)
+
   # legend label
   lbs <- c('chla', 'sd')
   names(lbs) <- c('chl-a (ug/L)', 'secchi (ft)')
@@ -93,10 +105,23 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
   
   # hover point labels
   labs <- paste('Bay station ', locs$BayStation, ', ', nms, ' ', round(locs$val, 2))
-  
+
   # map
-  out <- mapview::mapview(locs, cex = locs$cexs, legend = T, layer.name = leglab, zcol= 'val', col.regions = colfun, 
-                        homebutton = F, map.types = mptyps, label = labs)
+  out <- mapview::mapview(locs, legend = F, homebutton = F, map.types = mptyps) %>% 
+    .@map %>% 
+    leaflet::clearMarkers() %>% 
+    leaflet::addCircleMarkers(
+      data = locs,
+      stroke = TRUE,
+      color = 'black',
+      fill = TRUE,
+      fillColor = ~colfun(val2),
+      weight = 1,
+      fillOpacity = 0.8,
+      radius = ~cexs,
+      label = labs
+    ) %>%  
+    leaflet::addLegend('bottomright', title = leglab, pal = colfun, values = locs$val2)
   
   return(out)
 
