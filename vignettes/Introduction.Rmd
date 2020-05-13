@@ -254,7 +254,7 @@ By default, the `show_wqmatrixpep()` function returns chlorophyll exceedances by
 show_wqmatrixpep(dat, param = 'sd')
 ```
 
-The results from `show_matrixpep()` and `show_wqmatrixpep()` can be combined for an individual segment using the `show_segmatrixpep()` function.  This is useful to understand which water quality parameter is driving the outcome for a given year. The plot shows the secchi and chlorophyll outcomes from `show_wqmatrixpep()` next to the segment management outcomes from `show_matrixpep()`.  Only one segment can be plotted for each function call. 
+The results from `show_matrixpep()` for both secchi and chlorophyll can be combined for an individual segment using the `show_segmatrixpep()` function. Only one segment can be plotted for each function call. 
 
 ```{r, fig.height = 8, fig.width = 2.5}
 show_segmatrixpep(dat, bay_segment = 'Western')
