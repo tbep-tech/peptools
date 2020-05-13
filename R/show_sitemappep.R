@@ -18,7 +18,7 @@
 #' @examples
 #' show_sitemappep(rawdat, yrsel = 2018)
 show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c('Western', 'Central', 'Eastern')){
-  
+
   # sanity check
   if(!yrsel %in% dat$yr)
     stop(yrsel, ' not in year range for input data')
@@ -63,7 +63,7 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
         yr = as.numeric(yr)
       ) 
 
-  # join with pepsetations, make sf
+  # join with pepstations, make sf
   locs <- locs %>% 
     dplyr::left_join(pepstations, .,by = c('BayStation')) %>% 
     na.omit() %>% 
@@ -72,6 +72,13 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
     ) %>% 
     sf::st_as_sf(coords = c('Longitude', 'Latitude'), crs = prj)
 
+  # reverse size scale if sd
+  if(param == 'sd')
+    locs <- locs %>% 
+      dplyr::mutate(
+        cexs = max(cexs, na.rm = T) - cexs + min(cexs, na.rm = T)
+      )
+  
   # colors, reverse if chla
   cols <- RColorBrewer::brewer.pal(11, 'RdYlBu')
   if(param == 'chla')
