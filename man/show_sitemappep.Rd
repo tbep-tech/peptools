@@ -5,7 +5,8 @@
 \title{Map water quality data for a selected year}
 \usage{
 show_sitemappep(dat, yrsel, param = c("chla", "sd"),
-  bay_segment = c("Western", "Central", "Eastern"))
+  bay_segment = c("Western", "Central", "Eastern"), maxrel = 0.95,
+  relative = FALSE)
 }
 \arguments{
 \item{dat}{data frame of data returned by \code{\link{read_pepwq}}}
@@ -15,6 +16,10 @@ show_sitemappep(dat, yrsel, param = c("chla", "sd"),
 \item{param}{chr string indicating which water quality value to plot, one of "chla" for chlorophyll and "sd" for secchi depth}
 
 \item{bay_segment}{chr string for the bay segment, one or all of "Western", "Central", or "Eastern"}
+
+\item{maxrel}{numeric for the maximum quantile value for scaling if \code{relative = T}, this prevents outliers from skewing the scale}
+
+\item{relative}{logical indicating if sizes and colors are relative to the entire water quality data base, otherwise scaling is relative only for the points on the map}
 }
 \value{
 A \code{\link[leaflet]{leaflet}} object
