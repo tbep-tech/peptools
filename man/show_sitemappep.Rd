@@ -5,7 +5,7 @@
 \title{Map water quality data for a selected year}
 \usage{
 show_sitemappep(dat, yrsel, param = c("chla", "sd"),
-  bay_segment = c("Western", "Central", "Eastern"), maxrel = 0.95,
+  bay_segment = c("Western", "Central", "Eastern"), maxrel = 0.99,
   relative = FALSE)
 }
 \arguments{
