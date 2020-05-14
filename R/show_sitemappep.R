@@ -19,7 +19,7 @@
 #'
 #' @examples
 #' show_sitemappep(rawdat, yrsel = 2018)
-show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c('Western', 'Central', 'Eastern'), maxrel = 0.95, relative = FALSE){
+show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c('Western', 'Central', 'Eastern'), maxrel = 0.99, relative = FALSE){
 
   # sanity check
   if(!yrsel %in% dat$yr)
@@ -73,7 +73,7 @@ show_sitemappep <- function(dat, yrsel, param = c('chla', 'sd'), bay_segment = c
       dplyr::pull(value)
     relvls <- c(min(relvls), quantile(relvls, maxrel, na.rm = T))
   }
-  
+
   # join with pepstations, make sf
   locs <- locs %>% 
     dplyr::left_join(pepstations, .,by = c('BayStation')) %>% 

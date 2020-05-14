@@ -153,10 +153,10 @@ By default, the color and size scaling in `show_sitemappep()` is relative to onl
 show_sitemappep(dat, 2019, relative = T)
 ```
 
-The scaling is also sensitive to outliers.  The default is to use the maximum scaling as the 95th percentile value observed in the entire dataset for the chosen parameter.  Otherwise, non-sensical results will be returned if the absolute maximum value is used to set the scale.  If, however, you want to see scaling relative to a smaller quantile, you can choose it accordingly with the `maxrel` argument.  The size and color ramps will be scaled to the defined upper quantile value.  The actual observed value at a point will always be visible on mouseover.
+The scaling is also sensitive to outliers.  The default is to use the maximum scaling as the 99th percentile value observed in the entire dataset for the chosen parameter.  Otherwise, non-sensical results will be returned if the absolute maximum value is used to set the scale.  If, however, you want to see scaling relative to a smaller quantile, you can choose it accordingly with the `maxrel` argument.  The size and color ramps will be scaled to the defined upper quantile value.  The actual observed value at a point will always be visible on mouseover.
 
 ```{r}
-show_sitemappep(dat, 2019, relative = T, maxrel = 0.6)
+show_sitemappep(dat, 2019, relative = T, maxrel = 0.8)
 ```
 
 The `show_thrpep()` function provides a more descriptive assessment of annual trends for a chosen bay segment relative to thresholds. In this plot we show the annual medians and non-parametric confidence internals (95%) across stations for a segment.  The red line shows annual trends and the horizontal blue line indicates the threshold for chlorophyll-a.

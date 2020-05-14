@@ -125,7 +125,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>show_sitemappep</span>(<span class='no'>dat</span>, <span class='no'>yrsel</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chla"</span>, <span class='st'>"sd"</span>),
-  <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>))</pre>
+  <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>), <span class='kw'>maxrel</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>relative</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,6 +146,14 @@
     <tr>
       <th>bay_segment</th>
       <td><p>chr string for the bay segment, one or all of "Western", "Central", or "Eastern"</p></td>
+    </tr>
+    <tr>
+      <th>maxrel</th>
+      <td><p>numeric for the maximum quantile value for scaling if <code>relative = T</code>, this prevents outliers from skewing the scale</p></td>
+    </tr>
+    <tr>
+      <th>relative</th>
+      <td><p>logical indicating if sizes and colors are relative to the entire water quality data base, otherwise scaling is relative only for the points on the map</p></td>
     </tr>
     </table>
 
