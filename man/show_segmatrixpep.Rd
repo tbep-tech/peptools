@@ -4,9 +4,15 @@
 \alias{show_segmatrixpep}
 \title{Create a colorized table for water quality outcomes and exceedances by segment}
 \usage{
-show_segmatrixpep(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019),
-  bay_segment = c("Western", "Central", "Eastern"), abbrev = FALSE,
-  family = NA)
+show_segmatrixpep(
+  dat,
+  txtsz = 3,
+  trgs = NULL,
+  yrrng = c(1990, 2019),
+  bay_segment = c("Western", "Central", "Eastern"),
+  abbrev = FALSE,
+  family = NA
+)
 }
 \arguments{
 \item{dat}{\code{data.frame} formatted from \code{\link{read_pepwq}}}
@@ -38,11 +44,13 @@ show_segmatrixpep(rawdat, bay_segment = 'Western')
 \seealso{
 \code{\link{show_wqmatrixpep}}, \code{\link{show_matrixpep}}
 
-Other visualize: \code{\link{show_boxpep}},
-  \code{\link{show_matrixpep}},
-  \code{\link{show_plotlypep}},
-  \code{\link{show_reactablepep}},
-  \code{\link{show_sitemappep}}, \code{\link{show_thrpep}},
-  \code{\link{show_wqmatrixpep}}
+Other visualize: 
+\code{\link{show_boxpep}()},
+\code{\link{show_matrixpep}()},
+\code{\link{show_plotlypep}()},
+\code{\link{show_reactablepep}()},
+\code{\link{show_sitemappep}()},
+\code{\link{show_thrpep}()},
+\code{\link{show_wqmatrixpep}()}
 }
 \concept{visualize}

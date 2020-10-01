@@ -4,7 +4,9 @@
 \name{pepstations}
 \alias{pepstations}
 \title{Bay stations by segment}
-\format{A \code{data.frame} object}
+\format{
+A \code{data.frame} object
+}
 \usage{
 pepstations
 }
@@ -59,8 +61,9 @@ save(pepstations, file = 'data/pepstations.RData', compress = 'xz')
 }
 }
 \seealso{
-Other utilities: \code{\link{peptargets}},
-  \code{\link{rawdat}}
+Other utilities: 
+\code{\link{peptargets}},
+\code{\link{rawdat}}
 }
 \concept{utilities}
 \keyword{datasets}

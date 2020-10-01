@@ -124,9 +124,14 @@
     <p>Map water quality data for a selected year</p>
     </div>
 
-    <pre class="usage"><span class='fu'>show_sitemappep</span>(<span class='no'>dat</span>, <span class='no'>yrsel</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chla"</span>, <span class='st'>"sd"</span>),
-  <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>), <span class='kw'>maxrel</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>relative</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>show_sitemappep</span>(
+  <span class='no'>dat</span>,
+  <span class='no'>yrsel</span>,
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chla"</span>, <span class='st'>"sd"</span>),
+  <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>),
+  <span class='kw'>maxrel</span> <span class='kw'>=</span> <span class='fl'>0.99</span>,
+  <span class='kw'>relative</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,12 +170,14 @@
     <p>Year estimates for the selected parameter are based on median observations across months.  The color ramp is reversed for Secchi observations.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other visualize: <code><a href='show_boxpep.html'>show_boxpep</a></code>,
-  <code><a href='show_matrixpep.html'>show_matrixpep</a></code>,
-  <code><a href='show_plotlypep.html'>show_plotlypep</a></code>,
-  <code><a href='show_reactablepep.html'>show_reactablepep</a></code>,
-  <code><a href='show_segmatrixpep.html'>show_segmatrixpep</a></code>,
-  <code><a href='show_thrpep.html'>show_thrpep</a></code>, <code><a href='show_wqmatrixpep.html'>show_wqmatrixpep</a></code></p></div>
+    <div class='dont-index'><p>Other visualize: 
+<code><a href='show_boxpep.html'>show_boxpep</a>()</code>,
+<code><a href='show_matrixpep.html'>show_matrixpep</a>()</code>,
+<code><a href='show_plotlypep.html'>show_plotlypep</a>()</code>,
+<code><a href='show_reactablepep.html'>show_reactablepep</a>()</code>,
+<code><a href='show_segmatrixpep.html'>show_segmatrixpep</a>()</code>,
+<code><a href='show_thrpep.html'>show_thrpep</a>()</code>,
+<code><a href='show_wqmatrixpep.html'>show_wqmatrixpep</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>show_sitemappep</span>(<span class='no'>rawdat</span>, <span class='kw'>yrsel</span> <span class='kw'>=</span> <span class='fl'>2018</span>)</div></pre>

@@ -4,10 +4,18 @@
 \alias{show_boxpep}
 \title{Plot monthly chlorophyll or secchi values values for a segment}
 \usage{
-show_boxpep(dat, param = c("chla", "sd"), yrsel = NULL,
-  yrrng = c(1990, 2019), ptsz = 0.5, bay_segment = c("Western",
-  "Central", "Eastern"), trgs = NULL, family = NA, labelexp = TRUE,
-  txtlab = TRUE)
+show_boxpep(
+  dat,
+  param = c("chla", "sd"),
+  yrsel = NULL,
+  yrrng = c(1990, 2019),
+  ptsz = 0.5,
+  bay_segment = c("Western", "Central", "Eastern"),
+  trgs = NULL,
+  family = NA,
+  labelexp = TRUE,
+  txtlab = TRUE
+)
 }
 \arguments{
 \item{dat}{data frame of data returned by \code{\link{read_pepwq}}}
@@ -43,11 +51,13 @@ Points not included in \code{yrsel} are plotted over the box plots using \code{\
 show_boxpep(rawdat, bay_segment = 'Western')
 }
 \seealso{
-Other visualize: \code{\link{show_matrixpep}},
-  \code{\link{show_plotlypep}},
-  \code{\link{show_reactablepep}},
-  \code{\link{show_segmatrixpep}},
-  \code{\link{show_sitemappep}}, \code{\link{show_thrpep}},
-  \code{\link{show_wqmatrixpep}}
+Other visualize: 
+\code{\link{show_matrixpep}()},
+\code{\link{show_plotlypep}()},
+\code{\link{show_reactablepep}()},
+\code{\link{show_segmatrixpep}()},
+\code{\link{show_sitemappep}()},
+\code{\link{show_thrpep}()},
+\code{\link{show_wqmatrixpep}()}
 }
 \concept{visualize}

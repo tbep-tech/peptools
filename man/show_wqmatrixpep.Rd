@@ -4,10 +4,18 @@
 \alias{show_wqmatrixpep}
 \title{Create a colorized table for chlorophyll or secchi exceedances}
 \usage{
-show_wqmatrixpep(dat, param = c("chla", "sd"), txtsz = 3,
-  trgs = NULL, yrrng = c(1990, 2019), bay_segment = c("Western",
-  "Central", "Eastern"), asreact = FALSE, nrows = 10, abbrev = FALSE,
-  family = NA)
+show_wqmatrixpep(
+  dat,
+  param = c("chla", "sd"),
+  txtsz = 3,
+  trgs = NULL,
+  yrrng = c(1990, 2019),
+  bay_segment = c("Western", "Central", "Eastern"),
+  asreact = FALSE,
+  nrows = 10,
+  abbrev = FALSE,
+  family = NA
+)
 }
 \arguments{
 \item{dat}{\code{data.frame} formatted from \code{\link{read_pepwq}}}
@@ -42,11 +50,13 @@ show_wqmatrixpep(rawdat)
 \seealso{
 \code{\link{show_matrixpep}}, \code{\link{show_segmatrixpep}}
 
-Other visualize: \code{\link{show_boxpep}},
-  \code{\link{show_matrixpep}},
-  \code{\link{show_plotlypep}},
-  \code{\link{show_reactablepep}},
-  \code{\link{show_segmatrixpep}},
-  \code{\link{show_sitemappep}}, \code{\link{show_thrpep}}
+Other visualize: 
+\code{\link{show_boxpep}()},
+\code{\link{show_matrixpep}()},
+\code{\link{show_plotlypep}()},
+\code{\link{show_reactablepep}()},
+\code{\link{show_segmatrixpep}()},
+\code{\link{show_sitemappep}()},
+\code{\link{show_thrpep}()}
 }
 \concept{visualize}

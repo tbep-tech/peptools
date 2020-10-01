@@ -77,7 +77,7 @@ prj <- 4326
 locs <- pepstations %>% 
   st_as_sf(coords = c('Longitude', 'Latitude'), crs = prj)
 
-mapview(locs, zcol = 'bay_segment', layer.name = 'Bay segment', map.types = mptyps)            
+mapview(locs, zcol = 'bay_segment', layer.name = 'Bay segment', map.types = mptyps)   
 ```
 
 The water quality data can be imported using the `read_pepwq()` function.  A compressed folder that includes the data can be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d).  After the data are downloaded and extracted, the Excel file with the raw data is named "Peconics SCDHS WQ data - up to 2019 so far.xlsx", or something similar depending on when the data were downloaded.  The location of this file on your computer is passed to the import function. Below, a local file renamed as "currentdata.xlsx" that contains the water quality data is downloaded. 
@@ -201,7 +201,7 @@ A different subset of years and selected year of interest can also be viewed by 
 show_boxpep(dat, param = 'chla', bay_segment = "Western", yrrng = c(2008, 2018), yrsel = 1990)
 ```
 
-The `show_thrpep()` function is useful to understand annual variation in chlorophyll and secchi depth relative to thresholds for each bay segment.  The information from these plots can provide an understanding of how the annual reporting outcomes are determined.  An outcome integer from zero to three is assigned to each bay segment for each annual estimate of chlorophyll and secchi depth.  These outcomes are based on both the exceedance of the annual estimate above the threshold (blue lines in `show_thrpep()`) and duration of the exceedance for the years prior.  The following graphic describes this logic [@Janicki99]. 
+The `show_thrpep()` function is useful to understand annual variation in chlorophyll and secchi depth relative to thresholds for each bay segment.  The information from these plots can provide an understanding of how the annual reporting outcomes are determined.  An outcome integer from zero to three is assigned to each bay segment for each annual estimate of chlorophyll and secchi depth.  These outcomes are based on both the exceedance of the annual estimate above the threshold (blue lines in `show_thrpep()`) and duration of the exceedance for the years prior.  The following graphic describes this logic [@Janicki99].
 
 ```{r, echo = F, fig.cap = 'Outcomes for annual estimates of water quality are assigned an integer value from zero to three depending on both magnitude and duration of the exceedence.', out.width = '80%'}
 knitr::include_graphics('outints.png')

@@ -4,9 +4,16 @@
 \alias{show_thrpep}
 \title{Plot annual water quality value and thresholds for a segment}
 \usage{
-show_thrpep(dat, bay_segment = c("Western", "Central", "Eastern"),
-  param = c("chla", "sd"), trgs = NULL, yrrng = c(1990, 2019),
-  family = NA, labelexp = TRUE, txtlab = TRUE)
+show_thrpep(
+  dat,
+  bay_segment = c("Western", "Central", "Eastern"),
+  param = c("chla", "sd"),
+  trgs = NULL,
+  yrrng = c(1990, 2019),
+  family = NA,
+  labelexp = TRUE,
+  txtlab = TRUE
+)
 }
 \arguments{
 \item{dat}{data frame of data returned by \code{\link{read_pepwq}}}
@@ -35,12 +42,13 @@ Plot annual water quality values and thresholds for a bay segment
 show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
 }
 \seealso{
-Other visualize: \code{\link{show_boxpep}},
-  \code{\link{show_matrixpep}},
-  \code{\link{show_plotlypep}},
-  \code{\link{show_reactablepep}},
-  \code{\link{show_segmatrixpep}},
-  \code{\link{show_sitemappep}},
-  \code{\link{show_wqmatrixpep}}
+Other visualize: 
+\code{\link{show_boxpep}()},
+\code{\link{show_matrixpep}()},
+\code{\link{show_plotlypep}()},
+\code{\link{show_reactablepep}()},
+\code{\link{show_segmatrixpep}()},
+\code{\link{show_sitemappep}()},
+\code{\link{show_wqmatrixpep}()}
 }
 \concept{visualize}

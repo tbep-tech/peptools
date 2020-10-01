@@ -4,7 +4,9 @@
 \name{rawdat}
 \alias{rawdat}
 \title{Raw data from Suffolk County}
-\format{A \code{data.frame} object}
+\format{
+A \code{data.frame} object
+}
 \usage{
 rawdat
 }
@@ -19,8 +21,9 @@ save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 }
 }
 \seealso{
-Other utilities: \code{\link{pepstations}},
-  \code{\link{peptargets}}
+Other utilities: 
+\code{\link{pepstations}},
+\code{\link{peptargets}}
 }
 \concept{utilities}
 \keyword{datasets}

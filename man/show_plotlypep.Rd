@@ -4,8 +4,11 @@
 \alias{show_plotlypep}
 \title{Plot chlorophyll and secchi data together with matrix outcomes}
 \usage{
-show_plotlypep(dat, bay_segment = c("Western", "Central", "Eastern"),
-  yrrng = c(1990, 2019))
+show_plotlypep(
+  dat,
+  bay_segment = c("Western", "Central", "Eastern"),
+  yrrng = c(1990, 2019)
+)
 }
 \arguments{
 \item{dat}{\code{data.frame} formatted from \code{\link{read_pepwq}}}
@@ -24,11 +27,13 @@ Plot chlorophyll and secchi data together with matrix outcomes
 show_plotlypep(rawdat)
 }
 \seealso{
-Other visualize: \code{\link{show_boxpep}},
-  \code{\link{show_matrixpep}},
-  \code{\link{show_reactablepep}},
-  \code{\link{show_segmatrixpep}},
-  \code{\link{show_sitemappep}}, \code{\link{show_thrpep}},
-  \code{\link{show_wqmatrixpep}}
+Other visualize: 
+\code{\link{show_boxpep}()},
+\code{\link{show_matrixpep}()},
+\code{\link{show_reactablepep}()},
+\code{\link{show_segmatrixpep}()},
+\code{\link{show_sitemappep}()},
+\code{\link{show_thrpep}()},
+\code{\link{show_wqmatrixpep}()}
 }
 \concept{visualize}

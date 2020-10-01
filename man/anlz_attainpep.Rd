@@ -24,6 +24,7 @@ meddat <- anlz_medpep(rawdat)
 anlz_attainpep(meddat)
 }
 \seealso{
-Other analyze: \code{\link{anlz_medpep}}
+Other analyze: 
+\code{\link{anlz_medpep}()}
 }
 \concept{analyze}

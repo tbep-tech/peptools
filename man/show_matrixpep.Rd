@@ -4,9 +4,17 @@
 \alias{show_matrixpep}
 \title{Create a colorized table for indicator reporting}
 \usage{
-show_matrixpep(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019),
-  bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE,
-  nrows = 10, abbrev = FALSE, family = NA)
+show_matrixpep(
+  dat,
+  txtsz = 3,
+  trgs = NULL,
+  yrrng = c(1990, 2019),
+  bay_segment = c("Western", "Central", "Eastern"),
+  asreact = FALSE,
+  nrows = 10,
+  abbrev = FALSE,
+  family = NA
+)
 }
 \arguments{
 \item{dat}{data frame of epc data returned by \code{\link{read_pepwq}}}
@@ -37,11 +45,13 @@ Create a colorized table for indicator reporting
 show_matrixpep(rawdat)
 }
 \seealso{
-Other visualize: \code{\link{show_boxpep}},
-  \code{\link{show_plotlypep}},
-  \code{\link{show_reactablepep}},
-  \code{\link{show_segmatrixpep}},
-  \code{\link{show_sitemappep}}, \code{\link{show_thrpep}},
-  \code{\link{show_wqmatrixpep}}
+Other visualize: 
+\code{\link{show_boxpep}()},
+\code{\link{show_plotlypep}()},
+\code{\link{show_reactablepep}()},
+\code{\link{show_segmatrixpep}()},
+\code{\link{show_sitemappep}()},
+\code{\link{show_thrpep}()},
+\code{\link{show_wqmatrixpep}()}
 }
 \concept{visualize}

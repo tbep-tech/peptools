@@ -4,7 +4,9 @@
 \name{peptargets}
 \alias{peptargets}
 \title{Bay segment targets}
-\format{A \code{data.frame} object}
+\format{
+A \code{data.frame} object
+}
 \usage{
 peptargets
 }
@@ -25,11 +27,13 @@ save(peptargets, file = 'data/peptargets.RData', compress= 'xz')
 }
 }
 \seealso{
-Other utilities: \code{\link{pepstations}},
-  \code{\link{rawdat}}
+Other utilities: 
+\code{\link{pepstations}},
+\code{\link{rawdat}}
 
-Other utilities: \code{\link{pepstations}},
-  \code{\link{rawdat}}
+Other utilities: 
+\code{\link{pepstations}},
+\code{\link{rawdat}}
 }
 \concept{utilities}
 \keyword{datasets}

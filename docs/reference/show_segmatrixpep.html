@@ -124,9 +124,15 @@
     <p>Create a colorized table for water quality outcomes by segment that includes the management action and chlorophyll, and secchi exceedances</p>
     </div>
 
-    <pre class="usage"><span class='fu'>show_segmatrixpep</span>(<span class='no'>dat</span>, <span class='kw'>txtsz</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>trgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yrrng</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1990</span>, <span class='fl'>2019</span>),
-  <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>), <span class='kw'>abbrev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>family</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>show_segmatrixpep</span>(
+  <span class='no'>dat</span>,
+  <span class='kw'>txtsz</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>trgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>yrrng</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1990</span>, <span class='fl'>2019</span>),
+  <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>),
+  <span class='kw'>abbrev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>family</span> <span class='kw'>=</span> <span class='fl'>NA</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,15 +176,20 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='show_wqmatrixpep.html'>show_wqmatrixpep</a></code>, <code><a href='show_matrixpep.html'>show_matrixpep</a></code></p>
-<p>Other visualize: <code><a href='show_boxpep.html'>show_boxpep</a></code>,
-  <code><a href='show_matrixpep.html'>show_matrixpep</a></code>,
-  <code><a href='show_plotlypep.html'>show_plotlypep</a></code>,
-  <code><a href='show_reactablepep.html'>show_reactablepep</a></code>,
-  <code><a href='show_sitemappep.html'>show_sitemappep</a></code>, <code><a href='show_thrpep.html'>show_thrpep</a></code>,
-  <code><a href='show_wqmatrixpep.html'>show_wqmatrixpep</a></code></p></div>
+<p>Other visualize: 
+<code><a href='show_boxpep.html'>show_boxpep</a>()</code>,
+<code><a href='show_matrixpep.html'>show_matrixpep</a>()</code>,
+<code><a href='show_plotlypep.html'>show_plotlypep</a>()</code>,
+<code><a href='show_reactablepep.html'>show_reactablepep</a>()</code>,
+<code><a href='show_sitemappep.html'>show_sitemappep</a>()</code>,
+<code><a href='show_thrpep.html'>show_thrpep</a>()</code>,
+<code><a href='show_wqmatrixpep.html'>show_wqmatrixpep</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>show_segmatrixpep</span>(<span class='no'>rawdat</span>, <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='st'>'Western'</span>)</div><div class='img'><img src='show_segmatrixpep-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>show_segmatrixpep</span>(<span class='no'>rawdat</span>, <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='st'>'Western'</span>)</div><div class='output co'>#&gt; <span class='error'>Error: Problem with `mutate()` input `mags`.</span>
+#&gt; <span class='error'><span style='color: #BB0000;'>x</span><span> must be an integer vector, not a logical vector.</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>i</span><span> Input `mags` is `dplyr::case_when(...)`.</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>i</span><span> The error occurred in row 2.</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

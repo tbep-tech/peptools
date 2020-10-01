@@ -20,6 +20,7 @@ Estimate annual means by segment for chlorophyll and secchi data
 anlz_medpep(rawdat)
 }
 \seealso{
-Other analyze: \code{\link{anlz_attainpep}}
+Other analyze: 
+\code{\link{anlz_attainpep}()}
 }
 \concept{analyze}

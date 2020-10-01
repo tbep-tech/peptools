@@ -15,7 +15,7 @@
 #' meddat <- anlz_medpep(rawdat)
 #' anlz_attainpep(meddat)
 anlz_attainpep <- function(meddat, magdurout = FALSE, trgs = NULL){
-  
+
   # default targets from data file
   if(is.null(trgs))
     trgs <- peptargets
@@ -39,7 +39,7 @@ anlz_attainpep <- function(meddat, magdurout = FALSE, trgs = NULL){
       mags = ifelse(!is.na(medv), findInterval(thresh, c(lwr.ci, upr.ci)), NA),
       mags = dplyr::case_when(
         var %in% 'chla' ~ as.integer(abs(mags - 2)), # reverse chloropyll
-        T ~ mags
+        T ~ as.integer(mags)
       )
     ) %>%
     dplyr::ungroup() %>%

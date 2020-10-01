@@ -23,11 +23,13 @@ Create reactable table from matrix data
 This function is used internally within \code{\link{show_matrixpep}}
 }
 \seealso{
-Other visualize: \code{\link{show_boxpep}},
-  \code{\link{show_matrixpep}},
-  \code{\link{show_plotlypep}},
-  \code{\link{show_segmatrixpep}},
-  \code{\link{show_sitemappep}}, \code{\link{show_thrpep}},
-  \code{\link{show_wqmatrixpep}}
+Other visualize: 
+\code{\link{show_boxpep}()},
+\code{\link{show_matrixpep}()},
+\code{\link{show_plotlypep}()},
+\code{\link{show_segmatrixpep}()},
+\code{\link{show_sitemappep}()},
+\code{\link{show_thrpep}()},
+\code{\link{show_wqmatrixpep}()}
 }
 \concept{visualize}
