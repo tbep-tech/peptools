@@ -44,13 +44,13 @@ show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), p
   # axis label
   if(labelexp)
     axlab <- dplyr::case_when(
-      param == 'chla' ~ expression("Median Annual Chlorophyll-a ("~ mu * "g\u00B7L"^-1 *")"),
-      param == 'sd' ~ expression("Median Annual Secchi depth (ft)")
+      param == 'chla' ~ expression("Chlorophyll-a ("~ mu * "g\u00B7L"^-1 *")"),
+      param == 'sd' ~ expression("Secchi depth (ft)")
     )
   if(!labelexp)
     axlab <- dplyr::case_when(
-      param == 'chla' ~ "Median Annual Chlorophyll-a (ug/L)",
-      param == 'sd' ~ "Median Annual Secchi depth (ft)"
+      param == 'chla' ~ "Chlorophyll-a (ug/L)",
+      param == 'sd' ~ "Secchi depth (ft)"
     )
   
   # get lines to plot
