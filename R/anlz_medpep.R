@@ -151,7 +151,7 @@ anlz_medpep <- function(dat){
       yr = as.numeric(as.character(yr))
     ) %>% 
     dplyr::select(bay_segment, yr, mo, val, est, var) %>% 
-    dplyr::arrange(var, bay_segment, yr, mo)
+    dplyr::arrange(var, bay_segment, -yr, -mo)
   
   # combine chla and sd monthly data
   # create complete year cases
@@ -164,8 +164,8 @@ anlz_medpep <- function(dat){
       yr = as.numeric(as.character(yr))
     ) %>% 
     dplyr::select(bay_segment, yr, val, est, var) %>% 
-    dplyr::arrange(var, bay_segment, yr)
-  
+    dplyr::arrange(var, bay_segment, -yr)
+
   # combine all
   out <- list(
     ann = anout,

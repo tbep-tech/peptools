@@ -30,6 +30,15 @@ show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019)
   
   bay_segment <- match.arg(bay_segment)
   
+  # outcome data	
+  outdat <- show_matrixpep(dat, bay_segment = bay_segment, txtsz = NULL, trgs = trgs, yrrng = yrrng, abbrev = abbrev)	
+  outdat <- outdat$data %>%	
+    dplyr::mutate(	
+      var = 'outcome',	
+      bay_segment = as.character(bay_segment)	
+    ) %>%	
+    dplyr::select(bay_segment, yr, var, Result = Action, outcome, outcometxt)
+  
   # chloropyll and sd data
   chldat <- show_wqmatrixpep(dat, param = 'chl', bay_segment = bay_segment, trgs = trgs, txtsz = NULL, yrrng = yrrng, abbrev = abbrev)
   chldat <- chldat$data
@@ -66,8 +75,9 @@ show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019)
   # combine wqdat with outcome results and outcome data
   toplo <- wqdat %>%
     dplyr::left_join(vals, by = c('bay_segment', 'yr', 'var')) %>%
+    dplyr::bind_rows(outdat) %>%
     dplyr::mutate(
-      var = factor(var, levels = c('sd', 'outcome', 'chla'), labels = c('Secchi', 'Management outcome', 'Chlorophyll-a'))
+      var = factor(var, levels = c('sd', 'outcome', 'chla'), labels = c('Secchi', 'Outcome', 'Chlorophyll-a'))
     )
   
   # create plot
@@ -75,7 +85,7 @@ show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019)
     geom_tile(aes(group = Result), colour = 'black') +
     scale_y_reverse(expand = c(0, 0), breaks = toplo$yr) +
     scale_x_discrete(expand = c(0, 0), position = 'top') +
-    scale_fill_manual(values = c(red = 'red', green = 'green')) +
+    scale_fill_manual(values = c(red = 'red', yellow = 'yellow', green = 'green')) +
     theme_bw() +
     theme(
       axis.title = element_blank(),

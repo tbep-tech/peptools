@@ -87,8 +87,9 @@ anlz_attainpep <- function(meddat, magdurout = FALSE, trgs = NULL){
         chla_sd %in% c('1_0', '2_0', '3_0', '0_1', '1_1', '2_1', '0_2', '1_2', '0_3') ~ 'yellow',
         chla_sd %in% c('3_1', '2_2', '3_2', '1_3', '2_3', '3_3') ~ 'red'
       )
-    )
-  
+    ) %>% 
+    dplyr::arrange(bay_segment, -yr)
+
   return(out)
   
 }

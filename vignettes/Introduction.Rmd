@@ -203,10 +203,9 @@ show_boxpep(dat, param = 'chla', bay_segment = "Western", yrrng = c(2008, 2018),
 
 The `show_thrpep()` function is useful to understand annual variation in chlorophyll and secchi depth relative to thresholds for each bay segment.  The information from these plots can provide an understanding of how the annual reporting outcomes are determined.  An outcome integer from zero to three is assigned to each bay segment for each annual estimate of chlorophyll and secchi depth.  These outcomes are based on both the exceedance of the annual estimate above the threshold (blue lines in `show_thrpep()`) and duration of the exceedance for the years prior.  The following graphic describes this logic [@Janicki99].
 
-<figure>
-  <img src="outints.png" style="width:80%">
-  <figcaption>Outcomes for annual estimates of water quality are assigned an integer value from zero to three depending on both magnitude and duration of the exceedence.</figcaption>
-</figure>
+```{r, echo = F, fig.cap = 'Outcomes for annual estimates of water quality are assigned an integer value from zero to three depending on both magnitude and duration of the exceedence.', out.width = '80%'}
+knitr::include_graphics('outints.PNG')
+```
 
 For the Peconic Estuary, light attenuation is replaced with Secchi depth. The outcomes above are assigned for both chlorophyll and secchi depth. The duration criteria are determined based on whether the exceedance was observed for years prior to the current year. The exceedance criteria for chlorophyll and light-attenuation are currently the same for each segment.  The pepreporting package contains a `peptargets` data file that is a reference for determining annual outcomes.  This file is loaded automatically with the package and can be viewed from the command line.
 
@@ -224,10 +223,9 @@ The final plotting function is `show_matrixpep()`, which creates an annual repor
 
 The management category or action is based on the combination of outcomes for chlorophyll and secchi depth [@Janicki99].
 
-<figure>
-  <img src="matrixcats.png" style="width:80%">
-  <figcaption>Management action categories assigned to each bay segment and year based on chlorophyll and secchi depth outcomes.</figcaption>
-</figure>
+```{r, echo = F, fig.cap = 'Management action categories assigned to each bay segment and year based on chlorophyll and Secchi depth outcomes.', out.width = '80%'}
+knitr::include_graphics('matrixcats.PNG')
+```
 
 The results can be viewed with `show_matrixpep()`.
 
