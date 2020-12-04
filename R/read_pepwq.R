@@ -1,6 +1,6 @@
-#' Import raw data
+#' Import raw water quality data
 #' 
-#' Impot raw data
+#' Impot raw water quality data
 #'
 #' @param path chr string of path for excel file
 #'

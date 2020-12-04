@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_pepwq.R
 \name{read_pepwq}
 \alias{read_pepwq}
-\title{Import raw data}
+\title{Import raw water quality data}
 \usage{
 read_pepwq(path)
 }
@@ -13,7 +13,7 @@ read_pepwq(path)
 data.frame
 }
 \description{
-Impot raw data
+Impot raw water quality data
 }
 \details{
 Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d}
@@ -22,5 +22,9 @@ Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html
 path <- system.file("extdata", "currentdata.xlsx", package="pepreporting")
 dat <- read_pepwq(path)
 dat
+}
+\seealso{
+Other read: 
+\code{\link{read_pepent}()}
 }
 \concept{read}

@@ -44,6 +44,8 @@ The following shows all functions provided in pepreporting, organized by prefix.
 
 * `read_pepwq()`: Load local water quality file
 
+* `read_pepent()`: Load Enterococcus beach data file
+
 #### Analyze
 
 * `anlz_attainpep()`: Get attainment categories
