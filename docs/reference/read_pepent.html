@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot annual water quality value and thresholds for a segment — show_thrpep • pepreporting</title>
+<title>Import raw enterococcus data — read_pepent • pepreporting</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Plot annual water quality value and thresholds for a segment — show_thrpep" />
-<meta property="og:description" content="Plot annual water quality values and thresholds for a bay segment" />
+<meta property="og:title" content="Import raw enterococcus data — read_pepent" />
+<meta property="og:description" content="Import raw enterococcus data" />
 
 
 
@@ -115,80 +115,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot annual water quality value and thresholds for a segment</h1>
+    <h1>Import raw enterococcus data</h1>
     
-    <div class="hidden name"><code>show_thrpep.Rd</code></div>
+    <div class="hidden name"><code>read_pepent.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plot annual water quality values and thresholds for a bay segment</p>
+    <p>Import raw enterococcus data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>show_thrpep</span>(
-  <span class='no'>dat</span>,
-  <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Western"</span>, <span class='st'>"Central"</span>, <span class='st'>"Eastern"</span>),
-  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chla"</span>, <span class='st'>"sd"</span>),
-  <span class='kw'>trgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>yrrng</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1990</span>, <span class='fl'>2019</span>),
-  <span class='kw'>family</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>labelexp</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>txtlab</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>read_pepent</span>(<span class='no'>path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dat</th>
-      <td><p>data frame of data returned by <code><a href='read_pepwq.html'>read_pepwq</a></code></p></td>
-    </tr>
-    <tr>
-      <th>bay_segment</th>
-      <td><p>chr string for the bay segment, one of "Western", "Central", or "Eastern"</p></td>
-    </tr>
-    <tr>
-      <th>param</th>
-      <td><p>chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll and "sd" for secchi depth</p></td>
-    </tr>
-    <tr>
-      <th>trgs</th>
-      <td><p>optional <code>data.frame</code> for annual bay segment water quality thresholds, defaults to <code><a href='peptargets.html'>peptargets</a></code></p></td>
-    </tr>
-    <tr>
-      <th>yrrng</th>
-      <td><p>numeric vector indicating min, max years to include</p></td>
-    </tr>
-    <tr>
-      <th>family</th>
-      <td><p>optional chr string indicating font family for text labels</p></td>
-    </tr>
-    <tr>
-      <th>labelexp</th>
-      <td><p>logical indicating if y axis and target labels are plotted as expressions, default <code>TRUE</code></p></td>
-    </tr>
-    <tr>
-      <th>txtlab</th>
-      <td><p>logical indicating if a text label for the target value is shown in the plot</p></td>
+      <th>path</th>
+      <td><p>chr string of path for excel file</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></code> object</p>
+    <p>data.frame</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Raw data from here <a href='https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8'>https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other visualize: 
-<code><a href='show_boxpep.html'>show_boxpep</a>()</code>,
-<code><a href='show_entmatrix.html'>show_entmatrix</a>()</code>,
-<code><a href='show_matrixpep.html'>show_matrixpep</a>()</code>,
-<code><a href='show_plotlypep.html'>show_plotlypep</a>()</code>,
-<code><a href='show_reactablepep.html'>show_reactablepep</a>()</code>,
-<code><a href='show_segmatrixpep.html'>show_segmatrixpep</a>()</code>,
-<code><a href='show_sitemappep.html'>show_sitemappep</a>()</code>,
-<code><a href='show_wqmatrixpep.html'>show_wqmatrixpep</a>()</code></p></div>
+    <div class='dont-index'><p>Other read: 
+<code><a href='read_pepwq.html'>read_pepwq</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>show_thrpep</span>(<span class='no'>rawdat</span>, <span class='kw'>bay_segment</span> <span class='kw'>=</span> <span class='st'>'Western'</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>'chl'</span>)</div><div class='img'><img src='show_thrpep-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"enterodata.xlsx"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"pepreporting"</span>)
+<span class='no'>entdat</span> <span class='kw'>&lt;-</span> <span class='fu'>read_pepent</span>(<span class='no'>path</span>)</div><div class='output co'>#&gt; <span class='error'>Error in read_pepent(path): could not find function "read_pepent"</span></div><div class='input'><span class='no'>entdat</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'entdat' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
