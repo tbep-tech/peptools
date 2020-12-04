@@ -8,6 +8,7 @@ show_entmatrix(
   entdat,
   txtsz = 3,
   thr = 104,
+  cats = c(0, 1, 2),
   yrrng = c(2010, 2019),
   asreact = FALSE,
   nrows = 10,
@@ -20,6 +21,8 @@ show_entmatrix(
 \item{txtsz}{numeric for size of text in the plot, applies only if \code{asreact = FALSE}}
 
 \item{thr}{numeric value defining threshold for beach closure}
+
+\item{cats}{vector of three numeric values defining the color scheme for the report card}
 
 \item{yrrng}{numeric vector indicating min, max years to include}
 

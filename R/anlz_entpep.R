@@ -2,17 +2,21 @@
 #'
 #' @param entdat result returned from \code{\link{read_pepent}}
 #' @param thr numeric value defining threshold for beach closure
-#'
+#' @param cats vector of three numeric values defining the color scheme for the report card
+#' 
 #' @return A \code{data.frame} with counts of beach closures per year for each beach
 #' @export
 #'
-#' @details Exceedance threshold for closure is set by default as 104 cfu/100 ml criterion.  This is simply based on counts in a year when any value at any station was above the threshold.
+#' @details 
+#' Exceedance threshold for closure is set by default as 104 cfu/100 ml criterion.  This is simply based on counts in a year when any value at any station was above the threshold.
+#' 
+#' The \code{outcome} column in the output is defined by the numeric interval in \code{cats}, closed on the left.  This is used for the color scheme in \code{\link{show_entmatrix}}.
 #' 
 #' @family analyze
 #'
 #' @examples
 #' anlz_entpep(entdat)
-anlz_entpep <- function(entdat, thr = 104){
+anlz_entpep <- function(entdat, thr = 104, cats = c(0, 1, 2)){
 
   beaches <- c("Alberts Landing Beach", "Camp Blue Bay Beach", "Camp Quinipet Beach", 
     "Clearwater Beach", "Cornell Cooperative Extension Marine Center Beach", 
@@ -42,6 +46,13 @@ anlz_entpep <- function(entdat, thr = 104){
     dplyr::summarise(
       closures = sum(exceeds), 
       .groups = 'drop'
+    ) %>% 
+    dplyr::mutate(
+      outcome = dplyr::case_when(
+        closures >= cats[1] & closures < cats[2] ~ 'green',
+        closures >= cats[2] & closures < cats[3] ~ 'yellow', 
+        closures >= cats[3] ~ 'red'
+      )
     )
   
   return(out)

@@ -5,6 +5,7 @@
 #' @param entdat data frame of enterococcus data returned by \code{\link{read_pepent}}
 #' @param txtsz numeric for size of text in the plot, applies only if \code{asreact = FALSE}
 #' @param thr numeric value defining threshold for beach closure
+#' @param cats vector of three numeric values defining the color scheme for the report card
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param asreact logical indicating if a \code{\link[reactable]{reactable}} object is returned
 #' @param nrows if \code{asreact = TRUE}, a numeric specifying number of rows in the table
@@ -19,10 +20,10 @@
 #'
 #' @examples
 #' show_entmatrix(entdat)
-show_entmatrix <- function(entdat, txtsz = 3, thr = 104, yrrng = c(2010, 2019), asreact = FALSE, nrows = 10, family = NA){
+show_entmatrix <- function(entdat, txtsz = 3, thr = 104, cats = c(0, 1, 2), yrrng = c(2010, 2019), asreact = FALSE, nrows = 10, family = NA){
 
   # process data to plot
-  entpep <- anlz_entpep(entdat, thr = thr)
+  entpep <- anlz_entpep(entdat, thr = thr, cats = cats)
   toplo <- entpep %>% 
     dplyr::filter(yr >= yrrng[1] & yr <= yrrng[2]) 
   
@@ -30,13 +31,14 @@ show_entmatrix <- function(entdat, txtsz = 3, thr = 104, yrrng = c(2010, 2019), 
   if(asreact){
     
     totab <- toplo %>%
+      dplyr::select(-outcome) %>% 
       tidyr::spread(yr, closures)
     
     colfun <- function(x){
       
       out <- dplyr::case_when(
-        x == 1  ~ '#F9FF33',
-        x == 0 ~ '#33FF3B',
+        x >= cats[1] & x < cats[2] ~ '#33FF3B',
+        x >= cats[2] & x < cats[3]  ~ '#F9FF33',
         !is.numeric(x) ~ '#FFFFFF',
         T ~ '#FF3333'
       )
@@ -54,12 +56,7 @@ show_entmatrix <- function(entdat, txtsz = 3, thr = 104, yrrng = c(2010, 2019), 
   
   toplo <- toplo %>% 
     dplyr::mutate(
-      Name = factor(Name, levels = rev(unique(toplo$Name))), 
-      outcome = dplyr::case_when(
-        closures == 0 ~ 'green', 
-        closures == 1 ~ 'yellow', 
-        closures > 1 ~ 'red'
-      )
+      Name = factor(Name, levels = rev(unique(toplo$Name)))
     )
   
   # ggplot
