@@ -1,0 +1,84 @@
+---
+title: "Beach Pathogens"
+csl: stylefile.csl
+bibliography: refs.bib
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Beach Pathogens}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, message = F, warning = F}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = F, warning = F, fig.align = 'center')
+
+library(pepreporting)
+
+mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
+```
+
+Regular monitoring of swimming beach pathogens is conducted by Suffolk County Department of Health Services (SCDHS).  As noted on the Suffolk County website (https://www.suffolkcountyny.gov/Departments/Health-Services/Environmental-Quality/Ecology/Beach-Monitoring-Program), water quality at swimming beaches can be adversely affected by episodic sources such as stormwater runoff, wastewater discharges from boats or land-based septic systems, and fecal material from pets and wildlife. To provide information on the potential presence of pathogens public in swimming areas that may be impacted by such contamination, the Suffolk County Department of Health Services (SCDHS) conducts a comprehensive bathing beach water quality monitoring program from May through September each year. Sampling is performed by SCDHS staff, with analyses conducted by the Department’s accredited Public and Environmental Health Laboratory (PEHL). Data are available [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8).
+
+Information from this monitoring program can be summarized in 'stoplight' form, to allow the frequency of *Enterococcus*-based beach closures to be summarized and tracked. Functions in the pepreporting package can be used to import the pathogen data provided by SCHDS and PEHL, analyze relative exceedances of pathogen criterion, and plot the results as closures for swimming beaches each year.  This vignette describes use of these functions.
+
+For package installation instructions, please see the [Introduction](https://tbep-tech.github.io/pepreporting/articles/Introduction.html) vignette. 
+
+## Data import and processing
+
+The pathogen data can be imported using the `read_pepent()` function. A compressed folder that includes the data can be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8).  After the data are downloaded and extracted, the Excel file with the raw data is named "QryEnteros 2010 - 2019.xlsx", or something similar depending on when the data were downloaded.  The location of this file on your computer is passed to the import function. Below, a local file renamed as "enterodata.xlsx" that contains the water quality data is imported. 
+
+```{r}
+entdat <- read_pepent('../inst/extdata/enterodata.xlsx')
+head(entdat)
+```
+
+The raw data includes concentrations of *Enterococcus* bacteria as cfu/100 mL for dozens of swimming beaches in Suffolk County.  The imported data returned by `read_pepent()` has a similar format as the raw data with slight modifications for readability in R.  The fields include beach name (`Name`), field number (`FieldNum`), collection time (`Date` as Eastern Standard Time), bacteria concentration (`value`), and `status` showing if the observation was above or below detection (indicated as `>` or `<`).  
+
+The function `anlz_entpep()` summarizes the data at each beach to quantify the number of closures each year. Closures were identified by the number of instances in a year when *Enterococcus* exceeded a 104 cfu/100 ml criterion used by SFDHS. Note that this threshold is based on a single-sample limit, whereas alternative thresholds could be used based on 30-day averages. Exceedances at each beach within a year were counted as the number of days when any of the concentrations across the observations in `FieldNum` exceeded the threshold.  This avoids double-counting exceedances within a day if more than one value in `FieldNum` exceeded the threshold.
+
+The results show number of `closures` and an `outcome` column used for the "stoplight" graphic. Only the 28 relevant beaches for the Peconic Estuary are shown.
+
+```{r}
+anlz_entpep(entdat)
+```
+
+The `anlz_entpep()` function includes optional arguments for the threshold (`thr`) and break points for the outcome categories (`cats`).  The default values are 104 for `thr` and 0, 1, and 2 for `cats` (i.e., zero closures is green, one closure is yellow, and two or more are red).  The default values can easily be changed. Here we use a threshold of 50 cfu/100 mL and breakpoints of zero, two, and four.
+
+```{r}
+anlz_entpep(entdat, thr = 50, cats = c(0, 2, 4))
+```
+
+## Plotting results
+
+The stoplight graphic can be plotted using the `show_matrixpep()` function. This creates an annual reporting matrix for the number of beach closures at 28 selected beaches in the Peconic Estuary. Tracking the number of closures provides a framework for identifying locations that may need management actions to remediate potential public health issues.  
+
+```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of *Enterococcus*-related Peconic Estuary beach closures for the years 2010 through 2019.'}
+show_entmatrix(entdat)
+```
+
+The `anlz_entpep()` function is used internally in `show_entmatrix()`, such that the optional arguments for the threshold (`thr`) and break points for the outcome categories (`cats`) also apply in the plotting function.  Appropriate thresholds and number of closures defining the color scheme should be identified. Potential alternatives can be viewed by using different values for the `thr` and `cats` arguments. 
+
+```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of *Enterococcus*-related Peconic Estuary beach closures for the years 2010 through 2019.'}
+show_entmatrix(entdat, thr = 35, cats = c(0, 1, 3))
+```
+
+The matrix is also a `ggplot` object and its layout can be changed using `ggplot` elements. Note the use of `txtsz = NULL` to remove the color labels. 
+
+```{r, fig.height = 1.5, fig.width = 8}
+show_entmatrix(entdat, txtsz = NULL) +
+  scale_x_discrete(expand = c(0,0), breaks = c(2000:2019)) + 
+  coord_flip() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 7))
+```
+
+If preferred, the matrix can also be returned in an HTML table that can be sorted and scrolled. 
+
+```{r}
+show_entmatrix(entdat, asreact = TRUE)
+```
+
+Use a sufficiently large number to view the entire matrix.
+
+```{r}
+show_entmatrix(dat, asreact = TRUE, nrows = 200)
+```

@@ -26,7 +26,7 @@ read_pepent <- function(path){
       Time = as.numeric(Time),
       Time =  as.POSIXct((Time) * 86400, origin = "1970-01-01", tz = 'UTC'),
       Time = format(Time, "%H:%M"),
-      code = gsub('[0-9]+|\\.|\\s+', '', value),
+      status = gsub('[0-9]+|\\.|\\s+', '', value),
       value = gsub('>|<', '', value), 
       value = as.numeric(value), 
     ) %>% 
