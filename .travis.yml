@@ -9,6 +9,8 @@ apt_packages:
   - libgdal-dev
   - libgeos-dev
   - libproj-dev
+  - libharfbuzz-dev
+  - libfribidi-dev
 script:
   - sudo apt-get install r-cran-devtools
   - R -e 'devtools::install_deps(dep = T)'
@@ -23,3 +25,14 @@ notifications:
     - mbafs2012@gmail.com
     on_success: change
     on_failure: change
+after_success:
+    - Rscript -e "pkgdown::build_site()"
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+  local_dir: docs
+  keep-history: true
+  allow-empty-commit: false
