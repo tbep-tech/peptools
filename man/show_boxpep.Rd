@@ -52,6 +52,7 @@ show_boxpep(rawdat, bay_segment = 'Western')
 }
 \seealso{
 Other visualize: 
+\code{\link{show_entmatrix}()},
 \code{\link{show_matrixpep}()},
 \code{\link{show_plotlypep}()},
 \code{\link{show_reactablepep}()},

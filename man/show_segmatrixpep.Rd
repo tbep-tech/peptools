@@ -46,6 +46,7 @@ show_segmatrixpep(rawdat, bay_segment = 'Western')
 
 Other visualize: 
 \code{\link{show_boxpep}()},
+\code{\link{show_entmatrix}()},
 \code{\link{show_matrixpep}()},
 \code{\link{show_plotlypep}()},
 \code{\link{show_reactablepep}()},

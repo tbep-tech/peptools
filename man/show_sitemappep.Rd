@@ -41,6 +41,7 @@ show_sitemappep(rawdat, yrsel = 2018)
 \seealso{
 Other visualize: 
 \code{\link{show_boxpep}()},
+\code{\link{show_entmatrix}()},
 \code{\link{show_matrixpep}()},
 \code{\link{show_plotlypep}()},
 \code{\link{show_reactablepep}()},

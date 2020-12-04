@@ -18,7 +18,7 @@ A \code{data.frame} with counts of beach closures per year for each beach
 Count beach exceedances for enterococcus
 }
 \details{
-Exceedance threshold for closure is set by default as 104 cfu/100 ml criterion.
+Exceedance threshold for closure is set by default as 104 cfu/100 ml criterion.  This is simply based on counts in a year when any value at any station was above the threshold.
 }
 \examples{
 anlz_entpep(entdat)

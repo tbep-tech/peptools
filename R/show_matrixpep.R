@@ -2,8 +2,8 @@
 #'
 #' @description Create a colorized table for indicator reporting
 #'
-#' @param dat data frame of epc data returned by \code{\link{read_pepwq}}
-#' @param txtsz numeric for size of text in the plot, applies only if \code{tab = FALSE}
+#' @param dat data frame of water quality data returned by \code{\link{read_pepwq}}
+#' @param txtsz numeric for size of text in the plot, applies only if \code{asreact = FALSE}
 #' @param trgs optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param bay_segment chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"
