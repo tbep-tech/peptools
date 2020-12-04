@@ -20,8 +20,8 @@ Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html
 }
 \examples{
 path <- system.file("extdata", "enterodata.xlsx", package="pepreporting")
-dat <- read_pepent(path)
-dat
+entdat <- read_pepent(path)
+entdat
 }
 \seealso{
 Other read: 

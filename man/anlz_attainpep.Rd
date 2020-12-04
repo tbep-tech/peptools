@@ -25,6 +25,7 @@ anlz_attainpep(meddat)
 }
 \seealso{
 Other analyze: 
+\code{\link{anlz_entpep}()},
 \code{\link{anlz_medpep}()}
 }
 \concept{analyze}

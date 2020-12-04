@@ -15,8 +15,8 @@
 #' 
 #' @examples
 #' path <- system.file("extdata", "enterodata.xlsx", package="pepreporting")
-#' dat <- read_pepent(path)
-#' dat
+#' entdat <- read_pepent(path)
+#' entdat
 read_pepent <- function(path){
 
   out <- readxl::read_xlsx(path, col_types = c('text', 'text', 'text', 'date', 'text', 'text', 'text')) %>% 

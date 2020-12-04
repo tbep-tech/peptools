@@ -21,6 +21,7 @@ anlz_medpep(rawdat)
 }
 \seealso{
 Other analyze: 
-\code{\link{anlz_attainpep}()}
+\code{\link{anlz_attainpep}()},
+\code{\link{anlz_entpep}()}
 }
 \concept{analyze}
