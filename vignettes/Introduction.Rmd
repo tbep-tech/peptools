@@ -81,7 +81,8 @@ The package includes a `pepstations` data object that includes metadata for each
 ```{r}
 prj <- 4326
 locs <- pepstations %>% 
-  st_as_sf(coords = c('Longitude', 'Latitude'), crs = prj)
+  st_as_sf(coords = c('Longitude', 'Latitude'), crs = prj) %>% 
+  mutate(bay_segment = as.character(bay_segment))
 
 mapview(locs, zcol = 'bay_segment', layer.name = 'Bay segment', map.types = mptyps)   
 ```
