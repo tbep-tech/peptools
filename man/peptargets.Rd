@@ -28,11 +28,13 @@ save(peptargets, file = 'data/peptargets.RData', compress= 'xz')
 }
 \seealso{
 Other utilities: 
+\code{\link{dodat}},
 \code{\link{entdat}},
 \code{\link{pepstations}},
 \code{\link{rawdat}}
 
 Other utilities: 
+\code{\link{dodat}},
 \code{\link{entdat}},
 \code{\link{pepstations}},
 \code{\link{rawdat}}

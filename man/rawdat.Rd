@@ -22,6 +22,7 @@ save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 }
 \seealso{
 Other utilities: 
+\code{\link{dodat}},
 \code{\link{entdat}},
 \code{\link{pepstations}},
 \code{\link{peptargets}}
