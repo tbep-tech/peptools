@@ -47,6 +47,7 @@ show_matrixpep(rawdat)
 \seealso{
 Other visualize: 
 \code{\link{show_boxpep}()},
+\code{\link{show_domatrix}()},
 \code{\link{show_entmatrix}()},
 \code{\link{show_plotlypep}()},
 \code{\link{show_reactablepep}()},

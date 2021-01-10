@@ -14,31 +14,20 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = F, warning = F,
 
 library(pepreporting)
 library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(lubridate)
-library(patchwork)
 
 data(dodat)
 
 mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
 
-This document describes a potential proof of concept for summarizing and reporting dissolved oxygen (DO) data for the Peconic Estuary.  Two continuous USGS monitoring stations collect DO data at locations in or near the Peconic Estuary.  The `dodat` data object includes sample data from these stations.  This dataset was obtained using the USGS dataRetrieval R package as follows:
+This vignette describes a proof of concept for summarizing and reporting dissolved oxygen (DO) data for the Peconic Estuary.  Two continuous USGS monitoring stations collect DO data at locations in the Peconic Estuary: USGS stations 01304562 in the Peconic River and 01304200 in Orient Harbor.  Data at these stations can be downloaded using the `read_pepdo()` function.  
 
 ```{r, eval = F}
-library(dataRetrieval)
-
-# get DO data from USGS stations
-# 01304562 is Peconic River, 01304200 is Orient Harbor
-# downloaded data are in UTC
-# for cd column, USGS daily value qualification codes are often “A” (approved for publication) or “P” (provisional data subject to revision)
-# above is from vignette https://cran.r-project.org/web/packages/dataRetrieval/vignettes/dataRetrieval.html
-# takes a few minutes to dl
-dodat <- readNWISuv(siteNumbers = c('01304562', '01304200'), parameterCd = '00300', startDate = '2013-01-01', endDate = '2020-12-31') %>%
-  select(site = site_no, DateTime = dateTime, do_mgl = X_00300_00000) %>%
-  mutate(DateTime = with_tz(DateTime, tzone = 'America/Jamaica'))
+exdat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Orient Harbor'), startDate = '2020-06-01', endDate = '2020-06-30')
 ```
+
+The `dodat` data object included with the package provides DO data from 2013 to 2020 at the two sites.  This takes several minutes to download using the `read_pepdo()` function, so it is included with the package for ease of use.
+
 ```{r}
 head(dodat)
 ```
@@ -55,138 +44,55 @@ ggplot(dodat, aes(x = DateTime, y = do_mgl)) +
   labs(
     y = 'Dissolved oxygen (mg/L)', 
     x = NULL, 
-    title = 'Dissolved oxygen time series at Orient Harbor (01304200) and Peconic River (01304562)', 
+    title = 'Dissolved oxygen time series at Orient Harbor and Peconic River', 
     subtitle = 'Dashed lines are chronic and acute threhsolds (4.8, 3 mg/L)'
   )
 ```
 
-Dissolved oxygen data typically show daily and and seasonal variation.  The continuous data requires considerable summary to present the data in an easily interpretable format for management decisions and to present the data in a way that expresses condition.  For both, acute (3 mg/L) and chronic (4.8 mg/L) dissolved oxygen thresholds can be applied to summarize the data in different ways.  
+Dissolved oxygen data typically show daily and seasonal variation.  Summaries of condition should account for variation at both temporal scales. Further, the impact of low dissolved oxygen concentrations on biota can vary depending on both magnitude and duration of hypoxia/anoxia.  As such, condition assessment could also consider how often concentrations fall below a thresholds and for how long. The assessments below speak to each of these needs. 
 
-Further, the impact of low dissolved oxygen concentrations can vary depending on both magnitude and duration of hypoxia/anoxia.  As such, condition assessment could also consider how often concentrations fall below a thresholds and for how long. The assessments below speak to both of these needs.
-
-First, the data are summarized from the continuous (~6 minute observations) to daily averages and summaries.
+First, the data can be summarized from the continuous (~6 minute observations) to daily averages using the `anlz_dodlpep()` function.  A user-specified threshold can be supplied to the `thr` argument to summarize the data relative to a value of interest, the default value being the acute threshold of 3 mg/L (an alternative may be the chronic threshold of 4.8 mg/L).
 
 ```{r}
 # 3 mg/l is acute, 4.8 mg/l is chronic
-dlysum <- dodat %>% 
-  mutate(
-    Date = as.Date(DateTime)
-  ) %>% 
-  group_by(Date) %>% 
-  summarise(
-    acute = ifelse(any(do_mgl < 3), 1, 0), 
-    chronic = ifelse(any(do_mgl < 4.8), 1, 0), 
-    do_mgl = mean(do_mgl), 
-    .groups = 'drop'
-  ) 
+dlysum <- anlz_dodlypep(dodat, thr = 3)
 dlysum
 ```
 
-Columns for acute and chronic indicate if DO concentrations were below the respective threshold at any point during each day. To address the duration of exposure to undersatured conditions, a cumulative tally of the number of days at which dissolved oxygen fell below is threshold is also calculated.  These are present in the `acute_cumsum` and `acute_chronicsum` columns.
+The last three columns show the daily summarized data.  The `do_mgl` column shows the average DO concentration for each day, the `below` column shows a 1 (yes) or 0 (no) if the concentration was below the threshold value at any point during a day, and the `below_cumsum` column shows a cumulative tally of the number of days in each month at which dissolved oxygen fell below the threshold at any point during a day.
+
+The data can also be summarized by month using the `anlz_domopep()` function.  Summarizing by month distills the information into a simple format for plotting.  Internally, the `anlz_domopep()` function uses the `anlz_dodlypep()` function to first summarize results by day, which are then summarized by month.
 
 ```{r}
-dlysum <- dlysum %>% 
-  group_by(grp = cumsum(acute == 0), yr = year(Date), mo = month(Date)) %>% 
-  mutate(
-    acute_cumsum = cumsum(acute)
-  ) %>% 
-  ungroup %>% 
-  group_by(grp = cumsum(chronic == 0), yr, mo) %>% 
-  mutate(
-    chronic_cumsum = cumsum(chronic)
-  ) %>% 
-  select(-grp)
-dlysum
-```
-
-The daily data provides the basis for summarizing seasonal information by month.  Summarizing by month distills in the information into an easily digestible format for plotting.  
-
-```{r}
-mosum <- dlysum %>% 
-  group_by(
-    yr = year(Date), 
-    mo = month(Date, label = T, abbr = T)
-  ) %>% 
-  summarise(
-    do_mgl = mean(do_mgl), 
-    acute = mean(acute), 
-    acute_cumsum = max(acute_cumsum), 
-    chronic = mean(chronic), 
-    chronic_cumsum = max(chronic_cumsum), 
-    .groups = 'drop'
-  )
+mosum <- anlz_domopep(dodat, thr = 3)
 mosum
 ```
 
-There are several ways the data were summarized:
+The last three columns show the monthly summarized data, where `do_mgl` is the average of all daily DO averages across the month, `below_ave` is the proportion of days in a month when concentrations in a given day fell below the threshold (1 would mean all days had an instance of DO below the threshold, 0 would mean none), and `below_maxrun()` is the maximum number of sequential days in a month when concentrations in a given day fell below the threshold (30 or 31, depending on month, would indicate all days in a month had an instance of DO below the threshold). 
 
-1) `acute`: The proportion of days in a month when concentrations in a given day fell below 3 mg/L
-1) `chronic`: The proportion of days in a month when concentrations in a given day fell below 4.8 mg/L
-1) `acute_cumsum`: The maximum number of sequential days in a month when concentrations in a given day fell below 3 mg/L
-1) `chronic_cumsum`: The average number of sequential days in a month when concentrations in a given day fell below 4.8 mg/L
+The `below_ave` and `below_maxrun` columns summarize the DO data differently depending on how hypoxia/anoxia conditions can be described relative to potential impacts on biological resources. The `below_ave` column summarizes undersaturation relative to only the number of times hypoxia conditions occurred, whereas the `below_maxrun` column summarizes undersaturation relative to both the number of instances and duration of hypoxia.  In other words, biota may be stressed differently depending on the number of times hypoxia occurs vs how long it may persist. The two measures may indicate similar information, but not always depending on characteristics of the DO time series.    
 
-The first two item address only the number of times hypoxia conditions occurred, whereas the last two items address both the number of instances and duration of hypoxia. 
-
-The first two plot show the first two summaries.
+The summarized monthly data can be plotted with the `show_domatrix()` function. In this example, the default plot shows the proportion of days in a month when concentrations in a given day fell below a threshold of 3 mg/L. 
 
 ```{r, fig.height = 6, fig.width = 8}
-ylims <- c(2013, 2020)
-pthm <- theme_bw() + 
-  theme(
-    axis.title = element_blank(), 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(), 
-    legend.title = element_blank()
-  )
-
-p1 <- ggplot(mosum, aes(x = mo, y = yr, fill = acute)) + 
-  geom_tile(colour = 'black') + 
-  scale_x_discrete(expand = c(0, 0)) + 
-  scale_y_continuous(expand = c(0, 0), breaks = seq(ylims[1], ylims[2])) + 
-  scale_fill_gradient2(low = 'green', mid = 'yellow', high = 'red', midpoint = 0.5) +
-  pthm +
-  labs(
-    subtitle = '(a) The proportion of days each month when concentrations in a given day fell below 3 mg/L'
-  )
-  
-p2 <- ggplot(mosum, aes(x = mo, y = yr, fill = chronic)) + 
-  geom_tile(colour = 'black') + 
-  scale_x_discrete(expand = c(0, 0)) + 
-  scale_y_continuous(expand = c(0, 0), breaks = seq(ylims[1], ylims[2])) + 
-  scale_fill_gradient2(low = 'green', mid = 'yellow', high = 'red', midpoint = 0.5) +
-  pthm +
-  labs(
-    subtitle = '(b) The proportion of days each month when concentrations in a given day fell below 4.8 mg/L'
-  )
-
-p1 + p2 + plot_layout(ncol = 1)
+show_domatrix(dodat, thr = 3, show = 'below_ave')
 ```
 
-The next two plots show the third and fourth summaries that address severity and duration of hypoxia.
+The maximum number of sequential days in a month when concentrations in a given day fell below the threshold can also be plotted by changing the `show` argument. 
 
 ```{r, fig.height = 6, fig.width = 8}
-p1 <- ggplot(mosum, aes(x = mo, y = yr, fill = acute_cumsum)) + 
-  geom_tile(colour = 'black') + 
-  scale_x_discrete(expand = c(0, 0)) + 
-  scale_y_continuous(expand = c(0, 0), breaks = seq(ylims[1], ylims[2])) + 
-  scale_fill_gradient2(low = 'green', mid = 'yellow', high = 'red', midpoint = 15) +
-  pthm +
-  labs(
-    subtitle = '(a) The maximum number of sequential days in a month when concentrations in a given day fell below 3 mg/L'
-  )
-  
-p2 <- ggplot(mosum, aes(x = mo, y = yr, fill = chronic_cumsum)) + 
-  geom_tile(colour = 'black') + 
-  scale_x_discrete(expand = c(0, 0)) + 
-  scale_y_continuous(expand = c(0, 0), breaks = seq(ylims[1], ylims[2])) + 
-  scale_fill_gradient2(low = 'green', mid = 'yellow', high = 'red', midpoint = 15) +
-  pthm +
-  labs(
-    subtitle = '(b) The maximum number of sequential days in a month when concentrations in a given day fell below 4.8 mg/L'
-  )
-
-p1 + p2 + plot_layout(ncol = 1)
+show_domatrix(dodat, thr = 3, show = 'below_maxrun')
 ```
 
-Plotting the results provides insights into hypoxia patterns at the site depending on how under-saturated conditions were summarized.
+The threshold can also be changed.  For example, the chronic threshold of 4.8 mg/L shows conditions relative to a more conservative threshold. 
+
+```{r, fig.height = 6, fig.width = 8}
+show_domatrix(dodat, thr = 4.8, show = 'below_ave')
+```
+
+Plotting the results provides insights into hypoxia patterns at the site depending on how under-saturated conditions were summarized.  Additional considerations may include:
+
+1) Relevance of a threshold to biological indicator 
+1) Spatial extent of the indicators
+1) Breakpoints for management decisions
 

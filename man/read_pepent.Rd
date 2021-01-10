@@ -25,7 +25,6 @@ entdat
 }
 \seealso{
 Other read: 
-\code{\link{anlz_dodlypep}()},
 \code{\link{read_pepdo}()},
 \code{\link{read_pepwq}()}
 }

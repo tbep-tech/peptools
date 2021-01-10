@@ -65,7 +65,7 @@ show_entmatrix <- function(entdat, txtsz = 3, thr = 104, cats = c(0, 1, 2), yrrn
     ggplot2::scale_y_discrete(expand = c(0, 0)) +
     ggplot2::scale_x_discrete(expand = c(0, 0), position = 'top') +
     ggplot2::scale_fill_manual(values = c(red = 'red', yellow = 'yellow', green = 'green')) +
-    ggplot2::theme_bw() +
+    ggplot2::theme_bw(base_family = family) +
     ggplot2::theme(
       axis.title = ggplot2::element_blank(),
       legend.position = 'none', 

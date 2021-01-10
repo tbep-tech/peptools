@@ -18,7 +18,7 @@
 #'
 #' @seealso \code{\link{show_wqmatrixpep}}, \code{\link{show_matrixpep}}
 #'
-#' @importFrom magrittr "%>%"
+#' @importFrom dplyr "%>%"
 #'
 #' @import ggplot2
 #'

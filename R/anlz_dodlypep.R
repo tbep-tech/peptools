@@ -12,7 +12,7 @@
 #'
 #' @importFrom dplyr "%>%"
 #' 
-#' @family read
+#' @family analyze
 #' 
 #' @examples
 #' data(dodat)
@@ -26,12 +26,17 @@ anlz_dodlypep <- function(dodat, thr = 3){
     ) %>% 
     dplyr::group_by(site, Date) %>% 
     dplyr::summarise(
-      below = ifelse(any(do_mgl < !thr), 1, 0), 
+      below = ifelse(any(do_mgl < thr), 1, 0), 
       do_mgl = mean(do_mgl), 
       .groups = 'drop'
     ) %>% 
     dplyr::arrange(site, Date) %>% 
-    dplyr::group_by(site, grp = cumsum(below == 0), yr = year(Date), mo = month(Date)) %>% 
+    dplyr::group_by(
+      site, 
+      grp = cumsum(below == 0), 
+      yr = lubridate::year(Date), 
+      mo = lubridate::month(Date)
+      ) %>% 
     dplyr::mutate(
       below_cumsum = cumsum(below)
     ) %>% 

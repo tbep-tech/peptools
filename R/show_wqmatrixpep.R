@@ -20,7 +20,7 @@
 #' @seealso \code{\link{show_matrixpep}}, \code{\link{show_segmatrixpep}}
 #' @export
 #'
-#' @importFrom magrittr "%>%"
+#' @importFrom dplyr "%>%"
 #'
 #' @import ggplot2
 #'

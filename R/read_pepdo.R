@@ -19,8 +19,9 @@
 #' @family read
 #' 
 #' @examples
-#' \dontRun{
-#' dodat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Orient Harbor'), startDate = '2020-06-01', endDate = '2020-06-30')
+#' \dontrun{
+#' dodat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Orient Harbor'), 
+#'      startDate = '2020-06-01', endDate = '2020-06-30')
 #' dodat
 #' }
 read_pepdo <- function(site = c('01304562', '01304200'), nms = NULL, startDate = '2013-01-01', endDate = '2020-12-31'){

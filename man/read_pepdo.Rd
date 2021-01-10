@@ -27,19 +27,19 @@ data.frame
 Import dissolved oxygen data
 }
 \details{
-Raw data are downloaded using the USGS dataRetrieval R package, this function is a simple wrapper to the \code{\link[dataRetrieval]{readNWISuv}} function
+Raw data are downloaded using the USGS dataRetrieval R package, this function is a simple wrapper to the \code{\link[dataRetrieval]{readNWISuv}} function.
 
-Note that download the station data with the default argument may take a few minutes. 01304562 is Peconic River, 01304200 is Orient Harbor.
+Note that downloading the station data with the default arguments may take a few minutes. Site are 01304562 for Peconic River, 01304200 for Orient Harbor.
 }
 \examples{
-\dontRun{
-dodat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Orient Harbor'), startDate = '2020-06-01', endDate = '2020-06-30')
+\dontrun{
+dodat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Orient Harbor'), 
+     startDate = '2020-06-01', endDate = '2020-06-30')
 dodat
 }
 }
 \seealso{
 Other read: 
-\code{\link{anlz_dodlypep}()},
 \code{\link{read_pepent}()},
 \code{\link{read_pepwq}()}
 }

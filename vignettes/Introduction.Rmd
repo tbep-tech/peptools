@@ -54,6 +54,8 @@ The following shows all functions provided in pepreporting, organized by prefix.
 
 * `anlz_dodlypep()`: Analyze daily DO values relative to threshold
 
+* `anlz_domopep()`: Analyze monthly DO values relative to threshold
+
 * `anlz_entpep()`: Count beach exceedances for enterococcus
 
 * `anlz_medpep()`: Estimate annual medians

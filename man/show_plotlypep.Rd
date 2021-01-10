@@ -29,6 +29,7 @@ show_plotlypep(rawdat)
 \seealso{
 Other visualize: 
 \code{\link{show_boxpep}()},
+\code{\link{show_domatrix}()},
 \code{\link{show_entmatrix}()},
 \code{\link{show_matrixpep}()},
 \code{\link{show_reactablepep}()},
