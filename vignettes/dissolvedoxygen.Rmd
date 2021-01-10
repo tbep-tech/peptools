@@ -36,7 +36,7 @@ A plot of the raw data:
 
 ```{r, fig.height = 8, fig.width = 8}
 ggplot(dodat, aes(x = DateTime, y = do_mgl)) + 
-  geom_line() + 
+  geom_point() + 
   geom_hline(yintercept = 4.8, linetype = 'dashed', colour = 'red') + 
   geom_hline(yintercept = 3, linetype = 'dashed', colour = 'red') +
   facet_wrap(~site, ncol = 1) +
