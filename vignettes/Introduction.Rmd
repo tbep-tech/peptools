@@ -42,6 +42,8 @@ The following shows all functions provided in pepreporting, organized by prefix.
 
 #### Read
 
+* `read_pepdo()`: Import dissolved oxygen data
+
 * `read_pepwq()`: Load local water quality file
 
 * `read_pepent()`: Load Enterococcus beach data file
@@ -49,6 +51,8 @@ The following shows all functions provided in pepreporting, organized by prefix.
 #### Analyze
 
 * `anlz_attainpep()`: Get attainment categories
+
+* `anlz_dodlypep()`: Analyze daily DO values relative to threshold
 
 * `anlz_entpep()`: Count beach exceedances for enterococcus
 

@@ -19,6 +19,8 @@ library(tidyr)
 library(lubridate)
 library(patchwork)
 
+data(dodat)
+
 mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
 
@@ -28,12 +30,12 @@ This document describes a potential proof of concept for summarizing and reporti
 library(dataRetrieval)
 
 # get DO data from USGS stations
-# 01304562 is Peconic River
+# 01304562 is Peconic River, 01304200 is Orient Harbor
 # downloaded data are in UTC
 # for cd column, USGS daily value qualification codes are often “A” (approved for publication) or “P” (provisional data subject to revision)
 # above is from vignette https://cran.r-project.org/web/packages/dataRetrieval/vignettes/dataRetrieval.html
 # takes a few minutes to dl
-dodat <- readNWISuv(siteNumbers = '01304562', parameterCd = '00300', startDate = '2013-01-01', endDate = '2020-12-31') %>%
+dodat <- readNWISuv(siteNumbers = c('01304562', '01304200'), parameterCd = '00300', startDate = '2013-01-01', endDate = '2020-12-31') %>%
   select(site = site_no, DateTime = dateTime, do_mgl = X_00300_00000) %>%
   mutate(DateTime = with_tz(DateTime, tzone = 'America/Jamaica'))
 ```
@@ -43,16 +45,17 @@ head(dodat)
 
 A plot of the raw data: 
 
-```{r, fig.height = 3, fig.width = 7}
+```{r, fig.height = 8, fig.width = 8}
 ggplot(dodat, aes(x = DateTime, y = do_mgl)) + 
   geom_line() + 
   geom_hline(yintercept = 4.8, linetype = 'dashed', colour = 'red') + 
   geom_hline(yintercept = 3, linetype = 'dashed', colour = 'red') +
-  theme_bw() +
+  facet_wrap(~site, ncol = 1) +
+  theme_minimal() + 
   labs(
     y = 'Dissolved oxygen (mg/L)', 
     x = NULL, 
-    title = 'Dissolved oxygen time series at USGS station 01304562 (Peconic R.)', 
+    title = 'Dissolved oxygen time series at Orient Harbor (01304200) and Peconic River (01304562)', 
     subtitle = 'Dashed lines are chronic and acute threhsolds (4.8, 3 mg/L)'
   )
 ```
@@ -64,7 +67,6 @@ Further, the impact of low dissolved oxygen concentrations can vary depending on
 First, the data are summarized from the continuous (~6 minute observations) to daily averages and summaries.
 
 ```{r}
-
 # 3 mg/l is acute, 4.8 mg/l is chronic
 dlysum <- dodat %>% 
   mutate(
@@ -80,7 +82,7 @@ dlysum <- dodat %>%
 dlysum
 ```
 
-Indicator columns for acute and chronic indicate if DO concentrations were below the respective threshold at any point during each day. To address the duration of exposure to undersatured conditions, a cumulative tally of the number of days at which dissolved oxygen fell below is threshold is also calculated.  These are present in the `acute_cumsum` and `acute_chronicsum` columns.
+Columns for acute and chronic indicate if DO concentrations were below the respective threshold at any point during each day. To address the duration of exposure to undersatured conditions, a cumulative tally of the number of days at which dissolved oxygen fell below is threshold is also calculated.  These are present in the `acute_cumsum` and `acute_chronicsum` columns.
 
 ```{r}
 dlysum <- dlysum %>% 
