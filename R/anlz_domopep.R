@@ -3,7 +3,7 @@
 #' Analyze monthly DO values relative to threshold
 #'
 #' @param dodat result returned from \code{\link{read_pepdo}}
-#' @param thr numeric indicating appropriate dissolved oxygen thresholds, usually 3 mg/L for acute, 4.8 mg/L for chronic
+#' @param thr numeric indicating appropriate dissolved oxygen thresholds, usually 2.3 mg/L for acute, 4.8 mg/L for chronic
 #'
 #' @return data.frame
 #' @export
@@ -18,7 +18,7 @@
 #' data(dodat)
 #' dat <- anlz_domopep(dodat)
 #' dat
-anlz_domopep <- function(dodat, thr = 3){
+anlz_domopep <- function(dodat, thr = 2.3){
   
   out <- anlz_dodlypep(dodat, thr = thr) %>% 
     dplyr::group_by(

@@ -8,7 +8,7 @@ show_domatrix(
   dodat,
   show = c("below_ave", "below_maxrun"),
   txtsz = 3,
-  thr = 3,
+  thr = 2.3,
   yrrng = c(2013, 2020),
   family = NA
 )
@@ -20,7 +20,7 @@ show_domatrix(
 
 \item{txtsz}{numeric for size of text in the plot, applies only if \code{asreact = FALSE}}
 
-\item{thr}{numeric indicating appropriate dissolved oxygen thresholds, usually 3 mg/L for acute, 4.8 mg/L for chronic}
+\item{thr}{numeric indicating appropriate dissolved oxygen thresholds, usually 2.3 mg/L for acute, 4.8 mg/L for chronic}
 
 \item{yrrng}{numeric vector indicating min, max years to include}
 
