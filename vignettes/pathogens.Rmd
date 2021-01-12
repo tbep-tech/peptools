@@ -35,15 +35,7 @@ head(entdat)
 
 The raw data includes concentrations of *Enterococcus* bacteria as cfu/100 mL for swimming beaches in Suffolk County.  The imported data returned by `read_pepent()` has a similar format as the raw data with slight modifications for readability in R.  The fields include beach name (`Name`), field number (`FieldNum`), collection date and time (`Date` as Eastern Standard Time), bacteria concentration (`value`), and `status` showing if the observation was above or below detection (indicated as `>` or `<`).  
 
-The function `anlz_entpep()` summarizes the imported data at each beach to quantify the number of closures each year. For Suffolk County, all bathing beaches are ranked by relative risk of exposure to harmful bacteria associated with their use. Factors considered in the ranking include pollution threats (outfalls, discharges, runoff, marinas, etc.), beach location, historical monitoring data, and beach use.  
-
-* __Tier 1__ are beaches with the greatest level of risk and are monitored most frequently with at least 2-3 samples collected weekly. Sampling extends from approximately May 15th through September 15th. 
-
-* __Tier 2__ beaches are sampled in the same manner, with at least 1-2 samples collected weekly. Depending on the risk factors involved, and if results warrant, some Tier 2 beaches may be sampled on a less frequent basis. 
-
-* __Tier 3__ beaches, predominantly located on the open waters of the Atlantic Ocean, are sampled the least.
-
-Most beaches in the Peconic Estuary are Tier 2. If an initial sample exceeds 104 cfu/ml at a Tier 2 beach, an additional sample is taken usually the next day. The beach is closed if both samples exceed 104 cfu/ml.
+The function `anlz_entpep()` summarizes the imported data at each beach to quantify the number of closures each year. For Suffolk County, all bathing beaches are ranked by relative risk of exposure to harmful bacteria. Factors considered in the ranking include pollution threats (outfalls, discharges, runoff, marinas, etc.), beach location, historical monitoring data, and beach use.  Most beaches in the Peconic Estuary are Tier 2, with at least 1-2 samples collected weekly. If an initial sample exceeds 104 cfu/ml at a Tier 2 beach, an additional sample is taken usually the next day. The beach is closed if both samples exceed 104 cfu/ml.
 
 For the pepreporting package, the *Enterococcus* data were used to count the number of closures at each beach with the assumption that the data were an accurate proxy for beach closures. Since most beaches were Tier 2, a closure was identified if any sample within a 24 hour period exceeded the threshold at a given beach. Closures each year were then counted as the number of 24 hour periods when two or more samples exceeded the threshold.
 
