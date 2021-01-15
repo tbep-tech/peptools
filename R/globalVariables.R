@@ -2,7 +2,7 @@ globalVariables(c('BayStation', 'Chlorophyll A - Total', 'Date', 'Secchi', 'bay_
                   'chla', 'data', 'est', 'lwr.ci', 'mags', 'mdv', 'medv', 'mo', 'outcome',
                   'pepstations', 'peptargets', 'thresh', 'upr.ci', 'val', 'var', 'yr', '.', 'Action', 'chla_sd', 'outcometxt',
                   '0.95LCL', '0.95UCL', 'status', 'tosep', 'Result', 'durats', 'segval', 'cexs', 'val2',
-                  'ColDate', 'FieldNum', 'Name', 'Time', 'closures', 'exceeds', 'DateTime', 'X_00300_00000', 'below',
+                  'ColDate', 'FieldNum', 'Name', 'Time', 'exceedances', 'exceeds', 'DateTime', 'X_00300_00000', 'below',
                   'below_ave', 'below_cumsum', 'dateTime', 'do_mgl', 'site', 'site_no'))
 
 #' @importFrom stats median na.omit quantile sd

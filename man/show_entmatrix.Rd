@@ -2,7 +2,7 @@
 % Please edit documentation in R/show_entmatrix.R
 \name{show_entmatrix}
 \alias{show_entmatrix}
-\title{Create a colorized table for beach closure reporting}
+\title{Create a colorized table for beach pathogen exceedances}
 \usage{
 show_entmatrix(
   entdat,
@@ -20,7 +20,7 @@ show_entmatrix(
 
 \item{txtsz}{numeric for size of text in the plot, applies only if \code{asreact = FALSE}}
 
-\item{thr}{numeric value defining threshold for beach closure}
+\item{thr}{numeric value defining threshold for exceedance}
 
 \item{cats}{vector of three numeric values defining the color scheme for the report card}
 
@@ -36,7 +36,7 @@ show_entmatrix(
 A static \code{\link[ggplot2]{ggplot}} object is returned if \code{asreact = FALSE}, otherwise a \code{\link[reactable]{reactable}} table is returned
 }
 \description{
-Create a colorized table for beach closure reporting
+Create a colorized table for beach pathogen exceedances
 }
 \examples{
 show_entmatrix(entdat)

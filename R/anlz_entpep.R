@@ -1,14 +1,14 @@
 #' Count beach exceedances for enterococcus
 #'
 #' @param entdat result returned from \code{\link{read_pepent}}
-#' @param thr numeric value defining threshold for beach closure
+#' @param thr numeric value defining threshold for exceedance
 #' @param cats vector of three numeric values defining the color scheme for the report card
 #' 
-#' @return A \code{data.frame} with counts of beach closures per year for each beach
+#' @return A \code{data.frame} with counts of exceedances per year for each beach
 #' @export
 #'
 #' @details 
-#' Exceedance threshold for closure is set by default as 104 cfu/100 ml criterion.  This is simply based on counts in a year when any value at any station was above the threshold.
+#' The exceedance threshold is set by default as 104 cfu/100 ml criterion.  This is simply based on counts in a year when any value at any station was above the threshold for each 24 hour period in the record.
 #' 
 #' The \code{outcome} column in the output is defined by the numeric interval in \code{cats}, closed on the left.  This is used for the color scheme in \code{\link{show_entmatrix}}.
 #' 
@@ -44,14 +44,14 @@ anlz_entpep <- function(entdat, thr = 104, cats = c(0, 1, 2)){
     ) %>% 
     dplyr::group_by(Name, yr) %>% 
     dplyr::summarise(
-      closures = sum(exceeds), 
+      exceedances = sum(exceeds), 
       .groups = 'drop'
     ) %>% 
     dplyr::mutate(
       outcome = dplyr::case_when(
-        closures >= cats[1] & closures < cats[2] ~ 'green',
-        closures >= cats[2] & closures < cats[3] ~ 'yellow', 
-        closures >= cats[3] ~ 'red'
+        exceedances >= cats[1] & exceedances < cats[2] ~ 'green',
+        exceedances >= cats[2] & exceedances < cats[3] ~ 'yellow', 
+        exceedances >= cats[3] ~ 'red'
       )
     )
   

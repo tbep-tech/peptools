@@ -9,18 +9,18 @@ anlz_entpep(entdat, thr = 104, cats = c(0, 1, 2))
 \arguments{
 \item{entdat}{result returned from \code{\link{read_pepent}}}
 
-\item{thr}{numeric value defining threshold for beach closure}
+\item{thr}{numeric value defining threshold for exceedance}
 
 \item{cats}{vector of three numeric values defining the color scheme for the report card}
 }
 \value{
-A \code{data.frame} with counts of beach closures per year for each beach
+A \code{data.frame} with counts of exceedances per year for each beach
 }
 \description{
 Count beach exceedances for enterococcus
 }
 \details{
-Exceedance threshold for closure is set by default as 104 cfu/100 ml criterion.  This is simply based on counts in a year when any value at any station was above the threshold.
+The exceedance threshold is set by default as 104 cfu/100 ml criterion.  This is simply based on counts in a year when any value at any station was above the threshold for each 24 hour period in the record.
 
 The \code{outcome} column in the output is defined by the numeric interval in \code{cats}, closed on the left.  This is used for the color scheme in \code{\link{show_entmatrix}}.
 }

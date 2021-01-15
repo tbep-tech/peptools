@@ -1,10 +1,10 @@
-#' @title Create a colorized table for beach closure reporting
+#' @title Create a colorized table for beach pathogen exceedances
 #'
-#' @description Create a colorized table for beach closure reporting
+#' @description Create a colorized table for beach pathogen exceedances
 #'
 #' @param entdat data frame of enterococcus data returned by \code{\link{read_pepent}}
 #' @param txtsz numeric for size of text in the plot, applies only if \code{asreact = FALSE}
-#' @param thr numeric value defining threshold for beach closure
+#' @param thr numeric value defining threshold for exceedance
 #' @param cats vector of three numeric values defining the color scheme for the report card
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param asreact logical indicating if a \code{\link[reactable]{reactable}} object is returned
@@ -32,7 +32,7 @@ show_entmatrix <- function(entdat, txtsz = 3, thr = 104, cats = c(0, 1, 2), yrrn
     
     totab <- toplo %>%
       dplyr::select(-outcome) %>% 
-      tidyr::spread(yr, closures)
+      tidyr::spread(yr, exceedances)
     
     colfun <- function(x){
       
@@ -76,7 +76,7 @@ show_entmatrix <- function(entdat, txtsz = 3, thr = 104, cats = c(0, 1, 2), yrrn
   
   if(!is.null(txtsz))
     p <- p +
-      ggplot2::geom_text(ggplot2::aes(label = closures), size = txtsz, family = family)
+      ggplot2::geom_text(ggplot2::aes(label = exceedances), size = txtsz, family = family)
   
   return(p)
   

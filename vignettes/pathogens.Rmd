@@ -20,7 +20,7 @@ mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.Wor
 
 Regular monitoring of swimming beach pathogens is conducted by Suffolk County Department of Health Services (SCDHS).  As noted on the Suffolk County website (https://www.suffolkcountyny.gov/Departments/Health-Services/Environmental-Quality/Ecology/Beach-Monitoring-Program), water quality at swimming beaches can be adversely affected by episodic sources such as stormwater runoff, wastewater discharges from boats or land-based septic systems, and fecal material from pets and wildlife. To provide information on the potential presence of pathogens public in swimming areas that may be impacted by such contamination, the Suffolk County Department of Health Services (SCDHS) conducts a comprehensive bathing beach water quality monitoring program from May through September each year. Sampling is performed by SCDHS staff, with analyses conducted by the Department’s accredited Public and Environmental Health Laboratory (PEHL). Data are available [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8).
 
-Information from this monitoring program can be summarized in "stoplight" form, to allow the frequency of *Enterococcus*-based beach closures to be summarized and tracked. Functions in the pepreporting package can be used to import the pathogen data provided by SCHDS and PEHL, analyze relative exceedances of pathogen criterion, and plot the results as closures at swimming beaches each year.  This vignette describes use of these functions.
+Information from this monitoring program can be summarized in "stoplight" form, to communicate the relative risk of exposure to pathogens at bathing beaches in the Peconic Estuary. Functions in the pepreporting package can be used to import the pathogen data provided by SCHDS and PEHL, analyze relative exceedances of pathogen criterion, and plot the results in an easily interpretable format.  This vignette describes use of these functions.
 
 For package installation instructions, please see the [Introduction](https://tbep-tech.github.io/pepreporting/articles/Introduction.html) vignette. 
 
@@ -35,17 +35,15 @@ head(entdat)
 
 The raw data includes concentrations of *Enterococcus* bacteria as cfu/100 mL for swimming beaches in Suffolk County.  The imported data returned by `read_pepent()` has a similar format as the raw data with slight modifications for readability in R.  The fields include beach name (`Name`), field number (`FieldNum`), collection date and time (`Date` as Eastern Standard Time), bacteria concentration (`value`), and `status` showing if the observation was above or below detection (indicated as `>` or `<`).  
 
-The function `anlz_entpep()` summarizes the imported data at each beach to quantify the number of closures each year. For Suffolk County, all bathing beaches are ranked by relative risk of exposure to harmful bacteria. Factors considered in the ranking include pollution threats (outfalls, discharges, runoff, marinas, etc.), beach location, historical monitoring data, and beach use.  Most beaches in the Peconic Estuary are Tier 2, with at least 1-2 samples collected weekly. If an initial sample exceeds 104 cfu/ml at a Tier 2 beach, an additional sample is taken usually the next day. The beach is closed if both samples exceed 104 cfu/ml.
+The function `anlz_entpep()` summarizes the imported data at each beach to quantify instances when bacterial concentrations were at risk of impacting human health. For Suffolk County, all bathing beaches are ranked by relative risk of exposure to harmful bacteria. Factors considered in the ranking include pollution threats (outfalls, discharges, runoff, marinas, etc.), beach location, historical monitoring data, and beach use.  Most beaches in the Peconic Estuary are Tier 2, with at least 1-2 samples for bacterial concentrations collected weekly. For the pepreporting package, the *Enterococcus* data were used to count the number of instances at each beach when concentrations were above 104 cfu/ml.  Although this does not mean a beach was closed, relative exceedances provide a coarse measure of potential risk of exposure to harmful pathogens. 
 
-For the pepreporting package, the *Enterococcus* data were used to count the number of closures at each beach with the assumption that the data were an accurate proxy for beach closures. Since most beaches were Tier 2, a closure was identified if any sample within a 24 hour period exceeded the threshold at a given beach. Closures each year were then counted as the number of 24 hour periods when two or more samples exceeded the threshold.
-
-The results show number of `closures` and an `outcome` column used for the "stoplight" graphic. Only the 28 relevant beaches for the Peconic Estuary are returned.
+The `anlz_entpep()` function estimates this exposure risk by counting the number of instances in a year when concentrations at a beach exceeded the threshold for each 24 hour period in the dataset.  The results show number of `exceedances` and an `outcome` column used for the "stoplight" graphic. Only the 28 relevant beaches for the Peconic Estuary are returned.
 
 ```{r}
 anlz_entpep(entdat)
 ```
 
-The `anlz_entpep()` function includes optional arguments for the threshold (`thr`) and break points for the outcome categories (`cats`).  The default values are 104 for `thr` and 0, 1, and 2 for `cats` (i.e., zero closures is green, one closure is yellow, and two or more are red).  The default values can easily be changed. Here we use a threshold of 50 cfu/100 mL and breakpoints of zero, two, and four.
+The `anlz_entpep()` function includes optional arguments for the threshold (`thr`) and break points for the outcome categories (`cats`).  The default values are 104 for `thr` and 0, 1, and 2 for `cats` (i.e., no exceedances is green, one exceedance is yellow, and two or more are red).  The default values can easily be changed. Here we use a threshold of 50 cfu/100 mL and breakpoints of zero, two, and four.
 
 ```{r}
 anlz_entpep(entdat, thr = 50, cats = c(0, 2, 4))
@@ -53,15 +51,15 @@ anlz_entpep(entdat, thr = 50, cats = c(0, 2, 4))
 
 ## Plotting results
 
-The "stoplight" graphic can be plotted using the `show_matrixpep()` function. This creates an annual reporting matrix for the number of beach closures at 28 selected beaches in the Peconic Estuary. Tracking the number of closures provides a framework for identifying locations that may need management actions to remediate potential public health issues.  
+The "stoplight" graphic can be plotted using the `show_matrixpep()` function. This creates an annual reporting matrix for the relative risk of pathogen exposure at 28 selected beaches in the Peconic Estuary. Tracking the number of exceedances of bacterial concentrations provides a framework for identifying locations that may need management actions to remediate potential public health issues.  
 
-```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of *Enterococcus*-related Peconic Estuary beach closures for the years 2010 through 2019.'}
+```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2019.'}
 show_entmatrix(entdat)
 ```
 
-The `anlz_entpep()` function is used internally in `show_entmatrix()`, such that the optional arguments for the threshold (`thr`) and break points for the outcome categories (`cats`) also apply in the plotting function.  Appropriate thresholds and number of closures defining the color scheme should be identified. Potential alternatives can be viewed by using different values for the `thr` and `cats` arguments. 
+The `anlz_entpep()` function is used internally in `show_entmatrix()`, such that the optional arguments for the threshold (`thr`) and break points for the outcome categories (`cats`) also apply in the plotting function.  Appropriate thresholds and number of exceedances defining the color scheme should be identified. Potential alternatives can be viewed by using different values for the `thr` and `cats` arguments. 
 
-```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of *Enterococcus*-related Peconic Estuary beach closures for the years 2010 through 2019.  Different options are used for the threshold and color categorization.'}
+```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2019.  Different options are used for the threshold and color categorization.'}
 show_entmatrix(entdat, thr = 35, cats = c(0, 1, 3))
 ```
 
