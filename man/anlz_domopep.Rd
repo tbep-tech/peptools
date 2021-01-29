@@ -4,12 +4,12 @@
 \alias{anlz_domopep}
 \title{Analyze monthly DO values relative to threshold}
 \usage{
-anlz_domopep(dodat, thr = 2.3)
+anlz_domopep(dodat, thr = 3)
 }
 \arguments{
 \item{dodat}{result returned from \code{\link{read_pepdo}}}
 
-\item{thr}{numeric indicating appropriate dissolved oxygen thresholds, usually 2.3 mg/L for acute, 4.8 mg/L for chronic}
+\item{thr}{numeric indicating appropriate dissolved oxygen thresholds, usually 3 mg/L for acute, 4.8 mg/L for chronic}
 }
 \value{
 data.frame

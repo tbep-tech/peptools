@@ -38,24 +38,24 @@ A plot of the raw data:
 ggplot(dodat, aes(x = DateTime, y = do_mgl)) + 
   geom_point(size = 0.7) + 
   geom_hline(yintercept = 4.8, linetype = 'dashed', colour = 'red') + 
-  geom_hline(yintercept = 2.3, linetype = 'dashed', colour = 'red') +
+  geom_hline(yintercept = 3, linetype = 'dashed', colour = 'red') +
   facet_wrap(~site, ncol = 1) +
   theme_minimal() + 
   labs(
     y = 'Dissolved oxygen (mg/L)', 
     x = NULL, 
     title = 'Dissolved oxygen time series at Orient Harbor and Peconic River', 
-    subtitle = 'Dashed lines are chronic and acute threhsolds (4.8, 2.3 mg/L)'
+    subtitle = 'Dashed lines are chronic and acute threhsolds (4.8, 3 mg/L)'
   )
 ```
 
 Dissolved oxygen data typically show daily and seasonal variation.  Summaries of condition should account for variation at both temporal scales. Further, the impact of low dissolved oxygen concentrations on biota can vary depending on both magnitude and duration of hypoxia/anoxia.  As such, condition assessment could also consider how often concentrations fall below a thresholds and for how long. The assessments below speak to each of these needs. 
 
-First, the data can be summarized from the continuous (~6 minute observations) to daily averages using the `anlz_dodlpep()` function.  A user-specified threshold can be supplied to the `thr` argument to summarize the data relative to a value of interest, the default value being the acute threshold of 2.3 mg/L (an alternative may be the chronic threshold of 4.8 mg/L, @USEPA00).
+First, the data can be summarized from the continuous (~6 minute observations) to daily averages using the `anlz_dodlpep()` function.  A user-specified threshold can be supplied to the `thr` argument to summarize the data relative to a value of interest, the default value being the acute threshold of 3 mg/L (an alternative may be the chronic threshold of 4.8 mg/L, @USEPA00).
 
 ```{r}
-# 2.3 mg/l is acute, 4.8 mg/l is chronic
-dlysum <- anlz_dodlypep(dodat, thr = 2.3)
+# 3 mg/l is acute, 4.8 mg/l is chronic
+dlysum <- anlz_dodlypep(dodat, thr = 3)
 dlysum
 ```
 
@@ -64,7 +64,7 @@ The last three columns show the daily summarized data.  The `do_mgl` column show
 The data can also be summarized by month using the `anlz_domopep()` function.  Summarizing by month distills the information into a simple format for plotting.  Internally, the `anlz_domopep()` function uses the `anlz_dodlypep()` function to first summarize results by day, which are then summarized by month.
 
 ```{r}
-mosum <- anlz_domopep(dodat, thr = 2.3)
+mosum <- anlz_domopep(dodat, thr = 3)
 mosum
 ```
 
@@ -72,16 +72,16 @@ The last three columns show the monthly summarized data, where `do_mgl` is the a
 
 The `below_ave` and `below_maxrun` columns summarize the DO data differently depending on how hypoxia/anoxia conditions can be described relative to potential impacts on biological resources. The `below_ave` column summarizes undersaturation relative to only the number of times hypoxia conditions occurred, whereas the `below_maxrun` column summarizes undersaturation relative to both the number of instances and duration of hypoxia.  In other words, biota may be stressed differently depending on the number of times hypoxia occurs vs how long it may persist. The two measures may indicate similar information, but not always depending on characteristics of the DO time series.    
 
-The summarized monthly data can be plotted with the `show_domatrix()` function. In this example, the default plot shows the proportion of days in a month when concentrations in a given day fell below a threshold of 2.3 mg/L. 
+The summarized monthly data can be plotted with the `show_domatrix()` function. In this example, the default plot shows the proportion of days in a month when concentrations in a given day fell below a threshold of 3 mg/L. 
 
 ```{r, fig.height = 6, fig.width = 8}
-show_domatrix(dodat, thr = 2.3, show = 'below_ave')
+show_domatrix(dodat, thr = 3, show = 'below_ave')
 ```
 
 The maximum number of sequential days in a month when concentrations in a given day fell below the threshold can also be plotted by changing the `show` argument. 
 
 ```{r, fig.height = 6, fig.width = 8}
-show_domatrix(dodat, thr = 2.3, show = 'below_maxrun')
+show_domatrix(dodat, thr = 3, show = 'below_maxrun')
 ```
 
 The threshold can also be changed.  For example, the chronic threshold of 4.8 mg/L shows conditions relative to a more conservative threshold. 
