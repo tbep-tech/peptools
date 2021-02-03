@@ -10,7 +10,6 @@
 #' @param bay_segment chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"
 #' @param asreact logical indicating if a \code{\link[reactable]{reactable}} object is returned
 #' @param nrows if \code{asreact = TRUE}, a numeric specifying number of rows in the table
-#' @param abbrev logical indicating if text labels in the plot are abbreviated as the first letter
 #' @param family optional chr string indicating font family for text labels
 #'
 #' @family visualize
@@ -26,7 +25,7 @@
 #'
 #' @examples
 #' show_wqmatrixpep(rawdat)
-show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = c(1990, 2019), bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, abbrev = FALSE, family = NA){
+show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = c(1990, 2019), bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, family = NA){
 
   # sanity checks
   param <- match.arg(param)
@@ -52,23 +51,12 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
         var == 'sd' & medv < thresh ~ 'red', 
         var == 'chla' & medv < thresh ~ 'green',
         var == 'chla' & medv >= thresh ~ 'red'
-      )
-    )
-  
-  if(abbrev)
-    toplo <- toplo %>%
-    dplyr::mutate(
+      ),
       outcometxt = dplyr::case_when(
-        outcome == 'red' ~ 'R',
-        outcome == 'green' ~ 'G'
+        outcome == 'red' ~ 'not met',
+        outcome == 'green' ~ 'met'
       )
     )
-  if(!abbrev)
-    toplo <- toplo %>%
-    dplyr::mutate(
-      outcometxt = outcome
-    )
-  
   
   # reactable object
   if(asreact){
@@ -80,8 +68,8 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
     colfun <- function(x){
       
       out <- dplyr::case_when(
-        x %in% c('R', 'red') ~ '#FF3333',
-        x %in% c('G', 'green') ~ '#33FF3B'
+        x %in% c('not met') ~ '#FF3333',
+        x %in% c('met') ~ '#33FF3B'
       )
       
       return(out)
@@ -98,7 +86,7 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
   # add descriptive labels, Result
   lbs <- dplyr::tibble(
     outcome = c('red', 'green'),
-    Result = c('Above', 'Below')
+    Result = c('Not met', 'Met')
   )
   if(param == 'chla')
     rndval <- 1
@@ -130,7 +118,7 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
   
   if(!is.null(txtsz))
     p <- p +
-    geom_text(aes(label = outcometxt), size = txtsz, family = family)
+      geom_text(aes(label = outcometxt), size = txtsz, family = family)
   
   return(p)
   

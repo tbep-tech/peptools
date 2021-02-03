@@ -7,7 +7,7 @@
 #' @param trgs optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param bay_segment chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"
-#' @param abbrev logical indicating if text labels in the plot are abbreviated as the first letter
+#' @param abbrev logical indicating if text labels in the plot are abbreviated as the first letter, applies only to center column
 #' @param family optional chr string indicating font family for text labels
 #'
 #' @return A static \code{\link[ggplot2]{ggplot}} object is returned
@@ -40,9 +40,9 @@ show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019)
     dplyr::select(bay_segment, yr, var, Result = Action, outcome, outcometxt)
   
   # chloropyll and sd data
-  chldat <- show_wqmatrixpep(dat, param = 'chl', bay_segment = bay_segment, trgs = trgs, txtsz = NULL, yrrng = yrrng, abbrev = abbrev)
+  chldat <- show_wqmatrixpep(dat, param = 'chl', bay_segment = bay_segment, trgs = trgs, txtsz = NULL, yrrng = yrrng)
   chldat <- chldat$data
-  sddat <- show_wqmatrixpep(dat, param = 'sd', bay_segment = bay_segment, trgs = trgs, txtsz = NULL, yrrng = yrrng, abbrev = abbrev)
+  sddat <- show_wqmatrixpep(dat, param = 'sd', bay_segment = bay_segment, trgs = trgs, txtsz = NULL, yrrng = yrrng)
   sddat <- sddat$data
   wqdat <- dplyr::bind_rows(chldat, sddat) %>%
     dplyr::select(-Result) %>%
@@ -66,7 +66,6 @@ show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019)
         durats %in% 4 ~ 'long'
       ),
       durats = paste0(durats, ' (length)'),
-      outcome = paste0('Outcome: ', outcome), 
       bay_segment = as.character(bay_segment)
     ) %>%
     dplyr::select(-medv, -lwr.ci, -upr.ci, -thresh) %>%

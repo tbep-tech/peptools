@@ -13,7 +13,6 @@ show_wqmatrixpep(
   bay_segment = c("Western", "Central", "Eastern"),
   asreact = FALSE,
   nrows = 10,
-  abbrev = FALSE,
   family = NA
 )
 }
@@ -33,8 +32,6 @@ show_wqmatrixpep(
 \item{asreact}{logical indicating if a \code{\link[reactable]{reactable}} object is returned}
 
 \item{nrows}{if \code{asreact = TRUE}, a numeric specifying number of rows in the table}
-
-\item{abbrev}{logical indicating if text labels in the plot are abbreviated as the first letter}
 
 \item{family}{optional chr string indicating font family for text labels}
 }

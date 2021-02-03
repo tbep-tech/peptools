@@ -25,7 +25,7 @@ show_segmatrixpep(
 
 \item{bay_segment}{chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"}
 
-\item{abbrev}{logical indicating if text labels in the plot are abbreviated as the first letter}
+\item{abbrev}{logical indicating if text labels in the plot are abbreviated as the first letter, applies only to center column}
 
 \item{family}{optional chr string indicating font family for text labels}
 }
