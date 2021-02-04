@@ -36,7 +36,7 @@ show_entmatrix <- function(entdat, txtsz = 3, thr = 104, cats = c(0, 1, 2), yrrn
     ggplot2::geom_tile(colour = 'black') +
     ggplot2::scale_y_discrete(expand = c(0, 0)) +
     ggplot2::scale_x_discrete(expand = c(0, 0), position = 'top') +
-    ggplot2::scale_fill_gradient('Prop. of samples\nexceeding', low = 'white', high = 'green', limits = c(0, 1)) +
+    ggplot2::scale_fill_gradient('Prop. of samples\nexceeding', low = 'white', high = 'blue', limits = c(0, 1)) +
     ggplot2::theme_bw(base_family = family) +
     ggplot2::theme(
       axis.title = ggplot2::element_blank(),

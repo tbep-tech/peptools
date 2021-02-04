@@ -10,7 +10,6 @@ show_entmatrix(
   thr = 104,
   cats = c(0, 1, 2),
   yrrng = c(2010, 2020),
-  asreact = FALSE,
   nrows = 10,
   family = NA
 )
@@ -22,11 +21,7 @@ show_entmatrix(
 
 \item{thr}{numeric value defining threshold for exceedance}
 
-\item{cats}{vector of three numeric values defining the color scheme for the report card}
-
 \item{yrrng}{numeric vector indicating min, max years to include}
-
-\item{asreact}{logical indicating if a \code{\link[reactable]{reactable}} object is returned}
 
 \item{nrows}{if \code{asreact = TRUE}, a numeric specifying number of rows in the table}
 
