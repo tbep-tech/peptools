@@ -2,7 +2,6 @@
 #'
 #' @param entdat result returned from \code{\link{read_pepent}}
 #' @param thr numeric value defining threshold for exceedance
-#' @param cats vector of three numeric values defining the color scheme for the report card
 #' 
 #' @return A \code{data.frame} with counts of exceedances per year for each beach
 #' @export
@@ -44,15 +43,12 @@ anlz_entpep <- function(entdat, thr = 104, cats = c(0, 1, 2)){
     ) %>% 
     dplyr::group_by(Name, yr) %>% 
     dplyr::summarise(
-      exceedances = sum(exceeds), 
+      samples = dplyr::n(),
+      exceedances = sum(exceeds),
       .groups = 'drop'
     ) %>% 
     dplyr::mutate(
-      outcome = dplyr::case_when(
-        exceedances >= cats[1] & exceedances < cats[2] ~ 'green',
-        exceedances >= cats[2] & exceedances < cats[3] ~ 'yellow', 
-        exceedances >= cats[3] ~ 'red'
-      )
+      perexceedances = exceedances / samples
     )
   
   return(out)

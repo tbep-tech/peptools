@@ -27,7 +27,7 @@ read_pepent <- function(path){
       Time =  as.POSIXct((Time) * 86400, origin = "1970-01-01", tz = 'UTC'),
       Time = format(Time, "%H:%M"),
       status = gsub('[0-9]+|\\.|\\s+', '', value),
-      value = gsub('>|<', '', value), 
+      value = gsub('>|<|N', '', value), 
       value = as.numeric(value), 
     ) %>% 
     tidyr::unite('Date', Date, Time, sep = ' ') %>% 

@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' show_entmatrix(entdat)
-show_entmatrix <- function(entdat, txtsz = 3, thr = 104, cats = c(0, 1, 2), yrrng = c(2010, 2019), asreact = FALSE, nrows = 10, family = NA){
+show_entmatrix <- function(entdat, txtsz = 3, thr = 104, cats = c(0, 1, 2), yrrng = c(2010, 2020), asreact = FALSE, nrows = 10, family = NA){
 
   # process data to plot
   entpep <- anlz_entpep(entdat, thr = thr, cats = cats)

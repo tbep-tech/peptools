@@ -10,8 +10,6 @@ anlz_entpep(entdat, thr = 104, cats = c(0, 1, 2))
 \item{entdat}{result returned from \code{\link{read_pepent}}}
 
 \item{thr}{numeric value defining threshold for exceedance}
-
-\item{cats}{vector of three numeric values defining the color scheme for the report card}
 }
 \value{
 A \code{data.frame} with counts of exceedances per year for each beach
