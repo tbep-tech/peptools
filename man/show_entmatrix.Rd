@@ -6,7 +6,7 @@
 \usage{
 show_entmatrix(
   entdat,
-  txtsz = 3,
+  txtsz = 2,
   thr = 104,
   cats = c(0, 1, 2),
   yrrng = c(2010, 2020),
