@@ -267,7 +267,7 @@ Use a sufficiently large number to view the entire matrix.
 show_matrixpep(dat, asreact = TRUE, nrows = 200)
 ```
 
-Bay segment exceedances can also be viewed in a matrix using `show_wqmatrixpep()`.  The red/green outcome categories indicate if the median was above/below the threshold.  However, the small/large exceedances used for the overall report card depend on degree of overlap of the confidence intervals with the threshold. The matrix outcome below are a simplification that shows a binary outcome (red/green) for location of the median relative to the threshold.
+Bay segment exceedances can also be viewed in a matrix using `show_wqmatrixpep()`.  The not met/met outcome categories indicate if the median was above/below the threshold.  However, the small/large exceedances used for the overall report card depend on degree of overlap of the confidence intervals with the threshold. The matrix outcome below is a simplification that shows a binary outcome (not met/met) for location of the median relative to the threshold.
 
 ```{r, fig.height = 8, fig.width = 3}
 show_wqmatrixpep(dat)
