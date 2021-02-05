@@ -1,0 +1,73 @@
+---
+title: "Figures"
+csl: stylefile.csl
+bibliography: refs.bib
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Figures}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, message = F, warning = F}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = F, warning = F, fig.align = 'center')
+```
+
+The code below can be used to create and save the different matrix graphics for reporting purposes.  A couple things to note when using this code: 
+
+* Always make sure you're using the most current version of the package.
+* The figures get saved to the desktop, e.g., `~/Desktop/fig.png`.  This can be changed as needed.
+* The figure dimensions and resolution are in the `png()` function, in inches and dots per inch. The current dimensions are approximations that will likely need to be changed depending on intended use. 
+* Make sure to always use `dev.off()` after `png()` for each figure.  Otherwise the figures won't save correctly.
+* The transparency for the colors in the chlorophyll and secchi plots are set to 50% to make them more distinct from the combined water quality matrix.  This will avoid confusion for what the colors mean between the figure types. This can be modified using the `alpha` argument.
+* The `txtsz` argument for each plot can be used to modify the size of the text in the cells for each figure.  This may need to be changed depending on the overall dimensions.
+
+```{r, eval = F, echo = T}
+# setup -------------------------------------------------------------------
+
+# # install pepreporting, only do if the package is updated
+# install.packages('remotes')
+# remotes::install_github('tbep-tech/pepreporting')
+library(pepreporting)
+
+# secchi matrix -----------------------------------------------------------
+
+p <- show_wqmatrixpep(rawdat, param = 'sd', txtsz = 3, alpha = 0.5) 
+
+png('~/Desktop/sdmatrix.png', height = 7, width = 3, res = 300, units = 'in')
+print(p)
+dev.off()
+
+# chl matrix --------------------------------------------------------------
+
+p <- show_wqmatrixpep(rawdat, param = 'chl', txtsz = 3, alpha = 0.5) 
+
+png('~/Desktop/chlmatrix.png', height = 7, width = 3, res = 300, units = 'in')
+print(p)
+dev.off()
+
+# wq matrix ---------------------------------------------------------------
+
+p <- show_matrixpep(rawdat, txtsz = 3) 
+
+png('~/Desktop/wqmatrix.png', height = 7, width = 3, res = 300, units = 'in')
+print(p)
+dev.off()
+
+# do matrix ---------------------------------------------------------------
+
+p <- show_domatrix(dodat, thr = 4.8, txtsz = 3) 
+
+png('~/Desktop/domatrix.png', height = 6, width = 5, res = 300, units = 'in')
+print(p)
+dev.off()
+
+# pathogen matrix ---------------------------------------------------------
+
+p <- show_entmatrix(entdat, thr = 104, txtsz = 2) 
+
+png('~/Desktop/entmatrix.png', height = 6, width = 7, res = 300, units = 'in')
+print(p)
+dev.off()
+```
+
