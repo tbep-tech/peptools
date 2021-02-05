@@ -23,6 +23,7 @@ save(entdat, file = 'data/entdat.RData', compress = 'xz')
 \seealso{
 Other utilities: 
 \code{\link{dodat}},
+\code{\link{pepseg}},
 \code{\link{pepstations}},
 \code{\link{peptargets}},
 \code{\link{rawdat}}

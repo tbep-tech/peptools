@@ -65,6 +65,7 @@ save(pepstations, file = 'data/pepstations.RData', compress = 'xz')
 Other utilities: 
 \code{\link{dodat}},
 \code{\link{entdat}},
+\code{\link{pepseg}},
 \code{\link{peptargets}},
 \code{\link{rawdat}}
 }

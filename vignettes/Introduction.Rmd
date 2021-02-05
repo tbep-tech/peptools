@@ -93,6 +93,12 @@ locs <- pepstations %>%
 mapview(locs, zcol = 'bay_segment', layer.name = 'Bay segment', map.types = mptyps)   
 ```
 
+The `pepseg` data object also included with the package shows the polygons for the bay segments.
+
+```{r}
+mapview(pepseg)
+```
+
 The water quality data can be imported using the `read_pepwq()` function.  A compressed folder that includes the data can be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d).  After the data are downloaded and extracted, the Excel file with the raw data is named "Peconics SCDHS WQ data - up to 2019 so far.xlsx", or something similar depending on when the data were downloaded.  The location of this file on your computer is passed to the import function. Below, a local file renamed as "currentdata.xlsx" that contains the water quality data is imported. 
 
 ```{r}

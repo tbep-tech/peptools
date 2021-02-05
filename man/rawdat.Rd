@@ -24,6 +24,7 @@ save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 Other utilities: 
 \code{\link{dodat}},
 \code{\link{entdat}},
+\code{\link{pepseg}},
 \code{\link{pepstations}},
 \code{\link{peptargets}}
 }
