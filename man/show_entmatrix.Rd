@@ -8,9 +8,8 @@ show_entmatrix(
   entdat,
   txtsz = 2,
   thr = 104,
-  cats = c(0, 1, 2),
   yrrng = c(2010, 2020),
-  nrows = 10,
+  colrng = c(0, 1),
   family = NA
 )
 }
@@ -23,7 +22,7 @@ show_entmatrix(
 
 \item{yrrng}{numeric vector indicating min, max years to include}
 
-\item{nrows}{if \code{asreact = TRUE}, a numeric specifying number of rows in the table}
+\item{colrng}{numeric vector indicating color scale range}
 
 \item{family}{optional chr string indicating font family for text labels}
 }

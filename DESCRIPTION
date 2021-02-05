@@ -1,7 +1,7 @@
 Package: pepreporting
 Title: Analysis Tools for Importing, Wrangling, and Summarizing Suffolk County Water Quality Data
 Version: 0.0.0.9001
-Date: 2020-12-04
+Date: 2021-02-05
 Authors@R: 
     person(given = "Marcus",
            family = "Beck",

@@ -6,7 +6,7 @@
 #' @param txtsz numeric for size of text in the plot, applies only if \code{asreact = FALSE}
 #' @param thr numeric value defining threshold for exceedance
 #' @param yrrng numeric vector indicating min, max years to include
-#' @param nrows if \code{asreact = TRUE}, a numeric specifying number of rows in the table
+#' @param colrng numeric vector indicating color scale range
 #' @param family optional chr string indicating font family for text labels
 #'
 #' @family visualize
@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' show_entmatrix(entdat)
-show_entmatrix <- function(entdat, txtsz = 2, thr = 104, cats = c(0, 1, 2), yrrng = c(2010, 2020), nrows = 10, family = NA){
+show_entmatrix <- function(entdat, txtsz = 2, thr = 104, yrrng = c(2010, 2020), colrng = c(0, 1), family = NA){
 
   # process data to plot
   entpep <- anlz_entpep(entdat, thr = thr)
@@ -36,7 +36,7 @@ show_entmatrix <- function(entdat, txtsz = 2, thr = 104, cats = c(0, 1, 2), yrrn
     ggplot2::geom_tile(colour = 'black') +
     ggplot2::scale_y_discrete(expand = c(0, 0)) +
     ggplot2::scale_x_discrete(expand = c(0, 0), position = 'top') +
-    ggplot2::scale_fill_gradient('Prop. of samples', low = 'white', high = 'blue', limits = c(0, 1)) +
+    ggplot2::scale_fill_gradient('Prop. of samples', low = 'white', high = 'blue', limits = colrng) +
     ggplot2::theme_bw(base_family = family) +
     ggplot2::theme(
       axis.title = ggplot2::element_blank(),
