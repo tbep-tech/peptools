@@ -7,6 +7,7 @@
 #' @param txtsz numeric for size of text in the plot, applies only if \code{tab = FALSE}
 #' @param trgs optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}
 #' @param yrrng numeric vector indicating min, max years to include
+#' @param alpha numeric indicating color transparency
 #' @param bay_segment chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"
 #' @param asreact logical indicating if a \code{\link[reactable]{reactable}} object is returned
 #' @param nrows if \code{asreact = TRUE}, a numeric specifying number of rows in the table
@@ -25,7 +26,7 @@
 #'
 #' @examples
 #' show_wqmatrixpep(rawdat)
-show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = c(1990, 2020), bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, family = NA){
+show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = c(1990, 2020), alpha = 1, bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, family = NA){
 
   # sanity checks
   param <- match.arg(param)
@@ -68,8 +69,8 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
     colfun <- function(x){
       
       out <- dplyr::case_when(
-        x %in% c('not met') ~ '#FF3333',
-        x %in% c('met') ~ '#33FF3B'
+        x %in% c('not met') ~ scales::alpha('#FF3333', alpha),
+        x %in% c('met') ~ scales::alpha('#33FF3B', alpha)
       )
       
       return(out)
@@ -106,14 +107,16 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
   
   # ggplot
   p <- ggplot(toplo, aes(x = bay_segment, y = yr, fill = outcome)) +
-    geom_tile(aes(group = Result), colour = 'black') +
+    geom_tile(aes(group = Result), colour = 'black', alpha = alpha) +
     scale_y_reverse(expand = c(0, 0), breaks = toplo$yr) +
     scale_x_discrete(expand = c(0, 0), position = 'top') +
     scale_fill_manual(values = c(red = 'red', green = 'green')) +
     theme_bw() +
     theme(
       axis.title = element_blank(),
-      legend.position = 'none'
+      legend.position = 'none', 
+      panel.grid.major = element_blank(), 
+      panel.grid.minor = element_blank()
     )
   
   if(!is.null(txtsz))

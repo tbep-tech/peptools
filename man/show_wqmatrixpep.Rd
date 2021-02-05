@@ -10,6 +10,7 @@ show_wqmatrixpep(
   txtsz = 3,
   trgs = NULL,
   yrrng = c(1990, 2020),
+  alpha = 1,
   bay_segment = c("Western", "Central", "Eastern"),
   asreact = FALSE,
   nrows = 10,
@@ -26,6 +27,8 @@ show_wqmatrixpep(
 \item{trgs}{optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}}
 
 \item{yrrng}{numeric vector indicating min, max years to include}
+
+\item{alpha}{numeric indicating color transparency}
 
 \item{bay_segment}{chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"}
 
