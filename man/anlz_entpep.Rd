@@ -4,7 +4,7 @@
 \alias{anlz_entpep}
 \title{Count beach exceedances for enterococcus}
 \usage{
-anlz_entpep(entdat, thr = 104, cats = c(0, 1, 2))
+anlz_entpep(entdat, thr = 104)
 }
 \arguments{
 \item{entdat}{result returned from \code{\link{read_pepent}}}

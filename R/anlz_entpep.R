@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' anlz_entpep(entdat)
-anlz_entpep <- function(entdat, thr = 104, cats = c(0, 1, 2)){
+anlz_entpep <- function(entdat, thr = 104){
 
   beaches <- c("Alberts Landing Beach", "Camp Blue Bay Beach", "Camp Quinipet Beach", 
     "Clearwater Beach", "Cornell Cooperative Extension Marine Center Beach", 
