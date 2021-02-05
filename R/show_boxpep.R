@@ -38,7 +38,7 @@ show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1
   
   # select curyr as max of yrrng if null
   if(is.null(yrsel))
-    yrsel <- max(yrrng, na.rm = TRUE)
+    yrsel <- max(rawdat$yr, na.rm = TRUE)
 
   # monthly averages
   aves <- anlz_medpep(dat) %>%
@@ -52,10 +52,6 @@ show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1
   # yrrng must be in ascending order
   if(yrrng[1] >= yrrng[2])
     stop('yrrng argument must be in ascending order, e.g., c(1976, 2020)')
-  
-  # yrrng not in dat
-  if(any(!yrrng %in% aves$yr))
-    stop(paste('Check yrrng is within', paste(range(aves$yr, na.rm = TRUE), collapse = '-')))
   
   # yrsel not in dat
   if(!yrsel %in% dat$yr)
