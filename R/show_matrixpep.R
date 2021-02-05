@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' show_matrixpep(rawdat)
-show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019), bay_segment = c('Western', 'Central', 'Eastern'), asreact = FALSE, nrows = 10, abbrev = FALSE, family = NA){
+show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2020), bay_segment = c('Western', 'Central', 'Eastern'), asreact = FALSE, nrows = 10, abbrev = FALSE, family = NA){
   
   # default targets from data file
   if(is.null(trgs))

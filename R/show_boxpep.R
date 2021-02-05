@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' show_boxpep(rawdat, bay_segment = 'Western')
-show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1990, 2019), ptsz = 0.5, bay_segment = c('Western', 'Central', 'Eastern'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1990, 2020), ptsz = 0.5, bay_segment = c('Western', 'Central', 'Eastern'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # parameter
   param <- match.arg(param)
@@ -51,7 +51,7 @@ show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1
   
   # yrrng must be in ascending order
   if(yrrng[1] >= yrrng[2])
-    stop('yrrng argument must be in ascending order, e.g., c(1976, 2019)')
+    stop('yrrng argument must be in ascending order, e.g., c(1976, 2020)')
   
   # yrrng not in dat
   if(any(!yrrng %in% aves$yr))

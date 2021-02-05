@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' show_plotlypep(rawdat)
-show_plotlypep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), yrrng = c(1990, 2019)){
+show_plotlypep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), yrrng = c(1990, 2020)){
   
   bay_segment <- match.arg(bay_segment)
 

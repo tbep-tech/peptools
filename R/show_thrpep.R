@@ -19,7 +19,7 @@
 #'
 #' @examples
 #' show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
-show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), param = c('chla', 'sd'), trgs = NULL, yrrng = c(1990, 2019), family = NA, labelexp = TRUE, txtlab = TRUE){
+show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), param = c('chla', 'sd'), trgs = NULL, yrrng = c(1990, 2020), family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # default targets from data file
   if(is.null(trgs))
@@ -27,7 +27,7 @@ show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), p
   
   # yrrng must be in ascending order
   if(yrrng[1] >= yrrng[2])
-    stop('yrrng argument must be in ascending order, e.g., c(1976, 2019)')
+    stop('yrrng argument must be in ascending order, e.g., c(1976, 2020)')
   
   # segment
   bay_segment <- match.arg(bay_segment)

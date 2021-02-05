@@ -8,7 +8,7 @@ show_segmatrixpep(
   dat,
   txtsz = 3,
   trgs = NULL,
-  yrrng = c(1990, 2019),
+  yrrng = c(1990, 2020),
   bay_segment = c("Western", "Central", "Eastern"),
   abbrev = FALSE,
   family = NA

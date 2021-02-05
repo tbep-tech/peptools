@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' show_segmatrixpep(rawdat, bay_segment = 'Western')
-show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2019), bay_segment = c('Western', 'Central', 'Eastern'), abbrev = FALSE, family = NA) {
+show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = c(1990, 2020), bay_segment = c('Western', 'Central', 'Eastern'), abbrev = FALSE, family = NA) {
   
   bay_segment <- match.arg(bay_segment)
   

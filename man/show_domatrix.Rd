@@ -8,7 +8,7 @@ show_domatrix(
   dodat,
   show = c("below_ave", "below_maxrun"),
   txtsz = 3,
-  thr = 3,
+  thr = 4.8,
   yrrng = c(2013, 2020),
   family = NA
 )

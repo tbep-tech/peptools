@@ -25,7 +25,7 @@
 #'
 #' @examples
 #' show_wqmatrixpep(rawdat)
-show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = c(1990, 2019), bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, family = NA){
+show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = c(1990, 2020), bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, family = NA){
 
   # sanity checks
   param <- match.arg(param)
