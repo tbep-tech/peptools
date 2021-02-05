@@ -48,7 +48,7 @@ anlz_entpep <- function(entdat, thr = 104){
       .groups = 'drop'
     ) %>% 
     dplyr::mutate(
-      perexceedances = exceedances / samples
+      proexceedances = exceedances / samples
     )
   
   return(out)

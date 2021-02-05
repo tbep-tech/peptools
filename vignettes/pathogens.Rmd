@@ -53,8 +53,14 @@ anlz_entpep(entdat, thr = 50)
 
 A summary graphic can be plotted using the `show_matrixpep()` function. This creates an annual reporting matrix for the relative risk of pathogen exposure at 28 selected beaches in the Peconic Estuary. Tracking the number of exceedances of bacterial concentrations provides a framework for identifying locations that may need management actions to remediate potential public health issues.  
 
-```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2020.'}
+```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2020.  Values are proportion of samples exceeding.'}
 show_entmatrix(entdat)
+```
+
+The graphic can also show the number of exceedances as counts by changing the `show` argument. 
+
+```{r, fig.height = 7, fig.width = 7, fig.cap = 'Frequencies of exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2020.  Values are number of samples exceeding.'}
+show_entmatrix(entdat, show = 'exceedances')
 ```
 
 The `anlz_entpep()` function is used internally in `show_entmatrix()`, such that the optional argument for the threshold (`thr`) also applies in the plotting function.  Appropriate thresholds should be identified. Potential alternatives can be viewed by using a different value for the `thr` argument. 

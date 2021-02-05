@@ -6,23 +6,23 @@
 \usage{
 show_entmatrix(
   entdat,
+  show = c("proexceedances", "exceedances"),
   txtsz = 2,
   thr = 104,
   yrrng = c(2010, 2020),
-  colrng = c(0, 1),
   family = NA
 )
 }
 \arguments{
 \item{entdat}{data frame of enterococcus data returned by \code{\link{read_pepent}}}
 
+\item{show}{chr string indicating which summary to plot, either proportion of samples exceeding (\code{proexceedances}) or counts exceeding (\code{exceeding})}
+
 \item{txtsz}{numeric for size of text in the plot, applies only if \code{asreact = FALSE}}
 
 \item{thr}{numeric value defining threshold for exceedance}
 
 \item{yrrng}{numeric vector indicating min, max years to include}
-
-\item{colrng}{numeric vector indicating color scale range}
 
 \item{family}{optional chr string indicating font family for text labels}
 }
