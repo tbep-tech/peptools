@@ -1,15 +1,17 @@
 #' Import raw water quality data
 #' 
-#' Impot raw water quality data
+#' Import raw water quality data
 #'
 #' @param path chr string of path for excel file
 #'
 #' @return data.frame
 #' @export
-#'
+#' 
 #' @importFrom dplyr "%>%"
 #' 
 #' @details Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d}
+#' 
+#' All data prior to 1990 are removed - some exist but the data are scarce.
 #' 
 #' @family read
 #' 
@@ -40,6 +42,7 @@ read_pepwq <- function(path){
       yr = lubridate::year(Date), 
       mo = lubridate::month(Date)
     ) %>% 
+    dplyr::filter(yr >= 1990) %>% 
     dplyr::left_join(pepstations, by = 'BayStation')
   
   return(out)

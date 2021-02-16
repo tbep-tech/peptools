@@ -13,10 +13,12 @@ read_pepwq(path)
 data.frame
 }
 \description{
-Impot raw water quality data
+Import raw water quality data
 }
 \details{
 Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d}
+
+All data prior to 1990 are removed - some exist but the data are scarce.
 }
 \examples{
 path <- system.file("extdata", "currentdata.xlsx", package="peptools")
