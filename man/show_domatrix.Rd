@@ -9,7 +9,7 @@ show_domatrix(
   show = c("below_ave", "below_maxrun"),
   txtsz = 3,
   thr = 4.8,
-  yrrng = c(2013, 2020),
+  yrrng = NULL,
   family = NA
 )
 }

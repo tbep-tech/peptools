@@ -19,11 +19,19 @@
 #'
 #' @examples
 #' show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
-show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), param = c('chla', 'sd'), trgs = NULL, yrrng = c(1990, 2020), family = NA, labelexp = TRUE, txtlab = TRUE){
+show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), param = c('chla', 'sd'), trgs = NULL, yrrng = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # default targets from data file
   if(is.null(trgs))
     trgs <- peptargets
+  
+  # get years from data if yrrng not provided
+  if(is.null(yrrng))
+    yrrng <- range(dat$yr, na.rm = T)
+  
+  # check if yrrng has two values
+  if(length(yrrng) != 2)
+    stop('yrrng must have two values')
   
   # yrrng must be in ascending order
   if(yrrng[1] >= yrrng[2])

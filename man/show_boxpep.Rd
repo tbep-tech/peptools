@@ -8,7 +8,7 @@ show_boxpep(
   dat,
   param = c("chla", "sd"),
   yrsel = NULL,
-  yrrng = c(1990, 2020),
+  yrrng = NULL,
   ptsz = 0.5,
   bay_segment = c("Western", "Central", "Eastern"),
   trgs = NULL,

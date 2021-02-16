@@ -9,7 +9,7 @@ show_entmatrix(
   show = c("proexceedances", "exceedances"),
   txtsz = 2,
   thr = 104,
-  yrrng = c(2010, 2020),
+  yrrng = NULL,
   family = NA
 )
 }

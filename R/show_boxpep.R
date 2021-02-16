@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' show_boxpep(rawdat, bay_segment = 'Western')
-show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1990, 2020), ptsz = 0.5, bay_segment = c('Western', 'Central', 'Eastern'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = NULL, ptsz = 0.5, bay_segment = c('Western', 'Central', 'Eastern'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # parameter
   param <- match.arg(param)
@@ -40,6 +40,14 @@ show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = c(1
   if(is.null(yrsel))
     yrsel <- max(rawdat$yr, na.rm = TRUE)
 
+  # get years from data if yrrng not provided
+  if(is.null(yrrng))
+    yrrng <- range(dat$yr, na.rm = T)
+  
+  # check if yrrng has two values
+  if(length(yrrng) != 2)
+    stop('yrrng must have two values')
+  
   # monthly averages
   aves <- anlz_medpep(dat) %>%
     .$'mos' %>%

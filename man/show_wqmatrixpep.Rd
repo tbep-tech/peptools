@@ -9,7 +9,7 @@ show_wqmatrixpep(
   param = c("chla", "sd"),
   txtsz = 3,
   trgs = NULL,
-  yrrng = c(1990, 2020),
+  yrrng = NULL,
   alpha = 1,
   bay_segment = c("Western", "Central", "Eastern"),
   asreact = FALSE,

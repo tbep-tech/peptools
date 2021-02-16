@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' show_wqmatrixpep(rawdat)
-show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = c(1990, 2020), alpha = 1, bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, family = NA){
+show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = NULL, alpha = 1, bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, family = NA){
 
   # sanity checks
   param <- match.arg(param)
@@ -34,6 +34,14 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
   # default targets from data file
   if(is.null(trgs))
     trgs <- peptargets
+  
+  # get years from data if yrrng not provided
+  if(is.null(yrrng))
+    yrrng <- range(dat$yr, na.rm = T)
+  
+  # check if yrrng has two values
+  if(length(yrrng) != 2)
+    stop('yrrng must have two values')
   
   # process data to plot
   meddat <- anlz_medpep(dat) %>%

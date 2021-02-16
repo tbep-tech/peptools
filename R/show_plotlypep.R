@@ -12,10 +12,18 @@
 #'
 #' @examples
 #' show_plotlypep(rawdat)
-show_plotlypep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), yrrng = c(1990, 2020)){
+show_plotlypep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), yrrng = NULL){
   
   bay_segment <- match.arg(bay_segment)
 
+  # get years from data if yrrng not provided
+  if(is.null(yrrng))
+    yrrng <- range(dat$yr, na.rm = T)
+  
+  # check if yrrng has two values
+  if(length(yrrng) != 2)
+    stop('yrrng must have two values')
+  
   suppressMessages({
       
     p1 <- show_thrpep(dat, bay_segment = bay_segment, param = "chla", yrrng = yrrng, txtlab = F, labelexp = F) + 

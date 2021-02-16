@@ -7,7 +7,7 @@
 show_plotlypep(
   dat,
   bay_segment = c("Western", "Central", "Eastern"),
-  yrrng = c(1990, 2020)
+  yrrng = NULL
 )
 }
 \arguments{

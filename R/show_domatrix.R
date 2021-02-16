@@ -18,12 +18,21 @@
 #'
 #' @examples
 #' show_domatrix(dodat)
-show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 3, thr = 4.8, yrrng = c(2013, 2020), family = NA){
+show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 3, thr = 4.8, yrrng = NULL, family = NA){
   
   show <- match.arg(show)
   
   # process data to plot
   dat <- anlz_domopep(dodat, thr = thr)
+  
+  # get years from data if yrrng not provided
+  if(is.null(yrrng))
+    yrrng <- range(dat$yr, na.rm = T)
+  
+  # check if yrrng has two values
+  if(length(yrrng) != 2)
+    stop('yrrng must have two values')
+  
   toplo <- dat %>% 
     dplyr::filter(yr >= yrrng[1] & yr <= yrrng[2]) %>% 
     dplyr::mutate(

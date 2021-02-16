@@ -18,13 +18,22 @@
 #'
 #' @examples
 #' show_entmatrix(entdat)
-show_entmatrix <- function(entdat, show = c('proexceedances', 'exceedances'), txtsz = 2, thr = 104, yrrng = c(2010, 2020), family = NA){
+show_entmatrix <- function(entdat, show = c('proexceedances', 'exceedances'), txtsz = 2, thr = 104, yrrng = NULL, family = NA){
 
   # get show
   show <- match.arg(show)
   
   # process data to plot
   entpep <- anlz_entpep(entdat, thr = thr)
+  
+  # get years from data if yrrng not provided
+  if(is.null(yrrng))
+    yrrng <- range(entpep$yr, na.rm = T)
+  
+  # check if yrrng has two values
+  if(length(yrrng) != 2)
+    stop('yrrng must have two values')
+  
   toplo <- entpep %>% 
     dplyr::filter(yr >= yrrng[1] & yr <= yrrng[2]) 
   

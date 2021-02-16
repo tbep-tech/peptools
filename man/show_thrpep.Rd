@@ -9,7 +9,7 @@ show_thrpep(
   bay_segment = c("Western", "Central", "Eastern"),
   param = c("chla", "sd"),
   trgs = NULL,
-  yrrng = c(1990, 2020),
+  yrrng = NULL,
   family = NA,
   labelexp = TRUE,
   txtlab = TRUE
