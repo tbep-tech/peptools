@@ -38,7 +38,7 @@ show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = NUL
   
   # select curyr as max of yrrng if null
   if(is.null(yrsel))
-    yrsel <- max(rawdat$yr, na.rm = TRUE)
+    yrsel <- max(dat$yr, na.rm = TRUE)
 
   # get years from data if yrrng not provided
   if(is.null(yrrng))
