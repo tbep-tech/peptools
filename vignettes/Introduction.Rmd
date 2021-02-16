@@ -12,7 +12,7 @@ vignette: >
 ```{r, include = FALSE, message = F, warning = F}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = F, warning = F, fig.align = 'center')
 
-library(pepreporting)
+library(peptools)
 library(ggplot2)
 library(mapview)
 library(dplyr)
@@ -25,20 +25,20 @@ library(sf)
 mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
 
-## Installing pepreporting
+## Installing peptools
 
-Begin by installing the package from GitHub.  The source code is available on the tbep-tech GitHub group web page: <https://github.com/tbep-tech/pepreporting>.  
+Begin by installing the package from GitHub.  The source code is available on the tbep-tech GitHub group web page: <https://github.com/tbep-tech/peptools>.  
 
-First, install the devtools package, load devtools, then install and load pepreporting.  Note that pepreporting only needs to be installed once, but it needs to be loaded every new R session (i.e., `library(pepreporting)`).
+First, install the devtools package, load devtools, then install and load peptools.  Note that peptools only needs to be installed once, but it needs to be loaded every new R session (i.e., `library(peptools)`).
 
 ```{r, eval = F}
 install.packages('devtools')
 library(devtools)
-install_github('tbep-tech/pepreporting')
-library(pepreporting)
+install_github('tbep-tech/peptools')
+library(peptools)
 ```
 
-The following shows all functions provided in pepreporting, organized by prefix. 
+The following shows all functions provided in peptools, organized by prefix. 
 
 #### Read
 
@@ -226,7 +226,7 @@ The `show_thrpep()` function is useful to understand annual variation in chlorop
 knitr::include_graphics('outints.png')
 ```
 
-For the Peconic Estuary, light attenuation is replaced with Secchi depth. The outcomes above are assigned for both chlorophyll and secchi depth. The duration criteria are determined based on whether the exceedance was observed for years prior to the current year. The exceedance criteria for chlorophyll and light-attenuation are currently the same for each segment.  The pepreporting package contains a `peptargets` data file that is a reference for determining annual outcomes.  This file is loaded automatically with the package and can be viewed from the command line.
+For the Peconic Estuary, light attenuation is replaced with Secchi depth. The outcomes above are assigned for both chlorophyll and secchi depth. The duration criteria are determined based on whether the exceedance was observed for years prior to the current year. The exceedance criteria for chlorophyll and light-attenuation are currently the same for each segment.  The peptools package contains a `peptargets` data file that is a reference for determining annual outcomes.  This file is loaded automatically with the package and can be viewed from the command line.
 
 ```{r}
 peptargets

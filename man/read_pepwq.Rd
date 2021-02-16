@@ -19,7 +19,7 @@ Impot raw water quality data
 Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d}
 }
 \examples{
-path <- system.file("extdata", "currentdata.xlsx", package="pepreporting")
+path <- system.file("extdata", "currentdata.xlsx", package="peptools")
 dat <- read_pepwq(path)
 dat
 }

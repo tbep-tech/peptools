@@ -25,10 +25,10 @@ The code below can be used to create and save the different matrix graphics for 
 ```{r, eval = F, echo = T}
 # setup -------------------------------------------------------------------
 
-# # install pepreporting, only do if the package is updated
+# # install peptools, only do if the package is updated
 # install.packages('remotes')
-# remotes::install_github('tbep-tech/pepreporting')
-library(pepreporting)
+# remotes::install_github('tbep-tech/peptools')
+library(peptools)
 
 # secchi matrix -----------------------------------------------------------
 

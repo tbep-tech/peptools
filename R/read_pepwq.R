@@ -14,7 +14,7 @@
 #' @family read
 #' 
 #' @examples
-#' path <- system.file("extdata", "currentdata.xlsx", package="pepreporting")
+#' path <- system.file("extdata", "currentdata.xlsx", package="peptools")
 #' dat <- read_pepwq(path)
 #' dat
 read_pepwq <- function(path){

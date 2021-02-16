@@ -14,7 +14,7 @@
 #' @family read
 #' 
 #' @examples
-#' path <- system.file("extdata", "enterodata.xlsx", package="pepreporting")
+#' path <- system.file("extdata", "enterodata.xlsx", package="peptools")
 #' entdat <- read_pepent(path)
 #' entdat
 read_pepent <- function(path){

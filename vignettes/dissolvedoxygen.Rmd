@@ -12,7 +12,7 @@ vignette: >
 ```{r, include = FALSE, message = F, warning = F}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = F, warning = F, fig.align = 'center')
 
-library(pepreporting)
+library(peptools)
 library(ggplot2)
 
 data(dodat)

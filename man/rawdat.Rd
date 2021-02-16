@@ -15,7 +15,7 @@ Raw data from Suffolk County
 }
 \examples{
 \dontrun{
-path <- system.file("extdata", "currentdata.xlsx", package="pepreporting")
+path <- system.file("extdata", "currentdata.xlsx", package="peptools")
 rawdat <- read_pepwq(path)
 save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 }

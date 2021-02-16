@@ -19,7 +19,7 @@ Import raw enterococcus data
 Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8}
 }
 \examples{
-path <- system.file("extdata", "enterodata.xlsx", package="pepreporting")
+path <- system.file("extdata", "enterodata.xlsx", package="peptools")
 entdat <- read_pepent(path)
 entdat
 }

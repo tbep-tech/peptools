@@ -15,7 +15,7 @@ Raw beach pathogen data from Suffolk County
 }
 \examples{
 \dontrun{
-path <- system.file("extdata", "enterodata.xlsx", package="pepreporting")
+path <- system.file("extdata", "enterodata.xlsx", package="peptools")
 entdat <- read_pepent(path)
 save(entdat, file = 'data/entdat.RData', compress = 'xz')
 }
