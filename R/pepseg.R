@@ -18,7 +18,9 @@
 #'       NAME == 'Segment1' ~ 'Western', 
 #'     )
 #'   ) %>% 
-#'   select(bay_segment)
+#'   select(bay_segment) %>% 
+#'   st_buffer(dist = 0) %>% 
+#'   st_crop(xmin = -72.76, xmax = -71.8, ymin = 40.83, ymax = 41.2)
 #'  
 #' save(pepseg, file = 'data/pepseg.RData', compress = 'xz')
 #' }
