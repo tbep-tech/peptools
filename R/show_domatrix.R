@@ -33,6 +33,9 @@ show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 
   if(length(yrrng) != 2)
     stop('yrrng must have two values')
   
+  # sort year range
+  yrrng <- sort(yrrng)
+  
   toplo <- dat %>% 
     dplyr::filter(yr >= yrrng[1] & yr <= yrrng[2]) %>% 
     dplyr::mutate(

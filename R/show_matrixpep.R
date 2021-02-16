@@ -34,6 +34,9 @@ show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_segmen
   if(length(yrrng) != 2)
     stop('yrrng must have two values')
   
+  # sort year range
+  yrrng <- sort(yrrng)
+  
   # process data to plot
   medpep <- anlz_medpep(dat)
   toplo <- anlz_attainpep(medpep, trgs = trgs) %>%

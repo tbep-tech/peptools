@@ -24,6 +24,9 @@ show_plotlypep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern')
   if(length(yrrng) != 2)
     stop('yrrng must have two values')
   
+  # sort year range
+  yrrng <- sort(yrrng)
+  
   suppressMessages({
       
     p1 <- show_thrpep(dat, bay_segment = bay_segment, param = "chla", yrrng = yrrng, txtlab = F, labelexp = F) + 

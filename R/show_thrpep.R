@@ -33,9 +33,8 @@ show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), p
   if(length(yrrng) != 2)
     stop('yrrng must have two values')
   
-  # yrrng must be in ascending order
-  if(yrrng[1] >= yrrng[2])
-    stop('yrrng argument must be in ascending order, e.g., c(1976, 2020)')
+  # sort year range
+  yrrng <- sort(yrrng)
   
   # segment
   bay_segment <- match.arg(bay_segment)

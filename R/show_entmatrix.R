@@ -34,6 +34,9 @@ show_entmatrix <- function(entdat, show = c('proexceedances', 'exceedances'), tx
   if(length(yrrng) != 2)
     stop('yrrng must have two values')
   
+  # sort year range
+  yrrng <- sort(yrrng)
+  
   toplo <- entpep %>% 
     dplyr::filter(yr >= yrrng[1] & yr <= yrrng[2]) 
   

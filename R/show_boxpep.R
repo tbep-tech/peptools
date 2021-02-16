@@ -57,9 +57,8 @@ show_boxpep <- function(dat, param = c('chla', 'sd'),  yrsel = NULL, yrrng = NUL
       mo = lubridate::month(mo, label = T)
     )
   
-  # yrrng must be in ascending order
-  if(yrrng[1] >= yrrng[2])
-    stop('yrrng argument must be in ascending order, e.g., c(1976, 2020)')
+  # sort year range
+  yrrng <- sort(yrrng)
   
   # yrsel not in dat
   if(!yrsel %in% dat$yr)

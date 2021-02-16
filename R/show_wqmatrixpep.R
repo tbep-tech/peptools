@@ -43,6 +43,9 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
   if(length(yrrng) != 2)
     stop('yrrng must have two values')
   
+  # sort year range
+  yrrng <- sort(yrrng)
+  
   # process data to plot
   meddat <- anlz_medpep(dat) %>%
     .$ann

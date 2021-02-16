@@ -38,6 +38,9 @@ show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_seg
   if(length(yrrng) != 2)
     stop('yrrng must have two values')
   
+  # sort year range
+  yrrng <- sort(yrrng)
+  
   # outcome data	
   outdat <- show_matrixpep(dat, bay_segment = bay_segment, txtsz = NULL, trgs = trgs, yrrng = yrrng, abbrev = abbrev)	
   outdat <- outdat$data %>%	
