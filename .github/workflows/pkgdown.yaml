@@ -32,8 +32,10 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install gfortran dependency
-        run: brew install gfortran
+      - name: Install macOS dependencies
+        run: |
+          brew install gfortran
+          brew install udunits
         
       - name: Install dependencies
         run: |
