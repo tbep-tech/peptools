@@ -4,19 +4,10 @@
 \alias{show_entmatrix}
 \title{Create a colorized table for beach pathogen exceedances}
 \usage{
-show_entmatrix(
-  entdat,
-  show = c("proexceedances", "exceedances"),
-  txtsz = 2,
-  thr = 104,
-  yrrng = NULL,
-  family = NA
-)
+show_entmatrix(entdat, txtsz = 2, thr = 104, yrrng = NULL, family = NA)
 }
 \arguments{
 \item{entdat}{data frame of enterococcus data returned by \code{\link{read_pepent}}}
-
-\item{show}{chr string indicating which summary to plot, either proportion of samples exceeding (\code{proexceedances}) or counts exceeding (\code{exceeding})}
 
 \item{txtsz}{numeric for size of text in the plot, applies only if \code{asreact = FALSE}}
 

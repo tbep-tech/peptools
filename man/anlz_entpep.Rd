@@ -20,7 +20,7 @@ Count beach exceedances for enterococcus
 \details{
 The exceedance threshold is set by default as 104 cfu/100 ml criterion.  This is simply based on counts in a year when any value at any station was above the threshold for each 24 hour period in the record.
 
-The \code{samples} column shows how many days of the year were sampled at each beach and the \code{perexceedance} column shows what percentage of samples were above the threshold.
+The \code{samples} column shows how many days of the year were sampled at each beach and the \code{exceedances} column shows how many samples were above the threshold.
 }
 \examples{
 anlz_entpep(entdat)

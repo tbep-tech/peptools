@@ -3,7 +3,6 @@
 #' @description Create a colorized table for beach pathogen exceedances
 #'
 #' @param entdat data frame of enterococcus data returned by \code{\link{read_pepent}}
-#' @param show chr string indicating which summary to plot, either proportion of samples exceeding (\code{proexceedances}) or counts exceeding (\code{exceeding})
 #' @param txtsz numeric for size of text in the plot, applies only if \code{asreact = FALSE}
 #' @param thr numeric value defining threshold for exceedance
 #' @param yrrng numeric vector indicating min, max years to include
@@ -18,10 +17,10 @@
 #'
 #' @examples
 #' show_entmatrix(entdat)
-show_entmatrix <- function(entdat, show = c('proexceedances', 'exceedances'), txtsz = 2, thr = 104, yrrng = NULL, family = NA){
+show_entmatrix <- function(entdat, txtsz = 2, thr = 104, yrrng = NULL, family = NA){
 
-  # get show
-  show <- match.arg(show)
+  # upper limit for color ramp
+  top <- 10
   
   # process data to plot
   entpep <- anlz_entpep(entdat, thr = thr)
@@ -43,33 +42,16 @@ show_entmatrix <- function(entdat, show = c('proexceedances', 'exceedances'), tx
   toplo <- toplo %>% 
     dplyr::mutate(
       Name = factor(Name, levels = rev(unique(toplo$Name))), 
-      proexceedances = round(proexceedances, 2)
+      lbs = exceedances, 
+      exceedances = pmin(exceedances, top)
     )
   
-  if(show == 'exceedances'){
-    
-    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = factor(yr), y = Name, fill = exceedances)) 
-    
-    colrng <- c(0, 10)
-    leglab <- 'No.'
-    
-  }
-  
-  if(show == 'proexceedances'){
-    
-    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = factor(yr), y = Name, fill = proexceedances)) 
-    
-    colrng <- c(0, 1)
-    leglab <- 'Prop.'
-    
-  }
-  
   # ggplot
-  p <- p +
+  p <- ggplot2::ggplot(toplo, ggplot2::aes(x = factor(yr), y = Name, fill = exceedances)) +
     ggplot2::geom_tile(colour = 'black') +
     ggplot2::scale_y_discrete(expand = c(0, 0)) +
     ggplot2::scale_x_discrete(expand = c(0, 0), position = 'top') +
-    ggplot2::scale_fill_gradient(paste(leglab, 'of samples'), low = 'white', high = 'blue', limits = colrng) +
+    ggplot2::scale_fill_gradient(paste('No. of samples'), low = 'white', high = 'blue', limits = c(0, top)) +
     ggplot2::theme_bw(base_family = family) +
     ggplot2::theme(
       axis.title = ggplot2::element_blank(),
@@ -84,7 +66,7 @@ show_entmatrix <- function(entdat, show = c('proexceedances', 'exceedances'), tx
   
   if(!is.null(txtsz))
     p <- p +
-      ggplot2::geom_text(ggplot2::aes_string(label = show), size = txtsz, family = family)
+      ggplot2::geom_text(ggplot2::aes(label = lbs), size = txtsz, family = family)
   
   return(p)
   
