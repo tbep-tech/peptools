@@ -6,8 +6,7 @@
 #' @family utilities
 #' @examples 
 #' \dontrun{
-#' path <- system.file("extdata", "enterodata.xlsx", package="peptools")
-#' entdat <- read_pepent(path)
+#' entdat <- read_pepent()
 #' save(entdat, file = 'data/entdat.RData', compress = 'xz')
 #' }
 "entdat"

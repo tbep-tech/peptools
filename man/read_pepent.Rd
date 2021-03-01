@@ -4,10 +4,7 @@
 \alias{read_pepent}
 \title{Import raw enterococcus data}
 \usage{
-read_pepent(path)
-}
-\arguments{
-\item{path}{chr string of path for excel file}
+read_pepent()
 }
 \value{
 data.frame
@@ -16,11 +13,12 @@ data.frame
 Import raw enterococcus data
 }
 \details{
-Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8}
+Data are from the ArcGIS REST Services here \url{https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/}.  
+
+The API is queried by beach names in the \code{\link{beaches}} data object. The queries are done individually for each beach to not exceed the 2000 record limit.
 }
 \examples{
-path <- system.file("extdata", "enterodata.xlsx", package="peptools")
-entdat <- read_pepent(path)
+entdat <- read_pepent()
 entdat
 }
 \seealso{
