@@ -16,6 +16,8 @@ Imports:
   DescTools,
   dplyr, 
   ggplot2, 
+  httr,
+  jsonlite,
   leaflet, 
   lubridate,
   mapview,

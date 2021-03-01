@@ -36,6 +36,7 @@ save(pepseg, file = 'data/pepseg.RData', compress = 'xz')
 }
 \seealso{
 Other utilities: 
+\code{\link{beaches}},
 \code{\link{dodat}},
 \code{\link{entdat}},
 \code{\link{pepstations}},

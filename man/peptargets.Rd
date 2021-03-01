@@ -28,6 +28,7 @@ save(peptargets, file = 'data/peptargets.RData', compress= 'xz')
 }
 \seealso{
 Other utilities: 
+\code{\link{beaches}},
 \code{\link{dodat}},
 \code{\link{entdat}},
 \code{\link{pepseg}},
@@ -35,6 +36,7 @@ Other utilities:
 \code{\link{rawdat}}
 
 Other utilities: 
+\code{\link{beaches}},
 \code{\link{dodat}},
 \code{\link{entdat}},
 \code{\link{pepseg}},
