@@ -19,7 +19,7 @@ The API is queried by beach names in the \code{\link{beaches}} data object. The 
 }
 \examples{
 entdat <- read_pepent()
-entdat
+head(entdat)
 }
 \seealso{
 Other read: 

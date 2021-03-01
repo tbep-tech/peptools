@@ -17,7 +17,7 @@
 #' 
 #' @examples
 #' entdat <- read_pepent()
-#' entdat
+#' head(entdat)
 read_pepent <- function(){
 
   path <- 'https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/0/query?'
