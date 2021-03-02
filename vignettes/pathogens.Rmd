@@ -32,6 +32,13 @@ The `beaches` data object includes 31 beaches that are relevant for assessing pa
 beaches
 ```
 
+The beaches can be mapped as follows:
+
+```{r}
+library(mapview)
+mapview(beaches)
+```
+
 The pathogen data for these beaches can be imported using the `read_pepent()` function. This function retrieves data directly from an ArcGIS REST service available at <https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/>. The API is queried by beach names in the `beaches` data object. The queries are done individually for each beach to not exceed the 2000 record limit. A spreadhseet including the same data can also be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8). 
 
 The import function is used as follows: 
