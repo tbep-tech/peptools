@@ -72,7 +72,7 @@ dev.off()
 
 # pathogen matrix as counts -----------------------------------------------
 
-p <- show_entmatrix(entdat, thr = 104, txtsz = 2, show = 'exceedances') 
+p <- show_entmatrix(entdat, thr = 104, txtsz = 2) 
 
 png('~/Desktop/entmatrix2.png', height = 6, width = 7, res = 300, units = 'in')
 print(p)
