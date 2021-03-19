@@ -22,7 +22,7 @@
 read_pepwq <- function(path){
 
   out <- readxl::read_xlsx(path, col_types = 'text') %>% 
-    dplyr::select(Date, BayStation, sd = Secchi, chla = `Chlorophyll A - Total`) %>% 
+    dplyr::select(Date, BayStation, sd = `Secchi\r\n(ft)`, chla = `T. Chl-a\r\n(ug/l)`) %>% 
     dplyr::filter(BayStation %in% pepstations$BayStation) %>% 
     tidyr::pivot_longer(c('sd', 'chla')) %>% 
     na.omit %>% 
