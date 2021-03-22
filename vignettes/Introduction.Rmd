@@ -158,30 +158,36 @@ anlz_attainpep(medpep)
 
 The plotting functions are used to view station data, long-term trends for each bay segment, and annual results for the overall water quality assessment. 
 
-The `show_sitemappep()` function produces an interactive map of annual medians of water quality conditions at each station.  Medians can be shown for chlorophyll or secchi depth and for all stations or only stations from selected bay segments.  Each point on the map shows the annual median for the parameter, with the size and color of the point in proportion to the other median values shown on the map.  The color scale for the median shows higher concentrations of chlorophyll or shallower secchi depths in red and lower concentrations of chlorophyll or deeper secchi depths in blue.  Hovering the mouse pointer over a site location will indicate the site name and the median value.  Clicking on a station point will reveal the underlying plot data. 
+The `show_sitemappep()` function produces an interactive map of medians of water quality conditions at each station.  Medians can be shown for chlorophyll or secchi depth and for all stations or only stations from selected bay segments.  Each point on the map shows the median for the parameter, with the size and color of the point in proportion to the other median values shown on the map.  The color scale for the median shows higher concentrations of chlorophyll or shallower secchi depths in red and lower concentrations of chlorophyll or deeper secchi depths in blue.  Hovering the mouse pointer over a site location will indicate the site name and the median value.  Clicking on a station point will reveal the underlying plot data. 
 
 Here, the 2020 chlorophyll medians are shown for stations in all bay segments. 
 
 ```{r}
-show_sitemappep(dat, 2020)
+show_sitemappep(dat, yrsel = 2020)
+```
+
+Medians for a given month can also be shown. 
+
+```{r}
+show_sitemappep(dat, mosel = 7)
 ```
 
 A different year, parameter, and bay segment can also be chosen. Note that the size and color ramps are reversed for secchi depth, such that smaller and bluer points indicate larger secchi values. 
 
 ```{r}
-show_sitemappep(dat, 2010, 'sd', c('Central', 'Eastern'))
+show_sitemappep(dat, yrsel = 2010, param = 'sd', bay_segment = c('Central', 'Eastern'))
 ```
 
 By default, the color and size scaling in `show_sitemappep()` is relative to only the points on the map. You can view scaling relative to all values in the dataset (across time and space) to get a sense of how the values for the selected year compare to the rest of the record.  This can be done by changing the `relative` argument to `TRUE`. 
 
 ```{r}
-show_sitemappep(dat, 2020, relative = T)
+show_sitemappep(dat, yrsel = 2020, relative = T)
 ```
 
 The scaling is also sensitive to outliers.  The default is to use the maximum scaling as the 99th percentile value observed in the entire dataset for the chosen parameter.  Otherwise, non-sensical results will be returned if the absolute maximum value is used to set the scale.  If, however, you want to see scaling relative to a smaller quantile, you can choose it accordingly with the `maxrel` argument.  The size and color ramps will be scaled to the defined upper quantile value.  The actual observed value at a point will always be visible on mouseover.
 
 ```{r}
-show_sitemappep(dat, 2020, relative = T, maxrel = 0.8)
+show_sitemappep(dat, yrsel = 2020, relative = T, maxrel = 0.8)
 ```
 
 The `show_thrpep()` function provides a more descriptive assessment of annual trends for a chosen bay segment relative to thresholds. In this plot we show the annual medians and non-parametric confidence internals (95%) across stations for a segment.  The red line shows annual trends and the horizontal blue line indicates the threshold for chlorophyll-a.

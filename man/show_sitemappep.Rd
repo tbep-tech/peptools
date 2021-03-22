@@ -6,7 +6,8 @@
 \usage{
 show_sitemappep(
   dat,
-  yrsel,
+  yrsel = NULL,
+  mosel = NULL,
   param = c("chla", "sd"),
   bay_segment = c("Western", "Central", "Eastern"),
   maxrel = 0.99,
@@ -16,7 +17,9 @@ show_sitemappep(
 \arguments{
 \item{dat}{data frame of data returned by \code{\link{read_pepwq}}}
 
-\item{yrsel}{numeric for year to plot}
+\item{yrsel}{numeric for years to plot, see details}
+
+\item{mosel}{numeric for months to plot, see details}
 
 \item{param}{chr string indicating which water quality value to plot, one of "chla" for chlorophyll and "sd" for secchi depth}
 
@@ -33,10 +36,20 @@ A \code{\link[leaflet]{leaflet}} object
 Map water quality data for a selected year
 }
 \details{
-Year estimates for the selected parameter are based on median observations across months.  The color ramp is reversed for Secchi observations.
+Year estimates for the selected parameter are based on median observations across months. All twelve months are used if \code{mosel = NULL} (default). Monthly estimates for the selected parameter are based on median observations across years.  All years are used if \code{yrsel = NULL} (default).
+
+The color ramp is reversed for Secchi observations.
 }
 \examples{
+
+# 2018, all months
 show_sitemappep(rawdat, yrsel = 2018)
+
+# 2018, July only
+show_sitemappep(rawdat, yrsel = 2018, mosel = 7)
+
+# July only, all years
+show_sitemappep(rawdat, mosel = 7)
 }
 \seealso{
 Other visualize: 
