@@ -11,7 +11,7 @@
 #' 
 #' @details The \code{\link{dodat}} data object can be used as input without downloading USGS data
 #'
-#' If \code{impute = TRUE}, missing dissolved oxygen values in the complete daily time series are imputed to the average for the year, month, site combination.  This is often necessary to create summary values from \code{\link{anlz_domopep}} that make sense. For example, if a month has incomplete data, the \code{below_ave} summary from \code{\link{anlz_domopep}} may indicate a value of one if all daily averages in the available data are below the threshold, whereas the \code{below_maxrun} summary may indicate a maximum run of days not equal to the number of days in the month. 
+#' If \code{impute = TRUE}, missing dissolved oxygen values in the complete daily time series are imputed to the average for the year, month, site combination. This is often necessary to create summary values that make sense. For example, if a month has incomplete data, the maximum \code{below_cumsum} value will not show 30 or 31 days even if every day in the observed record is below the threshold. 
 #'
 #' @importFrom dplyr "%>%"
 #' 

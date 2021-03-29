@@ -59,7 +59,7 @@ dlysum <- anlz_dodlypep(dodat, thr = 3)
 dlysum
 ```
 
-The last three columns show the daily summarized data.  The `do_mgl` column shows the average DO concentration for each day, the `below` column shows a 1 (yes) or 0 (no) if the concentration was below the threshold value at any point during a day, and the `below_cumsum` column shows a cumulative tally of the number of days in each month at which dissolved oxygen fell below the threshold at any point during a day.
+The last three columns show the daily summarized data.  The `do_mgl` column shows the average DO concentration for each day, the `below` column shows a 1 (yes) or 0 (no) if the concentration was below the threshold value at any point during a day, and the `below_cumsum` column shows a cumulative tally of the number of days in each month at which dissolved oxygen fell below the threshold at any point during a day.  By default, the `anlz_dodlypep()` function will impute missing daily dissolved oxygen values to the average for the year, month, site combination.  This is often necessary to create summary values that make sense. For example, if a month has incomplete data, the maximum `below_cumsum` value will not show 30 or 31 days even if every day in the observed record is below the threshold. 
 
 The data can also be summarized by month using the `anlz_domopep()` function.  Summarizing by month distills the information into a simple format for plotting.  Internally, the `anlz_domopep()` function uses the `anlz_dodlypep()` function to first summarize results by day, which are then summarized by month.
 
