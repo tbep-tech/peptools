@@ -57,13 +57,13 @@ show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 
     mid <- 0.5
   if(show == 'below_maxrun')
     mid <- 15
-  
+
   p <- ggplot2::ggplot(toplo, ggplot2::aes_string(x = 'mo', y = 'yr', fill = show)) + 
-    ggplot2::geom_tile(colour = 'black') + 
+    ggplot2::geom_tile(colour = 'black', na.rm = TRUE) + 
     ggplot2::facet_wrap(~site, ncol = 1) + 
     ggplot2::scale_x_discrete(expand = c(0, 0)) + 
     ggplot2::scale_y_continuous(expand = c(0, 0), breaks = seq(yrrng[1], yrrng[2]), trans = 'reverse') + 
-    ggplot2::scale_fill_gradient2(low = 'green', mid = 'yellow', high = 'red', midpoint = mid) +
+    ggplot2::scale_fill_gradient2(low = 'green', mid = 'yellow', high = 'red', midpoint = mid, na.value = 'white') +
     ggplot2::labs(
       caption = paste0('Values are relative to a threshold of ', thr , ' mg/L.')
     ) +
@@ -71,7 +71,7 @@ show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 
   
   if(!is.null(txtsz))
     p <- p +
-      ggplot2::geom_text(ggplot2::aes_string(label = show), size = txtsz, family = family)
+      ggplot2::geom_text(ggplot2::aes_string(label = show), size = txtsz, family = family, na.rm = TRUE)
   
   return(p)
   

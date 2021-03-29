@@ -30,6 +30,7 @@ anlz_dodlypep <- function(dodat, thr = 3, impute = TRUE){
     ) %>% 
     dplyr::group_by(site, Date) %>% 
     dplyr::summarise(
+      below = ifelse(any(do_mgl < thr), 1, 0), 
       do_mgl = mean(do_mgl, na.rm = TRUE), 
       .groups = 'drop'
     ) %>% 
@@ -53,7 +54,7 @@ anlz_dodlypep <- function(dodat, thr = 3, impute = TRUE){
             dplyr::left_join(x, by = 'Date') 
         
         }
-  
+
         out <- out %>% 
           dplyr::mutate(
             yr = lubridate::year(Date), 
@@ -64,6 +65,11 @@ anlz_dodlypep <- function(dodat, thr = 3, impute = TRUE){
             do_mgl = dplyr::case_when(
               is.na(do_mgl) ~ mean(do_mgl, na.rm = TRUE), 
               TRUE ~ do_mgl
+            ), 
+            below = dplyr::case_when(
+              is.na(below) & do_mgl < thr ~ 1, 
+              is.na(below) & do_mgl >= thr ~ 0, 
+              T ~ below
             )
           )
  
@@ -76,12 +82,11 @@ anlz_dodlypep <- function(dodat, thr = 3, impute = TRUE){
 
   # summarise do below and cumulative sum
   out <- cmplt %>% 
-    dplyr::mutate(
-      below = ifelse(any(do_mgl < thr), 1, 0), 
-    ) %>% 
     dplyr::group_by(
       site, 
-      grp = cumsum(below == 0)
+      grp = cumsum(below == 0), 
+      yr, 
+      mo
     ) %>% 
     dplyr::mutate(
       below_cumsum = cumsum(below)
