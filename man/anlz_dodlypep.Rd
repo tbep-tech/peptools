@@ -4,12 +4,14 @@
 \alias{anlz_dodlypep}
 \title{Analyze daily DO values relative to threshold}
 \usage{
-anlz_dodlypep(dodat, thr = 3)
+anlz_dodlypep(dodat, thr = 3, impute = TRUE)
 }
 \arguments{
 \item{dodat}{result returned from \code{\link{read_pepdo}}}
 
 \item{thr}{numeric indicating appropriate dissolved oxygen thresholds, usually 3 mg/L for acute, 4.8 mg/L for chronic}
+
+\item{impute}{logical indicating of missing dissolved oxygen values are imputed with the year, month, site average}
 }
 \value{
 data.frame
@@ -19,6 +21,8 @@ Analyze daily DO values relative to threshold
 }
 \details{
 The \code{\link{dodat}} data object can be used as input without downloading USGS data
+
+If \code{impute = TRUE}, missing dissolved oxygen values in the complete daily time series are imputed to the average for the year, month, site combination.  This is often necessary to create summary values from \code{\link{anlz_domopep}} that make sense. For example, if a month has incomplete data, the \code{below_ave} summary from \code{\link{anlz_domopep}} may indicate a value of one if all daily averages in the available data are below the threshold, whereas the \code{below_maxrun} summary may indicate a maximum run of days not equal to the number of days in the month.
 }
 \examples{
 data(dodat)

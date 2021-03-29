@@ -6,6 +6,7 @@
 #' @param show chr string indicating which summary value to plot from \code{\link{anlz_domopep}}, one of \code{'below_ave'} or \code{'below_maxrun'}
 #' @param txtsz numeric for size of text in the plot, applies only if \code{asreact = FALSE}
 #' @param thr numeric indicating appropriate dissolved oxygen thresholds, usually 3 mg/L for acute, 4.8 mg/L for chronic
+#' @param impute logical indicating of missing dissolved oxygen values are imputed with the year, month, site average
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param family optional chr string indicating font family for text labels
 #'
@@ -18,12 +19,12 @@
 #'
 #' @examples
 #' show_domatrix(dodat)
-show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 3, thr = 4.8, yrrng = NULL, family = NA){
+show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 3, thr = 4.8, impute = TRUE, yrrng = NULL, family = NA){
   
   show <- match.arg(show)
   
   # process data to plot
-  dat <- anlz_domopep(dodat, thr = thr)
+  dat <- anlz_domopep(dodat, thr = thr, impute = impute)
   
   # get years from data if yrrng not provided
   if(is.null(yrrng))
