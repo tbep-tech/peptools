@@ -30,7 +30,8 @@ anlz_attainpep <- function(meddat, magdurout = FALSE, trgs = NULL){
   # get annual averages, join with targets
   annave <- meddat$ann %>%
     dplyr::left_join(trgs, by = c('bay_segment', 'var')) %>% 
-    tidyr::pivot_wider(names_from = 'est', values_from = 'val')
+    tidyr::pivot_wider(names_from = 'est', values_from = 'val') %>% 
+    dplyr::arrange(bay_segment, var, yr)
 
   # get magnitude and durations
   magdur <- annave %>%
@@ -71,7 +72,7 @@ anlz_attainpep <- function(meddat, magdurout = FALSE, trgs = NULL){
       )
     ) %>%
     dplyr::ungroup()
-  
+ 
   if(magdurout)
     return(magdur)
   
