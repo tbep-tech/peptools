@@ -15,7 +15,7 @@
 #'
 #' @importFrom dplyr "%>%"
 #' 
-#' @@concept analyze
+#' @concept analyze
 #' 
 #' @examples
 #' data(dodat)

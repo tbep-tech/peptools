@@ -22,48 +22,6 @@ library(sf)
 mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
 
-The following shows all functions provided in peptools, organized by prefix. 
-
-#### Read
-
-* `read_pepdo()`: Import dissolved oxygen data
-
-* `read_pepwq()`: Load local water quality file
-
-* `read_pepent()`: Load Enterococcus beach data file
-
-#### Analyze
-
-* `anlz_attainpep()`: Get attainment categories
-
-* `anlz_dodlypep()`: Analyze daily DO values relative to threshold
-
-* `anlz_domopep()`: Analyze monthly DO values relative to threshold
-
-* `anlz_entpep()`: Count beach exceedances for enterococcus
-
-* `anlz_medpep()`: Estimate annual medians
-
-#### Show
-
-* `show_boxpep()`: Plot monthly chlorophyll or secchi depth values for a bay segment
-
-* `show_entmatrix()`: Create a colorized table for beach closure reporting
-
-* `show_matrixpep()`: Create a colorized table for indicator reporting
-
-* `show_reactablepep()`: Create a reactable table for reporting matrices, used internally only
-
-* `show_sitemappep()`: Map water quality data for a selected year
-
-* `show_thrpep()`: Plot annual water quality values and thresholds for a bay segment
-
-* `show_plotlypep()`: Plot chlorophyll and secchi data together with matrix outcomes
-
-* `show_wqmatrixpep()`: Create a colorized table for chlorophyll or secchi exceedances
-
-* `show_segmatrixpep()`: Create a colorized table for water quality outcomes and exceedances by segment
-
 ## Basic use
 
 First we load the peptools package.  Note that we do not need to install it every time we use R, but we do need to load the package.

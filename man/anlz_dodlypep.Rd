@@ -29,3 +29,4 @@ data(dodat)
 dat <- anlz_dodlypep(dodat)
 dat
 }
+\concept{analyze}
