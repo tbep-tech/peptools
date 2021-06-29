@@ -3,7 +3,7 @@
 #' Bay segment targets 
 #' 
 #' @format A \code{data.frame} object
-#' @family utilities
+#' @concept data
 #' @examples
 #' \dontrun{
 #' peptargets <- tibble::tibble(
@@ -16,5 +16,5 @@
 #' )
 #' save(peptargets, file = 'data/peptargets.RData', compress= 'xz')
 #' }
-#' @family utilities
+#' @concept data
 "peptargets"

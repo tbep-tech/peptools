@@ -8,7 +8,7 @@
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param family optional chr string indicating font family for text labels
 #'
-#' @family visualize
+#' @concept visualize
 #'
 #' @return A static \code{\link[ggplot2]{ggplot}} object is returned if \code{asreact = FALSE}, otherwise a \code{\link[reactable]{reactable}} table is returned
 #' 

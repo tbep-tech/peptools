@@ -3,7 +3,7 @@
 #' Raw beach pathogen data from Suffolk County
 #'
 #' @format A \code{data.frame} object
-#' @family utilities
+#' @concept data
 #' @examples 
 #' \dontrun{
 #' entdat <- read_pepent()

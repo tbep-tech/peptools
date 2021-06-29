@@ -10,7 +10,7 @@
 #'
 #' @details This function is used internally within \code{\link{show_matrixpep}}
 #'
-#' @family visualize
+#' @concept visualize
 #'
 #' @return A \code{\link[reactable]{reactable}} table
 #'

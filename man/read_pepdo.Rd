@@ -38,9 +38,4 @@ dodat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Ori
 dodat
 }
 }
-\seealso{
-Other read: 
-\code{\link{read_pepent}()},
-\code{\link{read_pepwq}()}
-}
 \concept{read}

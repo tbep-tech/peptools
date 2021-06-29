@@ -20,14 +20,5 @@ rawdat <- read_pepwq(path)
 save(rawdat, file = 'data/rawdat.RData', compress = 'xz')
 }
 }
-\seealso{
-Other utilities: 
-\code{\link{beaches}},
-\code{\link{dodat}},
-\code{\link{entdat}},
-\code{\link{pepseg}},
-\code{\link{pepstations}},
-\code{\link{peptargets}}
-}
-\concept{utilities}
+\concept{data}
 \keyword{datasets}

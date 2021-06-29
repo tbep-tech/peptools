@@ -3,7 +3,7 @@
 #' Dissolved oxygen data for USGS stations
 #'
 #' @format A \code{data.frame} object
-#' @family utilities
+#' @concept data
 #' @examples 
 #' \dontrun{
 #' 

@@ -3,7 +3,7 @@
 #' Raw data from Suffolk County
 #'
 #' @format A \code{data.frame} object
-#' @family utilities
+#' @concept data
 #' @examples 
 #' \dontrun{
 #' path <- system.file("extdata", "currentdata.xlsx", package="peptools")

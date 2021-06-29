@@ -23,11 +23,4 @@ Get attainment categories for each year and bay segment using chlorophyll and se
 meddat <- anlz_medpep(rawdat)
 anlz_attainpep(meddat)
 }
-\seealso{
-Other analyze: 
-\code{\link{anlz_dodlypep}()},
-\code{\link{anlz_domopep}()},
-\code{\link{anlz_entpep}()},
-\code{\link{anlz_medpep}()}
-}
 \concept{analyze}

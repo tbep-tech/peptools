@@ -31,11 +31,4 @@ data(dodat)
 dat <- anlz_domopep(dodat)
 dat
 }
-\seealso{
-Other analyze: 
-\code{\link{anlz_attainpep}()},
-\code{\link{anlz_dodlypep}()},
-\code{\link{anlz_entpep}()},
-\code{\link{anlz_medpep}()}
-}
 \concept{analyze}

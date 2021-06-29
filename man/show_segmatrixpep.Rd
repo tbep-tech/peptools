@@ -43,16 +43,5 @@ show_segmatrixpep(rawdat, bay_segment = 'Western')
 }
 \seealso{
 \code{\link{show_wqmatrixpep}}, \code{\link{show_matrixpep}}
-
-Other visualize: 
-\code{\link{show_boxpep}()},
-\code{\link{show_domatrix}()},
-\code{\link{show_entmatrix}()},
-\code{\link{show_matrixpep}()},
-\code{\link{show_plotlypep}()},
-\code{\link{show_reactablepep}()},
-\code{\link{show_sitemappep}()},
-\code{\link{show_thrpep}()},
-\code{\link{show_wqmatrixpep}()}
 }
 \concept{visualize}

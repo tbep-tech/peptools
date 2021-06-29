@@ -12,7 +12,7 @@
 #'
 #' @return A static \code{\link[ggplot2]{ggplot}} object is returned
 #'
-#' @family visualize
+#' @concept visualize
 #'
 #' @details This function provides a combined output for the \code{\link{show_wqmatrixpep}} and \code{\link{show_matrixpep}} functions. Only one bay segment can be plotted for each function call.
 #'

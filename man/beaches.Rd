@@ -26,14 +26,5 @@ save(beaches, file = 'data/beaches.RData')
 
 }
 }
-\seealso{
-Other utilities: 
-\code{\link{dodat}},
-\code{\link{entdat}},
-\code{\link{pepseg}},
-\code{\link{pepstations}},
-\code{\link{peptargets}},
-\code{\link{rawdat}}
-}
-\concept{utilities}
+\concept{data}
 \keyword{datasets}

@@ -3,7 +3,7 @@
 #' Bay stations by segment
 #'
 #' @format A \code{data.frame} object
-#' @family utilities
+#' @concept data
 #' @examples 
 #' \dontrun{
 #' library(tidyr)

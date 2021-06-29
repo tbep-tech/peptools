@@ -13,7 +13,7 @@
 #' @param labelexp logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}
 #' @param txtlab logical indicating if a text label for the target value is shown in the plot
 #'
-#' @family visualize
+#' @concept visualize
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #'

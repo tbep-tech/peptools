@@ -61,14 +61,5 @@ pepstations <- pepstations \%>\%
 save(pepstations, file = 'data/pepstations.RData', compress = 'xz')
 }
 }
-\seealso{
-Other utilities: 
-\code{\link{beaches}},
-\code{\link{dodat}},
-\code{\link{entdat}},
-\code{\link{pepseg}},
-\code{\link{peptargets}},
-\code{\link{rawdat}}
-}
-\concept{utilities}
+\concept{data}
 \keyword{datasets}

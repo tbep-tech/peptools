@@ -34,14 +34,5 @@ pepseg <- st_read('~/Desktop/TBEP/Peconic/PEPSegments/PEP_Segments.shp') \%>\%
 save(pepseg, file = 'data/pepseg.RData', compress = 'xz')
 }
 }
-\seealso{
-Other utilities: 
-\code{\link{beaches}},
-\code{\link{dodat}},
-\code{\link{entdat}},
-\code{\link{pepstations}},
-\code{\link{peptargets}},
-\code{\link{rawdat}}
-}
-\concept{utilities}
+\concept{data}
 \keyword{datasets}

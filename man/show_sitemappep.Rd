@@ -51,16 +51,4 @@ show_sitemappep(rawdat, yrsel = 2018, mosel = 7)
 # July only, all years
 show_sitemappep(rawdat, mosel = 7)
 }
-\seealso{
-Other visualize: 
-\code{\link{show_boxpep}()},
-\code{\link{show_domatrix}()},
-\code{\link{show_entmatrix}()},
-\code{\link{show_matrixpep}()},
-\code{\link{show_plotlypep}()},
-\code{\link{show_reactablepep}()},
-\code{\link{show_segmatrixpep}()},
-\code{\link{show_thrpep}()},
-\code{\link{show_wqmatrixpep}()}
-}
 \concept{visualize}

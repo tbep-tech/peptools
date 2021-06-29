@@ -11,7 +11,7 @@
 #' 
 #' The \code{samples} column shows how many days of the year were sampled at each beach and the \code{exceedances} column shows how many samples were above the threshold.
 #' 
-#' @family analyze
+#' @concept analyze
 #'
 #' @examples
 #' anlz_entpep(entdat)

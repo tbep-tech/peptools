@@ -13,7 +13,7 @@
 #' 
 #' All data prior to 1990 are removed - some exist but the data are scarce.
 #' 
-#' @family read
+#' @concept read
 #' 
 #' @examples
 #' path <- system.file("extdata", "currentdata.xlsx", package="peptools")

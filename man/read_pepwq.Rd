@@ -25,9 +25,4 @@ path <- system.file("extdata", "currentdata.xlsx", package="peptools")
 dat <- read_pepwq(path)
 dat
 }
-\seealso{
-Other read: 
-\code{\link{read_pepdo}()},
-\code{\link{read_pepent}()}
-}
 \concept{read}

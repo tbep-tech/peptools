@@ -25,11 +25,4 @@ The \code{samples} column shows how many days of the year were sampled at each b
 \examples{
 anlz_entpep(entdat)
 }
-\seealso{
-Other analyze: 
-\code{\link{anlz_attainpep}()},
-\code{\link{anlz_dodlypep}()},
-\code{\link{anlz_domopep}()},
-\code{\link{anlz_medpep}()}
-}
 \concept{analyze}

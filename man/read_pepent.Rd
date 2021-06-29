@@ -21,9 +21,4 @@ The API is queried by beach names in the \code{\link{beaches}} data object. The 
 entdat <- read_pepent()
 head(entdat)
 }
-\seealso{
-Other read: 
-\code{\link{read_pepdo}()},
-\code{\link{read_pepwq}()}
-}
 \concept{read}

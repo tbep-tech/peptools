@@ -15,7 +15,7 @@
 #' 
 #' The color ramp is reversed for Secchi observations.
 #' 
-#' @family visualize
+#' @concept visualize
 #'
 #' @return A \code{\link[leaflet]{leaflet}} object
 #'

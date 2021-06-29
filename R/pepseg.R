@@ -3,7 +3,7 @@
 #' Polygon shapefile of segment boundaries
 #'
 #' @format A \code{sf} object
-#' @family utilities
+#' @concept data
 #' @examples 
 #' \dontrun{
 #' library(sf)

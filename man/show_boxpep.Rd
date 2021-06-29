@@ -50,16 +50,4 @@ Points not included in \code{yrsel} are plotted over the box plots using \code{\
 \examples{
 show_boxpep(rawdat, bay_segment = 'Western')
 }
-\seealso{
-Other visualize: 
-\code{\link{show_domatrix}()},
-\code{\link{show_entmatrix}()},
-\code{\link{show_matrixpep}()},
-\code{\link{show_plotlypep}()},
-\code{\link{show_reactablepep}()},
-\code{\link{show_segmatrixpep}()},
-\code{\link{show_sitemappep}()},
-\code{\link{show_thrpep}()},
-\code{\link{show_wqmatrixpep}()}
-}
 \concept{visualize}

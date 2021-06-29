@@ -23,14 +23,5 @@ save(dodat, file = 'data/dodat.RData', compress = 'xz')
 
 }
 }
-\seealso{
-Other utilities: 
-\code{\link{beaches}},
-\code{\link{entdat}},
-\code{\link{pepseg}},
-\code{\link{pepstations}},
-\code{\link{peptargets}},
-\code{\link{rawdat}}
-}
-\concept{utilities}
+\concept{data}
 \keyword{datasets}

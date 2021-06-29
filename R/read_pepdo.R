@@ -16,7 +16,7 @@
 #' 
 #' Note that downloading the station data with the default arguments may take a few minutes. Site are 01304562 for Peconic River, 01304200 for Orient Harbor.
 #' 
-#' @family read
+#' @concept read
 #' 
 #' @examples
 #' \dontrun{
