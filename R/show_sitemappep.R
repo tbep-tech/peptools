@@ -94,14 +94,14 @@ show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', '
         val = median
         ) %>% 
       dplyr::mutate(BayStation = gsub('BayStation=', '', BayStation))
-  
+
   # get max/min values for scaling, uses whole dataset if relative is true
   relvls <- range(locs$val, na.rm = TRUE)
   if(relative){
     relvls <- dat %>% 
       dplyr::filter(name %in% param) %>% 
       dplyr::pull(value)
-    relvls <- c(min(relvls), quantile(relvls, maxrel, na.rm = T))
+    relvls <- c(min(relvls, na.rm = T), quantile(relvls, maxrel, na.rm = T))
   }
 
   # join with pepstations, make sf
