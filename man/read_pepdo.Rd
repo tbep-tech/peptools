@@ -8,7 +8,7 @@ read_pepdo(
   site = c("01304562", "01304200"),
   nms = NULL,
   startDate = "2013-01-01",
-  endDate = "2020-12-31"
+  endDate = "2021-12-31"
 )
 }
 \arguments{
@@ -34,7 +34,7 @@ Note that downloading the station data with the default arguments may take a few
 \examples{
 \dontrun{
 dodat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Orient Harbor'), 
-     startDate = '2020-06-01', endDate = '2020-06-30')
+     startDate = '2020-06-01', endDate = '2021-06-30')
 dodat
 }
 }

@@ -9,7 +9,7 @@
 #' 
 #' @importFrom dplyr "%>%"
 #' 
-#' @details Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d}
+#' @details Raw data from here \url{https://gis.suffolkcountyny.gov/portal/home/item.html?id=5d4b53ec44204219a8da685f1859e096}
 #' 
 #' All data prior to 1990 are removed - some exist but the data are scarce.
 #' 
@@ -21,14 +21,14 @@
 #' dat
 read_pepwq <- function(path){
 
-  out <- readxl::read_xlsx(path, col_types = 'text') %>% 
-    dplyr::select(Date, BayStation, sd = `Secchi\r\n(ft)`, chla = `T. Chl-a\r\n(ug/l)`) %>% 
+  out <- suppressMessages(readxl::read_xlsx(path, col_types = 'text')) %>% 
+    dplyr::select(Date, BayStation, sd = `Secchi\r\n(ft)`, chla = `Chlorophyll A - Total\r\n(ug/l)`) %>% 
     dplyr::filter(BayStation %in% pepstations$BayStation) %>% 
     tidyr::pivot_longer(c('sd', 'chla')) %>% 
     na.omit %>% 
     dplyr::mutate(
       status = stringr::str_extract(value, '>|<'),
-      value = gsub('>|<', '', value), 
+      value = gsub('>|<|^N/A$|^cannot\\sread$', '', value), 
       value = as.numeric(value), 
     ) %>% 
     dplyr::group_by(Date, BayStation, name) %>%

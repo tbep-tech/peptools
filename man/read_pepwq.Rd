@@ -16,7 +16,7 @@ data.frame
 Import raw water quality data
 }
 \details{
-Raw data from here \url{https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=8107f192ffac406380b6d61d3d3dbf7d}
+Raw data from here \url{https://gis.suffolkcountyny.gov/portal/home/item.html?id=5d4b53ec44204219a8da685f1859e096}
 
 All data prior to 1990 are removed - some exist but the data are scarce.
 }

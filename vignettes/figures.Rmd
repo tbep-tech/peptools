@@ -30,6 +30,23 @@ The code below can be used to create and save the different matrix graphics for 
 # remotes::install_github('tbep-tech/peptools')
 library(peptools)
 
+# update data to most recent ----------------------------------------------
+
+# wq data, replace path with manually downloaded file
+path <- system.file("extdata", "currentdata.xlsx", package="peptools")
+rawdat <- read_pepwq(path)
+
+# do data, takes a few minutes and make sure the date in endDate is updated
+dodat <- read_pepdo(
+  site = c("01304562", "01304200"),
+  nms = NULL,
+  startDate = "2013-01-01",
+  endDate = "2021-12-31"
+)
+
+# pathogen data
+entdat <- read_pepent()
+
 # secchi matrix -----------------------------------------------------------
 
 p <- show_wqmatrixpep(rawdat, param = 'sd', txtsz = 3, alpha = 0.5) 
@@ -67,14 +84,6 @@ dev.off()
 p <- show_entmatrix(entdat, thr = 104, txtsz = 2) 
 
 png('~/Desktop/entmatrix.png', height = 6, width = 7, res = 300, units = 'in')
-print(p)
-dev.off()
-
-# pathogen matrix as counts -----------------------------------------------
-
-p <- show_entmatrix(entdat, thr = 104, txtsz = 2) 
-
-png('~/Desktop/entmatrix2.png', height = 6, width = 7, res = 300, units = 'in')
 print(p)
 dev.off()
 ```
