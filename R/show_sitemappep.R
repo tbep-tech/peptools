@@ -149,9 +149,8 @@ show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', '
   labs <- paste('Bay station ', locs$BayStation, ', ', nms, ' ', round(locs$val, 2))
 
   # map
-  out <- mapview::mapview(locs, legend = F, homebutton = F, map.types = mptyps) %>% 
+  out <- mapview::mapview(locs, legend = F, homebutton = F, map.types = mptyps, alpha.regions = 0, alpha = 0, popup = F, label = F, cex = -1) %>% 
     .@map %>% 
-    leaflet::clearMarkers() %>% 
     leaflet::addCircleMarkers(
       data = locs,
       stroke = TRUE,
