@@ -1,23 +1,4 @@
+url: https://tbep-tech.github.io/peptools
 template:
-  assets: inst
-reference:
-- title: Read
-  desc: Download and import data
-  contents:
-  - has_concept("read")
-- title: Analyze
-  desc: Analyze and summarize data
-  contents:
-  - has_concept("analyze")
-- title: Visualize
-  desc: Plot and map data
-  contents:
-  - has_concept("visualize")
-- title: Data
-  desc: Supplementary data sets
-  contents:
-  - has_concept("data")
-- title: Other
-  desc: Other functions not defined by the concepts above
-  contents:
-  - lacks_concepts(c("read", "analyze", "visualize", "data"))
+  bootstrap: 5
+
