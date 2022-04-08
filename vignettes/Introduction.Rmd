@@ -155,6 +155,12 @@ The year range to plot can also be specified using the `yrrng` argument, where t
 show_thrpep(dat, bay_segment = "Western", param = "chla", yrrng = c(1976, 2021))
 ```
 
+The `show_allthrpep()` function is a slight modification of `show_thrpep()` that shows annual median results for all bay segments combined.  It accepts similar arguments as `show_thrpep()`.  Note that threshold values for chlorophyll-a and Secchi depth can also be shown because the thresholds do not vary between segments.  A modification fo the function will be required if these thresholds are modified for specific bay segments. 
+
+```{r, fig.height = 5, fig.width = 8}
+show_allthrpep(dat, param = "chla")
+```
+
 The `show_thrpep()` function uses results from the `anlz_medpep()` function.  For example, you can retrieve the values from the above plot as follows: 
 
 ```{r}
