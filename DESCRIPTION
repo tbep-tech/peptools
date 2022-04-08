@@ -1,13 +1,25 @@
 Package: peptools
 Title: Analysis Tools for Importing, Wrangling, and Summarizing Suffolk County Water Quality Data
-Version: 0.0.1
+Version: 1.0.0
 Date: 2022-04-08
-Authors@R: 
+Authors@R: c(
     person(given = "Marcus",
-           family = "Beck",
-           role = c("aut", "cre"),
-           email = "mbeck@tbep.org",
-           comment = c(ORCID = "0000-0002-4996-0059"))
+      family = "Beck",
+      role = c("aut", "cre"),
+      email = "mbeck@tbep.org",
+      comment = c(ORCID = "0000-0002-4996-0059")
+    ),
+    person(given = "Gerold",
+      family = "Morrison",
+      role = c("aut"),
+      email = "gerold.morrison@gmail.com"
+    ),
+    person(given = "Holly",
+      family = "Greening",
+      role = c("aut"),
+      email = "hgreening@coastwisepartners.org"
+    )
+  )
 Description: Analysis tools for importing, wrangling, and summarizing Suffolk County water quality data. Functions are used to create reporting materials.
 Depends: 
   R (>= 3.5)
