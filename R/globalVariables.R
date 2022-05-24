@@ -5,7 +5,8 @@ globalVariables(c('BayStation', 'Chlorophyll A - Total', 'Date', 'Secchi', 'bay_
                   'ColDate', 'FieldNum', 'Name', 'Time', 'exceedances', 'proexceedances', 'samples', 'exceeds', 'DateTime', 
                   'X_00300_00000', 'below', 'below_ave', 'below_cumsum', 'dateTime', 'do_mgl', 'site', 'site_no',
                   'beaches', 'lbs', 'attributes.coldate', 'attributes.fieldnum', 'attributes.name', 'attributes.character_',
-                  '(ug/l)', 'attributes.result', 'Chlorophyll A - Total\r\n(ug/l)', 'Secchi\r\n(ft)', 'Total Nitrogen (mg/l)'))
+                  '(ug/l)', 'attributes.result', 'Chlorophyll A - Total\r\n(ug/l)', 'Secchi\r\n(ft)', 
+                  'Total Nitrogen\r\n(mg/l)'))
 
 #' @importFrom stats median na.omit quantile sd
 NULL

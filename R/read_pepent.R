@@ -41,7 +41,8 @@ read_pepent <- function(){
         where = qry,
         outFields = '*',
         f = 'pjson'
-      )
+      ), 
+      ssl_verifypeer = 0L
     )
     
     response <- content(request, as = "text", encoding = "UTF-8")
