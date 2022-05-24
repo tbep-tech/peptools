@@ -43,8 +43,11 @@ The pathogen data for these beaches can be imported using the `read_pepent()` fu
 
 The import function is used as follows: 
 
-```{r}
+```{r, eval = F}
 entdat <- read_pepent()
+head(entdat)
+```
+```{r, echo = F}
 head(entdat)
 ```
 
