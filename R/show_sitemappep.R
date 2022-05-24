@@ -5,7 +5,7 @@
 #' @param dat data frame of data returned by \code{\link{read_pepwq}}
 #' @param yrsel numeric for years to plot, see details
 #' @param mosel numeric for months to plot, see details
-#' @param param chr string indicating which water quality value to plot, one of "chla" for chlorophyll and "sd" for secchi depth
+#' @param param chr string indicating which water quality value to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen
 #' @param bay_segment chr string for the bay segment, one or all of "Western", "Central", or "Eastern"
 #' @param maxrel numeric for the maximum quantile value for scaling if \code{relative = T}, this prevents outliers from skewing the scale
 #' @param relative logical indicating if sizes and colors are relative to the entire water quality data base, otherwise scaling is relative only for the points on the map
@@ -31,7 +31,7 @@
 #' 
 #' # July only, all years
 #' show_sitemappep(rawdat, mosel = 7)
-show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', 'sd'), bay_segment = c('Western', 'Central', 'Eastern'), maxrel = 0.99, relative = FALSE){
+show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', 'sd', 'tn'), bay_segment = c('Western', 'Central', 'Eastern'), maxrel = 0.99, relative = FALSE){
 
   param <- match.arg(param)
   
@@ -69,7 +69,7 @@ show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', '
     dplyr::filter(mo %in% !!mosel) %>% 
     dplyr::select(BayStation, bay_segment, yr, mo, val = value, status) 
   
-  if(param == 'chla')
+  if(param %in% c('chla', 'tn'))
     locs <- locs %>% 
       dplyr::group_by(BayStation) %>% 
       dplyr::summarise(val = median(val, na.rm = TRUE)) %>% 
@@ -121,17 +121,17 @@ show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', '
         cexs = max(cexs, na.rm = T) - cexs + min(cexs, na.rm = T)
       )
   
-  # colors, reverse if chla
+  # colors, reverse if chla, tn
   cols <- RColorBrewer::brewer.pal(11, 'RdYlBu')
-  if(param == 'chla')
+  if(param %in% c('chla', 'tn'))
     cols <- rev(cols)
   colfun <- leaflet::colorNumeric(palette = cols, domain = relvls)
 
   ##
   # legend label
   
-  lbs <- c('chla', 'sd')
-  names(lbs) <- c('chl-a (ug/L)', 'secchi (ft)')
+  lbs <- c('chla', 'sd', 'tn')
+  names(lbs) <- c('chl-a (ug/L)', 'secchi (ft)', 'TN (mg/L)')
   nms <- names(lbs)[lbs == param]
   
   if(length(yrsel) > 1)

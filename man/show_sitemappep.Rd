@@ -8,7 +8,7 @@ show_sitemappep(
   dat,
   yrsel = NULL,
   mosel = NULL,
-  param = c("chla", "sd"),
+  param = c("chla", "sd", "tn"),
   bay_segment = c("Western", "Central", "Eastern"),
   maxrel = 0.99,
   relative = FALSE
@@ -21,7 +21,7 @@ show_sitemappep(
 
 \item{mosel}{numeric for months to plot, see details}
 
-\item{param}{chr string indicating which water quality value to plot, one of "chla" for chlorophyll and "sd" for secchi depth}
+\item{param}{chr string indicating which water quality value to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen}
 
 \item{bay_segment}{chr string for the bay segment, one or all of "Western", "Central", or "Eastern"}
 
