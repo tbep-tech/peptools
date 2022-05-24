@@ -13,7 +13,7 @@
 #' @details 
 #' Year estimates for the selected parameter are based on median observations across months. All twelve months are used if \code{mosel = NULL} (default). Monthly estimates for the selected parameter are based on median observations across years.  All years are used if \code{yrsel = NULL} (default).
 #' 
-#' The color ramp is reversed for Secchi observations.
+#' The color ramp and size scaling of points are reversed for Secchi observations.
 #' 
 #' @concept visualize
 #'

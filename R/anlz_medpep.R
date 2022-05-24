@@ -1,17 +1,17 @@
-#' Estimate annual means
+#' Estimate annual medians
 #'
-#' Estimate annual means by segment for chlorophyll and secchi data
+#' Estimate annual medians by segment for chlorophyll, secchi, and total nitrogen data
 #'
 #' @param dat \code{data.frame} formatted from \code{\link{read_pepwq}}
 #'
-#' @return Mean estimates for chlorophyll and secchi
+#' @return Median estimates for chlorophyll, secchi, and total nitrogen
 #'
 #' @concept analyze
 #'
 #' @export
 #'
 #' @examples
-#' # view average estimates
+#' # view median estimates
 #' anlz_medpep(rawdat)
 anlz_medpep <- function(dat){
 

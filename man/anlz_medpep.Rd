@@ -2,7 +2,7 @@
 % Please edit documentation in R/anlz_medpep.R
 \name{anlz_medpep}
 \alias{anlz_medpep}
-\title{Estimate annual means}
+\title{Estimate annual medians}
 \usage{
 anlz_medpep(dat)
 }
@@ -10,13 +10,13 @@ anlz_medpep(dat)
 \item{dat}{\code{data.frame} formatted from \code{\link{read_pepwq}}}
 }
 \value{
-Mean estimates for chlorophyll and secchi
+Median estimates for chlorophyll, secchi, and total nitrogen
 }
 \description{
-Estimate annual means by segment for chlorophyll and secchi data
+Estimate annual medians by segment for chlorophyll, secchi, and total nitrogen data
 }
 \examples{
-# view average estimates
+# view median estimates
 anlz_medpep(rawdat)
 }
 \concept{analyze}
