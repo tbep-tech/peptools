@@ -22,14 +22,18 @@
 read_pepwq <- function(path){
 
   out <- suppressMessages(readxl::read_xlsx(path, col_types = 'text')) %>% 
-    dplyr::select(Date, BayStation, sd = `Secchi\r\n(ft)`, chla = `Chlorophyll A - Total\r\n(ug/l)`) %>% 
+    dplyr::select(Date, BayStation, sd = `Secchi\r\n(ft)`, chla = `Chlorophyll A - Total\r\n(ug/l)`, tn = `Total Nitrogen\r\n(mg/l)`) %>% 
     dplyr::filter(BayStation %in% pepstations$BayStation) %>% 
-    tidyr::pivot_longer(c('sd', 'chla')) %>% 
+    tidyr::pivot_longer(c('sd', 'chla', 'tn')) %>% 
     na.omit %>% 
     dplyr::mutate(
       status = stringr::str_extract(value, '>|<'),
-      value = gsub('>|<|^N/A$|^cannot\\sread$', '', value), 
+      value = gsub('>|<|^N/A$|^cannot\\sread$|^ND$', '', value), 
       value = as.numeric(value), 
+      status = dplyr::case_when(
+        name == 'tn' ~ NA_character_, 
+        T ~ status
+      )
     ) %>% 
     dplyr::group_by(Date, BayStation, name) %>%
     dplyr::summarise(

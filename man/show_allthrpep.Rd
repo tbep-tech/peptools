@@ -6,7 +6,7 @@
 \usage{
 show_allthrpep(
   dat,
-  param = c("chla", "sd"),
+  param = c("chla", "sd", "tn"),
   trgs = NULL,
   yrrng = NULL,
   family = NA,
@@ -17,9 +17,9 @@ show_allthrpep(
 \arguments{
 \item{dat}{data frame of data returned by \code{\link{read_pepwq}}}
 
-\item{param}{chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll and "sd" for secchi depth}
+\item{param}{chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen}
 
-\item{trgs}{optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}}
+\item{trgs}{optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}, only applies if \code{param} is \code{"chla"} or \code{"sd"}}
 
 \item{yrrng}{numeric vector indicating min, max years to include}
 
@@ -27,7 +27,7 @@ show_allthrpep(
 
 \item{labelexp}{logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}}
 
-\item{txtlab}{logical indicating if a text label for the target value is shown in the plot}
+\item{txtlab}{logical indicating if a text label for the target value is shown in the plot, only applies if \code{param} is \code{"chla"} or \code{"sd"}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

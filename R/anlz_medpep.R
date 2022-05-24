@@ -15,25 +15,24 @@
 #' anlz_medpep(rawdat)
 anlz_medpep <- function(dat){
 
-  # chlorophyll monthly averages
-  monchla <- dat %>%
-    dplyr::filter(name %in% 'chla') %>% 
-    dplyr::select(bay_segment, yr, mo, value) %>%
+  # chlorophyll, tn monthly averages
+  monchlatn <- dat %>%
+    dplyr::filter(name %in% c('chla', 'tn')) %>% 
+    dplyr::select(bay_segment, var = name, yr, mo, value) %>%
     tidyr::drop_na() %>%
-    dplyr::group_by(bay_segment, yr, mo) %>%
+    dplyr::group_by(bay_segment, yr, mo, var) %>%
     dplyr::summarise(val = median(value, na.rm = TRUE)) %>%
     dplyr::ungroup() %>% 
     dplyr::mutate(
-      est = 'medv',
-      var = 'chla'
+      est = 'medv'
       ) 
   
-  # chlorophyll annual values
-  yrchla <-  dat %>%
-    dplyr::filter(name %in% 'chla') %>% 
-    dplyr::select(bay_segment, yr, mo, value) %>%
+  # chlorophyll, tn annual values
+  yrchlatn <-  dat %>%
+    dplyr::filter(name %in% c('chla', 'tn')) %>% 
+    dplyr::select(bay_segment, var = name, yr, mo, value) %>%
     tidyr::drop_na() %>%
-    dplyr::group_by(bay_segment, yr) %>%
+    dplyr::group_by(bay_segment, yr, var) %>%
     tidyr::nest() %>% 
     dplyr::mutate(
       mdv = purrr::map(data, function(x){
@@ -50,9 +49,48 @@ anlz_medpep <- function(dat){
       est = dplyr::case_when(
         est %in% 'median' ~ 'medv', 
         TRUE ~ est
-      ),
-      var = 'chla'
+      )
     )
+  
+  # tn monthly averages
+  montn <- dat %>%
+    dplyr::filter(name %in% 'tn') %>% 
+    dplyr::select(bay_segment, yr, mo, value) %>%
+    tidyr::drop_na() %>%
+    dplyr::group_by(bay_segment, yr, mo) %>%
+    dplyr::summarise(val = median(value, na.rm = TRUE)) %>%
+    dplyr::ungroup() %>% 
+    dplyr::mutate(
+      est = 'medv',
+      var = 'tn'
+    ) 
+  
+  # tn annual values
+  yrtn <-  dat %>%
+    dplyr::filter(name %in% 'tn') %>% 
+    dplyr::select(bay_segment, yr, mo, value) %>%
+    tidyr::drop_na() %>%
+    dplyr::group_by(bay_segment, yr) %>%
+    tidyr::nest() %>% 
+    dplyr::mutate(
+      mdv = purrr::map(data, function(x){
+        
+        try({DescTools::MedianCI(x$value)}, silent = TRUE)
+        
+      })
+    ) %>% 
+    dplyr::select(-data) %>% 
+    dplyr::filter(purrr::map(mdv, length) == 3) %>%
+    dplyr::ungroup() %>% 
+    tidyr::unnest_longer(mdv, values_to = 'val', indices_to = 'est') %>% 
+    dplyr::mutate(
+      est = dplyr::case_when(
+        est %in% 'median' ~ 'medv', 
+        TRUE ~ est
+      ),
+      var = 'tn'
+    )
+  
 
   # secchi monthly averages
   monsd <- dat %>%
@@ -106,7 +144,7 @@ anlz_medpep <- function(dat){
       yr = as.numeric(yr),
       mo = as.numeric(mo),
       var= 'sd', 
-      bay_segment = factor(bay_segment, levels = levels(yrchla$bay_segment))
+      bay_segment = factor(bay_segment, levels = levels(yrchlatn$bay_segment))
     ) 
 
   # secchi yearly averages
@@ -137,12 +175,12 @@ anlz_medpep <- function(dat){
     dplyr::mutate(
       yr = as.numeric(yr),
       var= 'sd', 
-      bay_segment = factor(bay_segment, levels = levels(yrchla$bay_segment))
+      bay_segment = factor(bay_segment, levels = levels(yrchlatn$bay_segment))
       ) 
     
-  # combine chla and sd monthly data
+  # combine chla, sd, and tnmonthly data
   # create complete year cases
-  moout <- dplyr::bind_rows(monchla, monsd) %>%
+  moout <- dplyr::bind_rows(monchlatn, monsd) %>%
     dplyr::mutate(
       yr = factor(yr, levels = seq(min(yr), max(yr)))
     ) %>% 
@@ -153,9 +191,9 @@ anlz_medpep <- function(dat){
     dplyr::select(bay_segment, yr, mo, val, est, var) %>% 
     dplyr::arrange(var, bay_segment, -yr, -mo)
   
-  # combine chla and sd monthly data
+  # combine chla, sd, and tn annual data
   # create complete year cases
-  anout <- dplyr::bind_rows(yrchla, yrsd) %>% 
+  anout <- dplyr::bind_rows(yrchlatn, yrsd) %>% 
     dplyr::mutate(
       yr = factor(yr, levels = seq(min(yr), max(yr)))
     ) %>% 

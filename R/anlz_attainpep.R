@@ -29,6 +29,7 @@ anlz_attainpep <- function(meddat, magdurout = FALSE, trgs = NULL){
 
   # get annual averages, join with targets
   annave <- meddat$ann %>%
+    dplyr::filter(var %in% c('sd', 'chla')) %>% 
     dplyr::left_join(trgs, by = c('bay_segment', 'var')) %>% 
     tidyr::pivot_wider(names_from = 'est', values_from = 'val') %>% 
     dplyr::arrange(bay_segment, var, yr)

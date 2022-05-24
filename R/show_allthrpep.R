@@ -3,12 +3,12 @@
 #' @description Plot annual water quality values and thresholds for all bay segments
 #'
 #' @param dat data frame of data returned by \code{\link{read_pepwq}}
-#' @param param chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll and "sd" for secchi depth
-#' @param trgs optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}
+#' @param param chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen
+#' @param trgs optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}, only applies if \code{param} is \code{"chla"} or \code{"sd"}
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param family optional chr string indicating font family for text labels
 #' @param labelexp logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}
-#' @param txtlab logical indicating if a text label for the target value is shown in the plot
+#' @param txtlab logical indicating if a text label for the target value is shown in the plot, only applies if \code{param} is \code{"chla"} or \code{"sd"}
 #'
 #' @concept visualize
 #'
@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' show_allthrpep(rawdat, param = 'chl')
-show_allthrpep <- function(dat, param = c('chla', 'sd'), trgs = NULL, yrrng = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+show_allthrpep <- function(dat, param = c('chla', 'sd', 'tn'), trgs = NULL, yrrng = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # default targets from data file
   if(is.null(trgs))
@@ -39,13 +39,13 @@ show_allthrpep <- function(dat, param = c('chla', 'sd'), trgs = NULL, yrrng = NU
   
   # wq to plot
   param <- match.arg(param)
-  
-  # chlorophyll annual values
-  yrchla <-  dat %>%
-    dplyr::filter(name %in% 'chla') %>%
-    dplyr::select(bay_segment, yr, mo, value) %>%
+  # browser()
+  # chlorophyll, tn annual values
+  yrchlatn <-  dat %>%
+    dplyr::filter(name %in% c('chla', 'tn')) %>%
+    dplyr::select(bay_segment, var = name, yr, mo, value) %>%
     tidyr::drop_na() %>%
-    dplyr::group_by(yr) %>%
+    dplyr::group_by(yr, var) %>%
     tidyr::nest() %>%
     dplyr::mutate(
       mdv = purrr::map(data, function(x){
@@ -62,8 +62,7 @@ show_allthrpep <- function(dat, param = c('chla', 'sd'), trgs = NULL, yrrng = NU
       est = dplyr::case_when(
         est %in% 'median' ~ 'medv',
         TRUE ~ est
-      ),
-      var = 'chla'
+      )
     )
   
   # secchi yearly averages
@@ -98,7 +97,7 @@ show_allthrpep <- function(dat, param = c('chla', 'sd'), trgs = NULL, yrrng = NU
   
   # combine chla and sd annual data
   # create complete year cases
-  anout <- dplyr::bind_rows(yrchla, yrsd) %>%
+  anout <- dplyr::bind_rows(yrchlatn, yrsd) %>%
     dplyr::mutate(
       yr = factor(yr, levels = seq(min(yr), max(yr)))
     ) %>%
@@ -113,27 +112,14 @@ show_allthrpep <- function(dat, param = c('chla', 'sd'), trgs = NULL, yrrng = NU
   if(labelexp)
     axlab <- dplyr::case_when(
       param == 'chla' ~ expression("Median Chl-a ("~ mu * "g\u00B7L"^-1 *")"),
-      param == 'sd' ~ expression("Median Secchi (ft)")
+      param == 'sd' ~ expression("Median Secchi (ft)"), 
+      param == 'tn' ~ expression("Median TN (mg\u00B7L"^-1 *")")
     )
   if(!labelexp)
     axlab <- dplyr::case_when(
       param == 'chla' ~ "Median Chl-a (ug/L)",
-      param == 'sd' ~ "Median Secchi (ft)"
-    )
-  
-  # get lines to plot
-  thrnum <- trgs %>% dplyr::pull(!!paste0(param, '_thresh')) %>% unique
-  
-  # threshold label
-  if(labelexp)
-    thrlab <- dplyr::case_when(
-      param == 'chla' ~ paste(thrnum, "~ mu * g%.%L^{-1}"),
-      param == 'sd' ~ paste(thrnum, "~ft")
-    )
-  if(!labelexp)
-    thrlab <- dplyr::case_when(
-      param == 'chla' ~ paste(thrnum, "ug/L"),
-      param == 'sd' ~ paste(thrnum, "~ft")
+      param == 'sd' ~ "Median Secchi (ft)", 
+      param == 'tn' ~ "Median TN (mg/L)"
     )
   
   # get data to plot
@@ -143,8 +129,8 @@ show_allthrpep <- function(dat, param = c('chla', 'sd'), trgs = NULL, yrrng = NU
     tidyr::spread(est, val)
   
   # colors
-  cols <- c("Annual Median"="red", "Threshold"="blue")
-  
+  cols <- c("Annual Median"="red")
+
   p <- ggplot2::ggplot() +
     ggplot2::geom_point(data = toplo, ggplot2::aes(x = yr, y = medv, colour = "Annual Median"), size = 3) +
     ggplot2::geom_line(data = toplo, ggplot2::aes(x = yr, y = medv, colour = "Annual Median"), linetype = 'solid', size = 0.75) +
@@ -161,22 +147,55 @@ show_allthrpep <- function(dat, param = c('chla', 'sd'), trgs = NULL, yrrng = NU
       legend.key = ggplot2::element_rect(fill = '#ECECEC'),
       legend.title = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_text(angle = 45, size = 7, hjust = 1)
-    ) +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, colour = 'Threshold'), linetype = 'dotted', size = 0.75) +
-    ggplot2::scale_colour_manual(values = cols, labels = factor(names(cols), levels = names(cols))) +
-    ggplot2::guides(colour = ggplot2::guide_legend(
-      override.aes = list(
-        shape = c(19, NA),
-        colour = cols,
-        linetype = c('solid', 'dotted'),
-        size = c(0.75, 0.75)
+    ) 
+  
+  if(param != 'tn'){
+    
+    cols <- c(cols, "Threshold"="blue")
+
+    thrnum <- trgs %>% dplyr::pull(!!paste0(param, '_thresh')) %>% unique
+    
+    # threshold label
+    if(labelexp)
+      thrlab <- dplyr::case_when(
+        param == 'chla' ~ paste(thrnum, "~ mu * g%.%L^{-1}"),
+        param == 'sd' ~ paste(thrnum, "~ft")
       )
-    ))
-  
-  if(txtlab)
+    if(!labelexp)
+      thrlab <- dplyr::case_when(
+        param == 'chla' ~ paste(thrnum, "ug/L"),
+        param == 'sd' ~ paste(thrnum, "~ft")
+      )
+    
     p <- p +
-      ggplot2::geom_text(ggplot2::aes(yrrng[2], max(toplo$upr.ci, na.rm = T), label = thrlab), parse = labelexp, hjust = 1, vjust = 1, family = family, colour = 'blue')
+      ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, colour = 'Threshold'), linetype = 'dotted', size = 0.75) +
+      ggplot2::scale_colour_manual(values = cols, labels = factor(names(cols), levels = names(cols))) +
+      ggplot2::guides(colour = ggplot2::guide_legend(
+        override.aes = list(
+          shape = c(19, NA),
+          colour = cols,
+          linetype = c('solid', 'dotted'),
+          size = c(0.75, 0.75)
+        )
+      ))
   
+    if(txtlab)
+      p <- p +
+        ggplot2::geom_text(ggplot2::aes(yrrng[2], max(toplo$upr.ci, na.rm = T), label = thrlab), parse = labelexp, hjust = 1, vjust = 1, family = family, colour = 'blue')
+    
+  }
+  
+  if(param == 'tn')
+    p <- p +
+      ggplot2::scale_colour_manual(values = cols, labels = factor(names(cols), levels = names(cols))) +
+      ggplot2::guides(colour = ggplot2::guide_legend(
+        override.aes = list(
+          shape = c(19),
+          colour = cols,
+          linetype = c('solid'),
+          size = c(0.75)
+        )
+      ))
   
   return(p)
   

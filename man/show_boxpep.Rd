@@ -2,11 +2,11 @@
 % Please edit documentation in R/show_boxpep.R
 \name{show_boxpep}
 \alias{show_boxpep}
-\title{Plot monthly chlorophyll or secchi values values for a segment}
+\title{Plot monthly chlorophyll, secchi, or tn values values for a segment}
 \usage{
 show_boxpep(
   dat,
-  param = c("chla", "sd"),
+  param = c("chla", "sd", "tn"),
   yrsel = NULL,
   yrrng = NULL,
   ptsz = 0.5,
@@ -20,7 +20,7 @@ show_boxpep(
 \arguments{
 \item{dat}{data frame of data returned by \code{\link{read_pepwq}}}
 
-\item{param}{chr string for which parameter to plot, one of \code{"chla"} for chlorophyll or \code{"sd"} for secchi depth}
+\item{param}{chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen}
 
 \item{yrsel}{numeric for year to emphasize, shown as separate red points on the plot}
 
@@ -30,19 +30,19 @@ show_boxpep(
 
 \item{bay_segment}{chr string for the bay segment, one of "Western", "Central", or "Eastern"}
 
-\item{trgs}{optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}}
+\item{trgs}{optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}, only applies if \code{param} is \code{"chla"} or \code{"sd"}}
 
 \item{family}{optional chr string indicating font family for text labels}
 
 \item{labelexp}{logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}}
 
-\item{txtlab}{logical indicating if a text label for the target value is shown in the plot}
+\item{txtlab}{logical indicating if a text label for the target value is shown in the plot, only applies if \code{param} is \code{"chla"} or \code{"sd"}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object
 }
 \description{
-Plot monthly chlorophyll or secchi values values for a bay segment
+Plot monthly chlorophyl, secchi, or tn values values for a bay segment
 }
 \details{
 Points not included in \code{yrsel} are plotted over the box plots using \code{\link[ggplot2]{position_jitter}}. Use \code{ptsz = -1} to suppress.  The dotted line in the plot shows the threshold.
