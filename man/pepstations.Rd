@@ -31,15 +31,15 @@ locs <- read_xlsx('inst/extdata/stationmeta.xlsx') \%>\%
   ) \%>\% 
   sf::st_as_sf(coords = c("Longitude", "Latitude"), crs = prj)
 
-# use this for spatial selection
+# # use this for spatial selection
 # p <- mapview(pepseg) + mapview(locs)
 # e1 <- editMap(p)
 # locs[e1$finished, ] \%>\% pull(BayStation) \%>\% dput
 
 pepstations <- list(
   `1a` = c("60280", "60275", "60270", "60265", "60266", "60260", "60250", 
-              "60240", "60230", "60210", "60220", "60170"),
-  `1b` = c("60101", "60130", "60290", "60148"), 
+              "60240", "60230", "60210", "60220"),
+  `1b` = c("60170", "60101", "60130", "60290", "60148"), 
   `2` = c("60102", "60103", "60113", "60104", "60300", "60105", "60106", 
               "60107", "60310", "60320", "60114", "60109", "60340", "60121", 
               "60124", "60119", "60127", "60126", "60111", "60131", "60118"),

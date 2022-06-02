@@ -9,7 +9,7 @@
 #' library(sf)
 #' library(dplyr)
 #' 
-#' pepseg <- st_read('~/Desktop/TBEP/Peconic/PEPSegments/PEP_Seg_Flanders.shp') %>%
+#' pepseg <- st_read('~/Desktop/TBEP/Peconic/PEPSegments/PEP_Seg_Reeves.shp') %>%
 #'   st_transform(crs = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs') %>% 
 #'   select(bay_segment = NewSegment) %>% 
 #'   st_buffer(dist = 0) %>% 
