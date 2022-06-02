@@ -3,7 +3,7 @@
 #' @description Plot annual water quality values and thresholds for a bay segment
 #'
 #' @param dat data frame of data returned by \code{\link{read_pepwq}}
-#' @param bay_segment chr string for the bay segment, one of "Western", "Central", or "Eastern"
+#' @param bay_segment chr string for the bay segment, one of "1a", "1b", "2", or "3"
 #' @param param chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen
 #' @param trgs optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}, only applies if \code{param} is \code{"chla"} or \code{"sd"}
 #' @param yrrng numeric vector indicating min, max years to include
@@ -18,8 +18,8 @@
 #' @export
 #'
 #' @examples
-#' show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
-show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), param = c('chla', 'sd', 'tn'), trgs = NULL, yrrng = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+#' show_thrpep(rawdat, bay_segment = '1a', param = 'chl')
+show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('chla', 'sd', 'tn'), trgs = NULL, yrrng = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # default targets from data file
   if(is.null(trgs))

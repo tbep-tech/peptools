@@ -6,7 +6,7 @@
 #' @param txtsz numeric for size of text in the plot, applies only if \code{tab = FALSE}
 #' @param trgs optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}
 #' @param yrrng numeric vector indicating min, max years to include
-#' @param bay_segment chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"
+#' @param bay_segment chr string for bay segments to include, one to all of "1a", "1b", "2", or "3"
 #' @param abbrev logical indicating if text labels in the plot are abbreviated as the first letter, applies only to center column
 #' @param family optional chr string indicating font family for text labels
 #'
@@ -25,8 +25,8 @@
 #' @export
 #'
 #' @examples
-#' show_segmatrixpep(rawdat, bay_segment = 'Western')
-show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_segment = c('Western', 'Central', 'Eastern'), abbrev = FALSE, family = NA) {
+#' show_segmatrixpep(rawdat, bay_segment = '1a')
+show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_segment = c('1a', '1b', '2', '3'), abbrev = FALSE, family = NA) {
   
   bay_segment <- match.arg(bay_segment)
   

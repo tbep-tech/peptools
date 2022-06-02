@@ -4,16 +4,12 @@
 \alias{show_plotlypep}
 \title{Plot chlorophyll and secchi data together with matrix outcomes}
 \usage{
-show_plotlypep(
-  dat,
-  bay_segment = c("Western", "Central", "Eastern"),
-  yrrng = NULL
-)
+show_plotlypep(dat, bay_segment = c("1a", "1b", "2", "3"), yrrng = NULL)
 }
 \arguments{
 \item{dat}{\code{data.frame} formatted from \code{\link{read_pepwq}}}
 
-\item{bay_segment}{chr string for the bay segment, one of "Western", "Central", or "Eastern"}
+\item{bay_segment}{chr string for the bay segment, one of "1a", "1b", "2", or "3"}
 
 \item{yrrng}{numeric for year range to plot}
 }

@@ -9,7 +9,7 @@ show_sitemappep(
   yrsel = NULL,
   mosel = NULL,
   param = c("chla", "sd", "tn"),
-  bay_segment = c("Western", "Central", "Eastern"),
+  bay_segment = c("1a", "1b", "2", "3"),
   maxrel = 0.99,
   relative = FALSE
 )
@@ -23,7 +23,7 @@ show_sitemappep(
 
 \item{param}{chr string indicating which water quality value to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen}
 
-\item{bay_segment}{chr string for the bay segment, one or all of "Western", "Central", or "Eastern"}
+\item{bay_segment}{chr string for the bay segment, one or all of "1a", "1b", "2", or "3"}
 
 \item{maxrel}{numeric for the maximum quantile value for scaling if \code{relative = T}, this prevents outliers from skewing the scale}
 

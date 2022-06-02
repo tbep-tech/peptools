@@ -6,7 +6,7 @@
 #' @param yrsel numeric for years to plot, see details
 #' @param mosel numeric for months to plot, see details
 #' @param param chr string indicating which water quality value to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen
-#' @param bay_segment chr string for the bay segment, one or all of "Western", "Central", or "Eastern"
+#' @param bay_segment chr string for the bay segment, one or all of "1a", "1b", "2", or "3"
 #' @param maxrel numeric for the maximum quantile value for scaling if \code{relative = T}, this prevents outliers from skewing the scale
 #' @param relative logical indicating if sizes and colors are relative to the entire water quality data base, otherwise scaling is relative only for the points on the map
 #' 
@@ -31,7 +31,7 @@
 #' 
 #' # July only, all years
 #' show_sitemappep(rawdat, mosel = 7)
-show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', 'sd', 'tn'), bay_segment = c('Western', 'Central', 'Eastern'), maxrel = 0.99, relative = FALSE){
+show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', 'sd', 'tn'), bay_segment = c('1a', '1b', '2', '3'), maxrel = 0.99, relative = FALSE){
 
   param <- match.arg(param)
   

@@ -6,7 +6,7 @@
 #' @param txtsz numeric for size of text in the plot, applies only if \code{asreact = FALSE}
 #' @param trgs optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}
 #' @param yrrng numeric vector indicating min, max years to include
-#' @param bay_segment chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"
+#' @param bay_segment chr string for bay segments to include, one to all of "1a", "1b", "2", or "3"
 #' @param asreact logical indicating if a \code{\link[reactable]{reactable}} object is returned
 #' @param nrows if \code{asreact = TRUE}, a numeric specifying number of rows in the table
 #' @param abbrev logical indicating if text labels in the plot are abbreviated as the first letter
@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' show_matrixpep(rawdat)
-show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_segment = c('Western', 'Central', 'Eastern'), asreact = FALSE, nrows = 10, abbrev = FALSE, family = NA){
+show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_segment = c('1a', '1b', '2', '3'), asreact = FALSE, nrows = 10, abbrev = FALSE, family = NA){
   
   # default targets from data file
   if(is.null(trgs))
@@ -43,7 +43,7 @@ show_matrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_segmen
     dplyr::filter(yr >= yrrng[1] & yr <= yrrng[2]) %>%
     dplyr::filter(bay_segment %in% !!bay_segment) %>%
     dplyr::mutate(
-      bay_segment = factor(bay_segment, levels = c('Western', 'Central', 'Eastern'))
+      bay_segment = factor(bay_segment, levels = c('1a', '1b', '2', '3'))
     )
   
   # add abbreviations if true

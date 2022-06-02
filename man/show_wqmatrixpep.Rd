@@ -11,7 +11,7 @@ show_wqmatrixpep(
   trgs = NULL,
   yrrng = NULL,
   alpha = 1,
-  bay_segment = c("Western", "Central", "Eastern"),
+  bay_segment = c("1a", "1b", "2", "3"),
   asreact = FALSE,
   nrows = 10,
   family = NA
@@ -30,7 +30,7 @@ show_wqmatrixpep(
 
 \item{alpha}{numeric indicating color transparency}
 
-\item{bay_segment}{chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"}
+\item{bay_segment}{chr string for bay segments to include, one to all of "1a", "1b", "2", or "3"}
 
 \item{asreact}{logical indicating if a \code{\link[reactable]{reactable}} object is returned}
 

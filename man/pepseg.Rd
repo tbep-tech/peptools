@@ -18,16 +18,9 @@ Polygon shapefile of segment boundaries
 library(sf)
 library(dplyr)
 
-pepseg <- st_read('~/Desktop/TBEP/Peconic/PEPSegments/PEP_Segments.shp') \%>\%
+pepseg <- st_read('~/Desktop/TBEP/Peconic/PEPSegments/PEP_Seg_Flanders.shp') \%>\%
   st_transform(crs = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs') \%>\% 
-  mutate(
-    bay_segment = case_when(
-      NAME == 'Segment3' ~ 'Eastern', 
-      NAME == 'Segment2' ~ 'Central', 
-      NAME == 'Segment1' ~ 'Western', 
-    )
-  ) \%>\% 
-  select(bay_segment) \%>\% 
+  select(bay_segment = NewSegment) \%>\% 
   st_buffer(dist = 0) \%>\% 
   st_crop(xmin = -72.76, xmax = -71.8, ymin = 40.83, ymax = 41.2)
  

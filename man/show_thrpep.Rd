@@ -6,7 +6,7 @@
 \usage{
 show_thrpep(
   dat,
-  bay_segment = c("Western", "Central", "Eastern"),
+  bay_segment = c("1a", "1b", "2", "3"),
   param = c("chla", "sd", "tn"),
   trgs = NULL,
   yrrng = NULL,
@@ -18,7 +18,7 @@ show_thrpep(
 \arguments{
 \item{dat}{data frame of data returned by \code{\link{read_pepwq}}}
 
-\item{bay_segment}{chr string for the bay segment, one of "Western", "Central", or "Eastern"}
+\item{bay_segment}{chr string for the bay segment, one of "1a", "1b", "2", or "3"}
 
 \item{param}{chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen}
 
@@ -39,6 +39,6 @@ A \code{\link[ggplot2]{ggplot}} object
 Plot annual water quality values and thresholds for a bay segment
 }
 \examples{
-show_thrpep(rawdat, bay_segment = 'Western', param = 'chl')
+show_thrpep(rawdat, bay_segment = '1a', param = 'chl')
 }
 \concept{visualize}

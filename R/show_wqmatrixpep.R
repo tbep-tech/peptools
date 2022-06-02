@@ -8,7 +8,7 @@
 #' @param trgs optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param alpha numeric indicating color transparency
-#' @param bay_segment chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"
+#' @param bay_segment chr string for bay segments to include, one to all of "1a", "1b", "2", or "3"
 #' @param asreact logical indicating if a \code{\link[reactable]{reactable}} object is returned
 #' @param nrows if \code{asreact = TRUE}, a numeric specifying number of rows in the table
 #' @param family optional chr string indicating font family for text labels
@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' show_wqmatrixpep(rawdat)
-show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = NULL, alpha = 1, bay_segment = c("Western", "Central", "Eastern"), asreact = FALSE, nrows = 10, family = NA){
+show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = NULL, alpha = 1, bay_segment = c('1a', '1b', '2', '3'), asreact = FALSE, nrows = 10, family = NA){
 
   # sanity checks
   param <- match.arg(param)
@@ -57,7 +57,7 @@ show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NUL
     dplyr::left_join(trgs, by = 'bay_segment') %>%
     dplyr::select(bay_segment, yr, var, lwr.ci, medv, upr.ci, thresh = !!paste0(param, '_thresh')) %>%
     dplyr::mutate(
-      bay_segment = factor(bay_segment, levels = c("Western", "Central", "Eastern")),
+      bay_segment = factor(bay_segment, levels = c('1a', '1b', '2', '3')),
       outcome = dplyr::case_when(
         var == 'sd' & medv >= thresh ~ 'green',
         var == 'sd' & medv < thresh ~ 'red', 

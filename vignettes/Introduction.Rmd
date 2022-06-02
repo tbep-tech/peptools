@@ -121,7 +121,7 @@ show_sitemappep(dat, mosel = 7)
 A different year, parameter, and bay segment can also be chosen. Note that the size and color ramps are reversed for secchi depth, such that smaller and bluer points indicate larger secchi values. 
 
 ```{r}
-show_sitemappep(dat, yrsel = 2010, param = 'sd', bay_segment = c('Central', 'Eastern'))
+show_sitemappep(dat, yrsel = 2010, param = 'sd', bay_segment = c('2', '3'))
 ```
 
 By default, the color and size scaling in `show_sitemappep()` is relative to only the points on the map. You can view scaling relative to all values in the dataset (across time and space) to get a sense of how the values for the selected year compare to the rest of the record.  This can be done by changing the `relative` argument to `TRUE`. 
@@ -139,25 +139,25 @@ show_sitemappep(dat, yrsel = 2021, relative = T, maxrel = 0.8)
 The `show_thrpep()` function provides a more descriptive assessment of annual trends for a chosen bay segment relative to thresholds. In this plot, we show the annual medians and non-parametric confidence internals (95%) across stations for a segment.  The red line shows annual trends and the horizontal blue line indicates the threshold for chlorophyll-a.
 
 ```{r, fig.height = 5, fig.width = 8}
-show_thrpep(dat, bay_segment = "Western", param = "chla")
+show_thrpep(dat, bay_segment = "1a", param = "chla")
 ```
 
 We can show the same plot but for secchi depth by changing the `param = "chla"` to `param = "sd"`.  Note the change in the horizontal reference lines for the secchi depth target.  Secchi trends must also be interpreted inversely to chlorophyll, such that lower values generally indicate less desirable water quality.
 
 ```{r, fig.height = 5, fig.width = 8}
-show_thrpep(dat, bay_segment = "Western", param = "sd")
+show_thrpep(dat, bay_segment = "1a", param = "sd")
 ```
 
 Total nitrogen can also be plotted.  A threshold line is not displayed because there are no targets available in the package. 
 
 ```{r, fig.height = 5, fig.width = 8}
-show_thrpep(dat, bay_segment = "Western", param = "tn")
+show_thrpep(dat, bay_segment = "1a", param = "tn")
 ```
 
 The year range to plot can also be specified using the `yrrng` argument, where the default is `yrrng = c(1990, 2020)`.
 
 ```{r, fig.height = 5, fig.width = 8}
-show_thrpep(dat, bay_segment = "Western", param = "chla", yrrng = c(1976, 2021))
+show_thrpep(dat, bay_segment = "1a", param = "chla", yrrng = c(1976, 2021))
 ```
 
 The `show_allthrpep()` function is a slight modification of `show_thrpep()` that shows annual median results for all bay segments combined.  It accepts similar arguments as `show_thrpep()`.  Note that threshold values for chlorophyll-a and Secchi depth can also be shown because the thresholds do not vary between segments.  A modification fo the function will be required if these thresholds are modified for specific bay segments. 
@@ -172,7 +172,7 @@ The `show_thrpep()` function uses results from the `anlz_medpep()` function.  Fo
 dat %>% 
   anlz_medpep %>% 
   .[['ann']] %>% 
-  filter(bay_segment == 'Western') %>% 
+  filter(bay_segment == '1a') %>% 
   filter(var == 'chla') %>% 
   filter(yr >= 1988 & yr <= 2021)
 ```
@@ -180,14 +180,14 @@ dat %>%
 Similarly, the `show_boxpep()` function provides an assessment of seasonal changes in chlorophyll, secchi depth, or total nitrogen values by bay segment.  The most recent year is highlighted in red by default. This allows a simple evaluation of how the most recent year compared to historical averages.  The threshold value is shown in blue text and as the dotted line (not shown for total nitrogen).  This is the same dotted line shown in `show_thrpep()`.    
 
 ```{r, fig.height = 5, fig.width = 8}
-show_boxpep(dat, param = 'chla', bay_segment = "Western")
-show_boxpep(dat, param = 'sd', bay_segment = "Eastern")
+show_boxpep(dat, param = 'chla', bay_segment = "1a")
+show_boxpep(dat, param = 'sd', bay_segment = "3")
 ```
 
 A different subset of years and selected year of interest can also be viewed by changing the `yrrng` and `yrsel` arguments.  Here we show 1980 compared to monthly averages for the last ten years. 
 
 ```{r, fig.height = 5, fig.width = 8}
-show_boxpep(dat, param = 'chla', bay_segment = "Western", yrrng = c(2008, 2018), yrsel = 1990)
+show_boxpep(dat, param = 'chla', bay_segment = "1a", yrrng = c(2008, 2018), yrsel = 1990)
 ```
 
 The `show_thrpep()` function is useful to understand annual variation in chlorophyll, secchi, or total nitrogen in each bay segment.  For chlorophyll and secchi, the information from these plots can provide an understanding of how the annual reporting outcomes are determined.  An outcome integer from zero to three is assigned to each bay segment for each annual estimate of chlorophyll and secchi depth.  These outcomes are based on both the exceedance of the annual estimate above the threshold (blue lines in `show_thrpep()`) and duration of the exceedance for the years prior.  The following graphic describes this logic [@Janicki99].
@@ -258,26 +258,26 @@ show_wqmatrixpep(dat, param = 'sd')
 The results from `show_matrixpep()` for both secchi and chlorophyll can be combined for an individual segment using the `show_segmatrixpep()` function. Only one segment can be plotted for each function call. 
 
 ```{r, fig.height = 8, fig.width = 2.5}
-show_segmatrixpep(dat, bay_segment = 'Western')
+show_segmatrixpep(dat, bay_segment = '1a')
 ```
 
 Finally, all plots for a selected segment can be shown together using the `show_plotlypep()` function that combines chlorophyll and secchi data.  This function combines outputs from `show_thrpep()` and `show_segmatrixpep()`. The final plot is interactive and can be zoomed by dragging the mouse pointer over a section of the plot. Information about each cell or value can be seen by hovering over a location in the plot. 
 
 ```{r, out.width = '100%', fig.height = 6, fig.width = 11}
-show_plotlypep(rawdat, bay_segment = 'Western')
+show_plotlypep(rawdat, bay_segment = '1a')
 ```
 
 ## Testing different thresholds
 
-By default, all plotting functions use the `peptargets` data frame included with the package, which assigns a threshold of 6.5 ft for secchi depth and 5.5 ug/L for chlorophyll to all segments. All plotting arguments have an optional argument called `trgs` that accepts user-provided thresholds.  A new data frame can be passed to this argument to evaluate different thresholds. The following demonstrates how to create a custom thresholds data frame (a tibble specifically) and use it to evaluate changes on reporting outcomes. For examples, perhaps less stringent thresholds are required for the Western segment (lower secchi, higher chlorophyll) and more stringent thresholds are required for the Eastern segment (higher secchi, lower chlorophyll). 
+By default, all plotting functions use the `peptargets` data frame included with the package, which assigns a threshold of 6.5 ft for secchi depth and 5.5 ug/L for chlorophyll to all segments. All plotting arguments have an optional argument called `trgs` that accepts user-provided thresholds.  A new data frame can be passed to this argument to evaluate different thresholds. The following demonstrates how to create a custom thresholds data frame (a tibble specifically) and use it to evaluate changes on reporting outcomes. For examples, perhaps less stringent thresholds are required for the 1a segment (lower secchi, higher chlorophyll) and more stringent thresholds are required for the 3 segment (higher secchi, lower chlorophyll). 
 
 ```{r}
-segs <- c('Western', 'Central', 'Eastern')
+segs <- c('1a', '1b', '2', '3')
 newtrgs <- data.frame( 
   bay_segment = factor(segs, levels = segs),
   name = factor(segs, levels = segs),
-  sd_thresh = c(5.5, 6.5, 7.5),
-  chla_thresh = c(6, 5.5, 5), 
+  sd_thresh = c(5.0, 5.5, 6.5, 7.5),
+  chla_thresh = c(6.5, 6, 5.5, 5), 
   stringsAsFactors = F
 )
 ```

@@ -1,7 +1,7 @@
 #' Plot chlorophyll and secchi data together with matrix outcomes
 #'
 #' @param dat \code{data.frame} formatted from \code{\link{read_pepwq}}
-#' @param bay_segment chr string for the bay segment, one of "Western", "Central", or "Eastern"
+#' @param bay_segment chr string for the bay segment, one of "1a", "1b", "2", or "3"
 #' @param yrrng numeric for year range to plot
 #'
 #' @return An interactive plotly object
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' show_plotlypep(rawdat)
-show_plotlypep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), yrrng = NULL){
+show_plotlypep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), yrrng = NULL){
   
   bay_segment <- match.arg(bay_segment)
 

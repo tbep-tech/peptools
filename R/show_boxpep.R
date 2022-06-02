@@ -7,7 +7,7 @@
 #' @param yrsel numeric for year to emphasize, shown as separate red points on the plot
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param ptsz numeric indicating point size of observations not in \code{yrsel}
-#' @param bay_segment chr string for the bay segment, one of "Western", "Central", or "Eastern"
+#' @param bay_segment chr string for the bay segment, one of "1a", "1b", "2", or "3"
 #' @param trgs optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}, only applies if \code{param} is \code{"chla"} or \code{"sd"}
 #' @param family optional chr string indicating font family for text labels
 #' @param labelexp logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}
@@ -23,8 +23,8 @@
 #' @export
 #'
 #' @examples
-#' show_boxpep(rawdat, bay_segment = 'Western')
-show_boxpep <- function(dat, param = c('chla', 'sd', 'tn'),  yrsel = NULL, yrrng = NULL, ptsz = 0.5, bay_segment = c('Western', 'Central', 'Eastern'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+#' show_boxpep(rawdat, bay_segment = '1a')
+show_boxpep <- function(dat, param = c('chla', 'sd', 'tn'),  yrsel = NULL, yrrng = NULL, ptsz = 0.5, bay_segment = c('1a', '1b', '2', '3'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # parameter
   param <- match.arg(param)

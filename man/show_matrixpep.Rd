@@ -9,7 +9,7 @@ show_matrixpep(
   txtsz = 3,
   trgs = NULL,
   yrrng = NULL,
-  bay_segment = c("Western", "Central", "Eastern"),
+  bay_segment = c("1a", "1b", "2", "3"),
   asreact = FALSE,
   nrows = 10,
   abbrev = FALSE,
@@ -25,7 +25,7 @@ show_matrixpep(
 
 \item{yrrng}{numeric vector indicating min, max years to include}
 
-\item{bay_segment}{chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"}
+\item{bay_segment}{chr string for bay segments to include, one to all of "1a", "1b", "2", or "3"}
 
 \item{asreact}{logical indicating if a \code{\link[reactable]{reactable}} object is returned}
 

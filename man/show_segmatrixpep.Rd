@@ -9,7 +9,7 @@ show_segmatrixpep(
   txtsz = 3,
   trgs = NULL,
   yrrng = NULL,
-  bay_segment = c("Western", "Central", "Eastern"),
+  bay_segment = c("1a", "1b", "2", "3"),
   abbrev = FALSE,
   family = NA
 )
@@ -23,7 +23,7 @@ show_segmatrixpep(
 
 \item{yrrng}{numeric vector indicating min, max years to include}
 
-\item{bay_segment}{chr string for bay segments to include, one to all of "Western", "Central", or "Eastern"}
+\item{bay_segment}{chr string for bay segments to include, one to all of "1a", "1b", "2", or "3"}
 
 \item{abbrev}{logical indicating if text labels in the plot are abbreviated as the first letter, applies only to center column}
 
@@ -39,7 +39,7 @@ Create a colorized table for water quality outcomes by segment that includes the
 This function provides a combined output for the \code{\link{show_wqmatrixpep}} and \code{\link{show_matrixpep}} functions. Only one bay segment can be plotted for each function call.
 }
 \examples{
-show_segmatrixpep(rawdat, bay_segment = 'Western')
+show_segmatrixpep(rawdat, bay_segment = '1a')
 }
 \seealso{
 \code{\link{show_wqmatrixpep}}, \code{\link{show_matrixpep}}
