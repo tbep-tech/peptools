@@ -39,7 +39,7 @@ show_allthrpep <- function(dat, param = c('chla', 'sd', 'tn'), trgs = NULL, yrrn
   
   # wq to plot
   param <- match.arg(param)
-  # browser()
+
   # chlorophyll, tn annual values
   yrchlatn <-  dat %>%
     dplyr::filter(name %in% c('chla', 'tn')) %>%
@@ -76,7 +76,7 @@ show_allthrpep <- function(dat, param = c('chla', 'sd', 'tn'), trgs = NULL, yrrn
         T ~ 1
       )
     ) %>%
-    survival::survfit(survival::Surv(value, status) ~ yr, data = .) %>%
+    survival::survfit(survival::Surv(value, status) ~ yr, data = ., conf.type = 'plain', robust = T) %>%
     summary() %>%
     .$table %>%
     as.data.frame %>%
