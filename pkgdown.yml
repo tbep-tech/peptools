@@ -1,12 +1,12 @@
 pandoc: 2.7.3
-pkgdown: 2.0.3
+pkgdown: 2.0.5
 pkgdown_sha: ~
 articles:
   Introduction: Introduction.html
   dissolvedoxygen: dissolvedoxygen.html
   figures: figures.html
   pathogens: pathogens.html
-last_built: 2022-05-24T16:51Z
+last_built: 2022-07-13T14:15Z
 urls:
   reference: https://tbep-tech.github.io/peptools/reference
   article: https://tbep-tech.github.io/peptools/articles
