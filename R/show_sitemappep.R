@@ -84,7 +84,7 @@ show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', '
         )
       ) %>% 
       dplyr::filter(yr %in% yrsel & mo %in% mosel) %>% 
-      survival::survfit(survival::Surv(val, status) ~ BayStation, data = .) %>% 
+      survival::survfit(survival::Surv(val, status) ~ BayStation, data = ., conf.type = 'plain', robust = T) %>% 
       summary() %>% 
       .$table %>% 
       as.data.frame %>% 
