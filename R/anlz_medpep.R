@@ -103,7 +103,7 @@ anlz_medpep <- function(dat){
         T ~ 1
       )
     )
-  monsdfit <- survival::survfit(survival::Surv(value, status) ~ bay_segment + yr + mo, data = monsd)
+  monsdfit <- survival::survfit(survival::Surv(value, status) ~ bay_segment + yr + mo, data = monsd, conf.type = 'plain', robust = T)
   medv <- summary(monsdfit)$table
   monsd <- monsdfit$strata %>% 
     names %>% 
@@ -129,7 +129,7 @@ anlz_medpep <- function(dat){
         T ~ 1
       )
     ) %>% 
-    survival::survfit(survival::Surv(value, status) ~ bay_segment + yr + mo, data = .) %>% 
+    survival::survfit(survival::Surv(value, status) ~ bay_segment + yr + mo, data = ., conf.type = 'plain', robust = T) %>% 
     summary() %>% 
     .$table %>% 
     as.data.frame %>% 
@@ -158,7 +158,7 @@ anlz_medpep <- function(dat){
         T ~ 1
       )
     ) %>% 
-    survival::survfit(survival::Surv(value, status) ~ bay_segment + yr, data = .) %>% 
+    survival::survfit(survival::Surv(value, status) ~ bay_segment + yr, data = ., conf.type = 'plain', robust = T) %>% 
     summary() %>% 
     .$table %>% 
     as.data.frame %>% 
