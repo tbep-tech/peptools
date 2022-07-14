@@ -27,7 +27,7 @@ show_allthrpep(
 
 \item{labelexp}{logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}}
 
-\item{txtlab}{logical indicating if a text label for the target value is shown in the plot, only applies if \code{param} is \code{"chla"} or \code{"sd"}}
+\item{txtlab}{logical indicating if a text label for the target value is shown in the plot}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

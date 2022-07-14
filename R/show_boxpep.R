@@ -11,7 +11,7 @@
 #' @param trgs optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}, only applies if \code{param} is \code{"chla"} or \code{"sd"}
 #' @param family optional chr string indicating font family for text labels
 #' @param labelexp logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}
-#' @param txtlab logical indicating if a text label for the target value is shown in the plot, only applies if \code{param} is \code{"chla"} or \code{"sd"}
+#' @param txtlab logical indicating if a text label for the target value is shown in the plot
 #'
 #' @concept visualize
 #'
@@ -121,37 +121,35 @@ show_boxpep <- function(dat, param = c('chla', 'sd', 'tn'),  yrsel = NULL, yrrng
     ggplot2::scale_colour_manual(values = cols[1]) +
     ggplot2::scale_fill_manual(values = cols[2]) 
 
-  if(param != 'tn'){
-    
-    # get lines to plot
-    thrnum <- trgs %>%
-      dplyr::filter(bay_segment %in% !!bay_segment) %>%
-      dplyr::pull(!!paste0(param, '_thresh'))
-    
-    # threshold label
-    if(labelexp)
-      thrlab <- dplyr::case_when(
-        param == 'chla' ~ paste(thrnum, "~ mu * g%.%L^{-1}"),
-        param == 'sd' ~ paste(thrnum, "~ft")
-      )
-    if(!labelexp)
-      thrlab <- dplyr::case_when(
-        param == 'chla' ~ paste(thrnum, "ug/L"),
-        param == 'sd' ~ paste(thrnum, "~ft")
-      )
-    
-    p <- p + 
-      ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, linetype = 'Threshold'), colour = 'blue', size = 0.75)+
-      ggplot2::scale_linetype_manual(values = 'dotted') +
-      ggplot2::guides(linetype = ggplot2::guide_legend(override.aes = list(colour = 'blue')))
-      
-    if(txtlab)
-      p <- p +
-        ggplot2::geom_text(ggplot2::aes(x = factor('Dec'), max(toplo1$val, na.rm = TRUE)), 
-                           parse = labelexp, label = thrlab, hjust = 1, vjust = 1, colour = 'blue', family = family)
-    
-  }
+  # get lines to plot
+  thrnum <- trgs %>%
+    dplyr::filter(bay_segment %in% !!bay_segment) %>%
+    dplyr::pull(!!paste0(param, '_thresh'))
   
+  # threshold label
+  if(labelexp)
+    thrlab <- dplyr::case_when(
+      param == 'chla' ~ paste(thrnum, "~ mu * g%.%L^{-1}"),
+      param == 'sd' ~ paste(thrnum, "~ft"), 
+      param == 'tn' ~ paste(thrnum, "~ mg%.%L^{-1}")
+    )
+  if(!labelexp)
+    thrlab <- dplyr::case_when(
+      param == 'chla' ~ paste(thrnum, "ug/L"),
+      param == 'sd' ~ paste(thrnum, "~ft"), 
+      param == 'tn' ~ paste(thrnum, "mg/L")
+    )
+  
+  p <- p + 
+    ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, linetype = 'Threshold'), colour = 'blue', size = 0.75)+
+    ggplot2::scale_linetype_manual(values = 'dotted') +
+    ggplot2::guides(linetype = ggplot2::guide_legend(override.aes = list(colour = 'blue')))
+    
+  if(txtlab)
+    p <- p +
+      ggplot2::geom_text(ggplot2::aes(x = factor('Dec'), max(toplo1$val, na.rm = TRUE)), 
+                         parse = labelexp, label = thrlab, hjust = 1, vjust = 1, colour = 'blue', family = family)
+
   return(p)
   
 }

@@ -9,7 +9,7 @@
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param family optional chr string indicating font family for text labels
 #' @param labelexp logical indicating if y axis and target labels are plotted as expressions, default \code{TRUE}
-#' @param txtlab logical indicating if a text label for the target value is shown in the plot, only applies if \code{param} is \code{"chla"} or \code{"sd"}
+#' @param txtlab logical indicating if a text label for the target value is shown in the plot
 #'
 #' @concept visualize
 #'
@@ -92,58 +92,44 @@ show_thrpep <- function(dat, bay_segment = c('Western', 'Central', 'Eastern'), p
       legend.title = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_text(angle = 45, size = 7, hjust = 1)
     )
- 
-  if(param != 'tn'){
     
-    # colors
-    cols <- c(cols, "Threshold"="blue")
-    
-    # get lines to plot
-    toln <- trgs %>%
-      dplyr::filter(bay_segment %in% !!bay_segment)
-    thrnum <- toln %>% dplyr::pull(!!paste0(param, '_thresh'))
-    
-    # threshold label
-    if(labelexp)
-      thrlab <- dplyr::case_when(
-        param == 'chla' ~ paste(thrnum, "~ mu * g%.%L^{-1}"),
-        param == 'sd' ~ paste(thrnum, "~ft")
-      )
-    if(!labelexp)
-      thrlab <- dplyr::case_when(
-        param == 'chla' ~ paste(thrnum, "ug/L"),
-        param == 'sd' ~ paste(thrnum, "~ft")
-      )
-    
-    p <- p +
-      ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, colour = 'Threshold'), linetype = 'dotted', size = 0.75) +
-      ggplot2::scale_colour_manual(values = cols, labels = factor(names(cols), levels = names(cols))) +
-      ggplot2::guides(colour = ggplot2::guide_legend(
-        override.aes = list(
-          shape = c(19, NA),
-          colour = cols,
-          linetype = c('solid', 'dotted'),
-          size = c(0.75, 0.75)
-        )
-      ))
-    
-    if(txtlab)
-      p <- p +
-        ggplot2::geom_text(ggplot2::aes(yrrng[2], max(toplo$upr.ci, na.rm = T), label = thrlab), parse = labelexp, hjust = 1, vjust = 1, family = family, colour = 'blue')
-    
-  }
+  # colors
+  cols <- c(cols, "Threshold"="blue")
   
-  if(param == 'tn')
+  # get lines to plot
+  toln <- trgs %>%
+    dplyr::filter(bay_segment %in% !!bay_segment)
+  thrnum <- toln %>% dplyr::pull(!!paste0(param, '_thresh'))
+  
+  # threshold label
+  if(labelexp)
+    thrlab <- dplyr::case_when(
+      param == 'chla' ~ paste(thrnum, "~ mu * g%.%L^{-1}"),
+      param == 'sd' ~ paste(thrnum, "~ft"), 
+      param == 'tn' ~ paste(thrnum, "~ mg%.%L^{-1}")
+    )
+  if(!labelexp)
+    thrlab <- dplyr::case_when(
+      param == 'chla' ~ paste(thrnum, "ug/L"),
+      param == 'sd' ~ paste(thrnum, "~ft"), 
+      param == 'tn' ~ paste(thrnum, "mg/L")
+    )
+  
+  p <- p +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, colour = 'Threshold'), linetype = 'dotted', size = 0.75) +
+    ggplot2::scale_colour_manual(values = cols, labels = factor(names(cols), levels = names(cols))) +
+    ggplot2::guides(colour = ggplot2::guide_legend(
+      override.aes = list(
+        shape = c(19, NA),
+        colour = cols,
+        linetype = c('solid', 'dotted'),
+        size = c(0.75, 0.75)
+      )
+    ))
+  
+  if(txtlab)
     p <- p +
-      ggplot2::scale_colour_manual(values = cols, labels = factor(names(cols), levels = names(cols))) +
-      ggplot2::guides(colour = ggplot2::guide_legend(
-        override.aes = list(
-          shape = c(19),
-          colour = cols,
-          linetype = c('solid'),
-          size = c(0.75)
-        )
-      ))
+      ggplot2::geom_text(ggplot2::aes(yrrng[2], max(toplo$upr.ci, na.rm = T), label = thrlab), parse = labelexp, hjust = 1, vjust = 1, family = family, colour = 'blue')
   
   return(p)
   

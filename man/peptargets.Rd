@@ -21,7 +21,8 @@ peptargets <- tibble::tibble(
   name = factor(c('Western', 'Central', 'Eastern'), 
     levels = c('Western', 'Central', 'Eastern')), 
   sd_thresh = c(6.5, 6.5, 6.5),
-  chla_thresh = c(5.5, 5.5, 5.5)
+  chla_thresh = c(5.5, 5.5, 5.5), 
+  tn_thresh = c(0.4, 0.4, 0.4)
 )
 save(peptargets, file = 'data/peptargets.RData', compress= 'xz')
 }
