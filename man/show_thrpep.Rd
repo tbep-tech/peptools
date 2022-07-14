@@ -22,7 +22,7 @@ show_thrpep(
 
 \item{param}{chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen}
 
-\item{trgs}{optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}, only applies if \code{param} is \code{"chla"} or \code{"sd"}}
+\item{trgs}{optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}}
 
 \item{yrrng}{numeric vector indicating min, max years to include}
 

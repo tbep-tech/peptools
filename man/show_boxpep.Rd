@@ -30,7 +30,7 @@ show_boxpep(
 
 \item{bay_segment}{chr string for the bay segment, one of "Western", "Central", or "Eastern"}
 
-\item{trgs}{optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}, only applies if \code{param} is \code{"chla"} or \code{"sd"}}
+\item{trgs}{optional \code{data.frame} for annual bay segment water quality targets, defaults to \code{\link{peptargets}}}
 
 \item{family}{optional chr string indicating font family for text labels}
 
@@ -45,7 +45,7 @@ A \code{\link[ggplot2]{ggplot}} object
 Plot monthly chlorophyl, secchi, or tn values values for a bay segment
 }
 \details{
-Points not included in \code{yrsel} are plotted over the box plots using \code{\link[ggplot2]{position_jitter}}. Use \code{ptsz = -1} to suppress.  The dotted line in the plot shows the threshold if \code{param} is \code{"chla"} or \code{"sd"}.
+Points not included in \code{yrsel} are plotted over the box plots using \code{\link[ggplot2]{position_jitter}}. Use \code{ptsz = -1} to suppress.
 }
 \examples{
 show_boxpep(rawdat, bay_segment = 'Western')
