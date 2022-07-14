@@ -148,7 +148,7 @@ We can show the same plot but for secchi depth by changing the `param = "chla"` 
 show_thrpep(dat, bay_segment = "1a", param = "sd")
 ```
 
-Total nitrogen can also be plotted.  A threshold line is not displayed because there are no targets available in the package. 
+Total nitrogen can also be plotted.
 
 ```{r, fig.height = 5, fig.width = 8}
 show_thrpep(dat, bay_segment = "1a", param = "tn")
