@@ -18,7 +18,9 @@ Data are from the ArcGIS REST Services here \url{https://gis.suffolkcountyny.gov
 The API is queried by beach names in the \code{\link{beaches}} data object. The queries are done individually for each beach to not exceed the 2000 record limit.
 }
 \examples{
+\dontrun{
 entdat <- read_pepent()
+}
 head(entdat)
 }
 \concept{read}
