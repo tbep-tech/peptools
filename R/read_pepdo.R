@@ -24,7 +24,7 @@
 #'      startDate = '2020-06-01', endDate = '2021-06-30')
 #' dodat
 #' }
-read_pepdo <- function(site = c('01304562', '01304200'), nms = NULL, startDate = '2013-01-01', endDate = '2021-12-31'){
+read_pepdo <- function(site = c('01304562', '01304200'), nms = NULL, startDate = '2013-01-01', endDate = '2022-12-31'){
   
   # get DO data from USGS stations
   # 01304562 is Peconic River, 01304200 is Orient Harbor

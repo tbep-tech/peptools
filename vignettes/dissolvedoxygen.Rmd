@@ -26,7 +26,7 @@ This vignette describes a proof of concept for summarizing and reporting dissolv
 exdat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Orient Harbor'), startDate = '2020-06-01', endDate = '2020-06-30')
 ```
 
-The `dodat` data object included with the package provides DO data from 2013 to 2021 at the two sites.  This takes several minutes to download using the `read_pepdo()` function, so it is included with the package for ease of use.
+The `dodat` data object included with the package provides DO data from 2013 to 2022 at the two sites.  This takes several minutes to download using the `read_pepdo()` function, so it is included with the package for ease of use.
 
 ```{r}
 head(dodat)
