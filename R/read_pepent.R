@@ -16,7 +16,9 @@
 #' @import httr jsonlite
 #' 
 #' @examples
+#' \dontrun{
 #' entdat <- read_pepent()
+#' }
 #' head(entdat)
 read_pepent <- function(){
 
