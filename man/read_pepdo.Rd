@@ -8,7 +8,7 @@ read_pepdo(
   site = c("01304562", "01304200"),
   nms = NULL,
   startDate = "2013-01-01",
-  endDate = "2021-12-31"
+  endDate = "2022-12-31"
 )
 }
 \arguments{
