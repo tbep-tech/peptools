@@ -92,7 +92,7 @@ show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('c
       legend.title = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_text(angle = 45, size = 7, hjust = 1)
     )
-  
+
   # colors
   cols <- c(cols, "Threshold"="blue")
   

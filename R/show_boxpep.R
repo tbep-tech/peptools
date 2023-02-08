@@ -120,7 +120,7 @@ show_boxpep <- function(dat, param = c('chla', 'sd', 'tn'),  yrsel = NULL, yrrng
     ) +
     ggplot2::scale_colour_manual(values = cols[1]) +
     ggplot2::scale_fill_manual(values = cols[2]) 
-    
+
   # get lines to plot
   thrnum <- trgs %>%
     dplyr::filter(bay_segment %in% !!bay_segment) %>%
@@ -149,7 +149,6 @@ show_boxpep <- function(dat, param = c('chla', 'sd', 'tn'),  yrsel = NULL, yrrng
     p <- p +
       ggplot2::geom_text(ggplot2::aes(x = factor('Dec'), max(toplo1$val, na.rm = TRUE)), 
                          parse = labelexp, label = thrlab, hjust = 1, vjust = 1, colour = 'blue', family = family)
-  
   return(p)
   
 }
