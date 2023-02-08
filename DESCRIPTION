@@ -54,4 +54,5 @@ Suggests:
   rmarkdown,
   tibble
 VignetteBuilder: knitr
-URL: https://tbep-tech.github.io/peptools
+URL: https://tbep-tech.github.io/peptools,
+    https://tbep-tech.github.io/peptools/

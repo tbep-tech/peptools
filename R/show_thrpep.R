@@ -50,10 +50,12 @@ show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('c
   
   # axis label
   if(labelexp)
-    axlab <- dplyr::case_when(
-      param == 'chla' ~ expression("Median Chl-a ("~ mu * "g\u00B7L"^-1 *")"),
-      param == 'sd' ~ expression("Median Secchi (ft)"), 
-      param == 'tn' ~ expression("Median TN (mg\u00B7L"^-1 *")")
+    axlab <- ifelse(param == 'chla', expression("Median Chl-a ("~ mu * "g\u00B7L"^-1 *")"),
+      ifelse(param == 'sd', expression("Median Secchi (ft)"),
+        ifelse(param == 'tn', expression("Median TN (mg\u00B7L"^-1 *")"),
+          NA_character_
+        )
+      )
     )
   if(!labelexp)
     axlab <- dplyr::case_when(
