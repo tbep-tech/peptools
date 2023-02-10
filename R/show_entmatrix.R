@@ -46,12 +46,18 @@ show_entmatrix <- function(entdat, txtsz = 2, thr = 104, yrrng = NULL, family = 
       exceedances = pmin(exceedances, top)
     )
   
+  lims <- c(0, top)
+  brks <- scales::pretty_breaks()(lims)
+  labs <- brks
+  labs[length(brks)] <- paste('\u2265', brks[length(brks)])
+  
   # ggplot
   p <- ggplot2::ggplot(toplo, ggplot2::aes(x = factor(yr), y = Name, fill = exceedances)) +
     ggplot2::geom_tile(colour = 'black') +
     ggplot2::scale_y_discrete(expand = c(0, 0)) +
     ggplot2::scale_x_discrete(expand = c(0, 0), position = 'top') +
-    ggplot2::scale_fill_gradient(paste('No. of samples'), low = 'white', high = 'blue', limits = c(0, top)) +
+    ggplot2::scale_fill_gradient(paste('No. of samples\nexceeding'), low = 'white', high = 'blue', limits = c(0, top), 
+                                 breaks = brks, labels = labs) +
     ggplot2::theme_bw(base_family = family) +
     ggplot2::theme(
       axis.title = ggplot2::element_blank(),

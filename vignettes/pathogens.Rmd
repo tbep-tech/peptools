@@ -51,6 +51,12 @@ head(entdat)
 head(entdat)
 ```
 
+The data can also be imported from a local file using the `path` argument. 
+
+```{r, eval = F}
+entdat <- read_pepent(path = '~/Desktop/pathogen_data.xlsx')
+```
+
 The raw data includes concentrations of *Enterococcus* bacteria as cfu/100 mL for swimming beaches in Suffolk County.  The fields include beach name (`Name`), field number (`FieldNum`), collection date and time (`Date` as Eastern Standard Time), bacteria concentration (`value`), and `status` showing if the observation was above or below detection (indicated as `>` or `<`).  
 
 The function `anlz_entpep()` summarizes the imported data at each beach to quantify instances when bacterial concentrations were at risk of impacting human health. For Suffolk County, all bathing beaches are ranked by relative risk of exposure to harmful bacteria. Factors considered in the ranking include pollution threats (outfalls, discharges, runoff, marinas, etc.), beach location, historical monitoring data, and beach use.  Most beaches in the Peconic Estuary are Tier 3 (lowest tier). For the peptools package, the *Enterococcus* data were used to count the number of instances at each beach when concentrations were above 104 cfu/ml.  Although this does not mean a beach was closed, relative exceedances provide a coarse measure of potential risk of exposure to harmful pathogens. 

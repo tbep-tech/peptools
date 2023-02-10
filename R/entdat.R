@@ -6,7 +6,14 @@
 #' @concept data
 #' @examples 
 #' \dontrun{
-#' entdat <- read_pepent()
+#' library(dplyr)
+#' entdat1 <- read_pepent() %>% 
+#'   filter(lubridate::year(Date) < 2022)
+#' 
+#' entdat2 <- read_pepent(path = '~/Desktop/Enterodata_2022.xlsx')
+#' 
+#' entdat <- bind_rows(entdat1, entdat2)
+#' 
 #' save(entdat, file = 'data/entdat.RData', compress = 'xz')
 #' }
 "entdat"

@@ -4,7 +4,10 @@
 \alias{read_pepent}
 \title{Import raw enterococcus data}
 \usage{
-read_pepent()
+read_pepent(path = NULL)
+}
+\arguments{
+\item{path}{chr string of path for excel file (optional)}
 }
 \value{
 data.frame
@@ -15,7 +18,9 @@ Import raw enterococcus data
 \details{
 Data are from the ArcGIS REST Services here \url{https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/}.  
 
-The API is queried by beach names in the \code{\link{beaches}} data object. The queries are done individually for each beach to not exceed the 2000 record limit.
+The API is queried by beach names in the \code{\link{beaches}} data object. The queries are done individually for each beach to not exceed the 2000 record limit. 
+
+Data can also be imported from an Excel if the \code{path} argument is used for the location to the file.
 }
 \examples{
 \dontrun{
