@@ -101,7 +101,11 @@ read_pepent <- function(path = NULL){
           grepl('\\/', Date) ~ lubridate::mdy(Date), 
           grepl("^[[:digit:]]+$", Date) ~ as.Date(as.numeric(Date), origin = "1899-12-30"),
           T ~ NA
-        )})
+        )}), 
+        Name = dplyr::case_when(
+          Name == 'Crescent Beach - Shelter Island' ~ 'Crescent Beach - Suffolk', 
+          T ~ Name
+        )
       ) %>% 
       dplyr::filter(Name %in% names)
     
