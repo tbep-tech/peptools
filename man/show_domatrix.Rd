@@ -2,10 +2,11 @@
 % Please edit documentation in R/show_domatrix.R
 \name{show_domatrix}
 \alias{show_domatrix}
-\title{Create a colorized table for reporting dissolved oxygen data}
+\title{Create a colorized table for reporting dissolved oxygen data by site}
 \usage{
 show_domatrix(
   dodat,
+  site,
   show = c("below_ave", "below_maxrun"),
   txtsz = 3,
   thr = 4.8,
@@ -16,6 +17,8 @@ show_domatrix(
 }
 \arguments{
 \item{dodat}{data frame of dissolved oxygen data returned by \code{\link{read_pepdo}}}
+
+\item{site}{character string of the site to plot taken from the \code{nms} argument in \code{\link{read_pepdo}}, usually one of \code{"Peconic River"}, \code{"Orient Harbor"}, or \code{"Shelter Island"}}
 
 \item{show}{chr string indicating which summary value to plot from \code{\link{anlz_domopep}}, one of \code{'below_ave'} or \code{'below_maxrun'}}
 
@@ -33,10 +36,10 @@ show_domatrix(
 A static \code{\link[ggplot2]{ggplot}} object is returned.
 }
 \description{
-Create a colorized table for reporting dissolved oxygen data
+Create a colorized table for reporting dissolved oxygen data by site
 }
 \examples{
-show_domatrix(dodat)
+show_domatrix(dodat, site = 'Peconic River')
 }
 \seealso{
 \code{\link{anlz_domopep}}, \code{\link{anlz_dodlypep}}

@@ -38,8 +38,8 @@ rawdat <- read_pepwq(path)
 
 # do data, takes a few minutes and make sure the date in endDate is updated
 dodat <- read_pepdo(
-  site = c("01304562", "01304200"),
-  nms = NULL,
+  site = c("01304562", "01304200", "01304650"),
+  nms = c("Peconic River", "Orient Harbor", "Shelter Island"),
   startDate = "2013-01-01",
   endDate = "2022-12-31"
 )
@@ -73,10 +73,20 @@ dev.off()
 
 # do matrix ---------------------------------------------------------------
 
-p <- show_domatrix(dodat, thr = 4.8, txtsz = 3) 
+p1 <- show_domatrix(dodat, site = 'Peconic River', thr = 4.8, txtsz = 3) 
+p2 <- show_domatrix(dodat, site = 'Orient Harbor', thr = 4.8, txtsz = 3) 
+p3 <- show_domatrix(dodat, site = 'Shelter Island', thr = 4.8, txtsz = 3) 
 
-png('~/Desktop/domatrix.png', height = 6, width = 5, res = 300, units = 'in')
-print(p)
+png('~/Desktop/domatrix1.png', height = 3, width = 5, res = 300, units = 'in')
+print(p1)
+dev.off()
+
+png('~/Desktop/domatrix2.png', height = 3, width = 5, res = 300, units = 'in')
+print(p2)
+dev.off()
+
+png('~/Desktop/domatrix3.png', height = 3, width = 5, res = 300, units = 'in')
+print(p3)
 dev.off()
 
 # pathogen matrix ---------------------------------------------------------

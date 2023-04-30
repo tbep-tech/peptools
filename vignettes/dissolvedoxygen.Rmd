@@ -20,13 +20,15 @@ data(dodat)
 mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
 
-This vignette describes a proof of concept for summarizing and reporting dissolved oxygen (DO) data for the Peconic Estuary.  Two continuous USGS monitoring stations collect DO data at locations in the Peconic Estuary: USGS stations 01304562 in the Peconic River and 01304200 in Orient Harbor.  Data at these stations can be downloaded using the `read_pepdo()` function.  
+This vignette describes summarizing and reporting dissolved oxygen (DO) data for the Peconic Estuary.  Three continuous USGS monitoring stations collect DO data at locations in the Peconic Estuary: USGS stations 01304562 in the Peconic River, 01304200 in Orient Harbor, and 01304650 in Shelter Island Sound.  Data at these stations can be downloaded using the `read_pepdo()` function.  
 
 ```{r, eval = F}
-exdat <- read_pepdo(site = c('01304562', '01304200'), nms = c('Peconic R.', 'Orient Harbor'), startDate = '2020-06-01', endDate = '2020-06-30')
+exdat <- read_pepdo(site = c('01304562', '01304200', '01304650'), 
+                    nms = c('Peconic River', 'Orient Harbor', 'Shelter Island'), 
+                    startDate = '2020-06-01', endDate = '2020-06-30')
 ```
 
-The `dodat` data object included with the package provides DO data from 2013 to 2022 at the two sites.  This takes several minutes to download using the `read_pepdo()` function, so it is included with the package for ease of use.
+The `dodat` data object included with the package provides DO data from 2013 to 2022 at the three sites.  This takes several minutes to download using the `read_pepdo()` function, so it is included with the package for ease of use.
 
 ```{r}
 head(dodat)
@@ -34,7 +36,7 @@ head(dodat)
 
 A plot of the raw data: 
 
-```{r, fig.height = 8, fig.width = 8}
+```{r, fig.height = 12, fig.width = 8}
 ggplot(dodat, aes(x = DateTime, y = do_mgl)) + 
   geom_point(size = 0.7) + 
   geom_hline(yintercept = 4.8, linetype = 'dashed', colour = 'red') + 
@@ -44,12 +46,12 @@ ggplot(dodat, aes(x = DateTime, y = do_mgl)) +
   labs(
     y = 'Dissolved oxygen (mg/L)', 
     x = NULL, 
-    title = 'Dissolved oxygen time series at Orient Harbor and Peconic River', 
+    title = 'Dissolved oxygen at Orient Harbor, Peconic River, and Shelter Island', 
     subtitle = 'Dashed lines are chronic and acute threhsolds (4.8, 3 mg/L)'
   )
 ```
 
-Dissolved oxygen data typically show daily and seasonal variation.  Summaries of condition should account for variation at both temporal scales. Further, the impact of low dissolved oxygen concentrations on biota can vary depending on both magnitude and duration of hypoxia/anoxia.  As such, condition assessment could also consider how often concentrations fall below a thresholds and for how long. The assessments below speak to each of these needs. 
+Dissolved oxygen data typically show daily and seasonal variation.  Summaries of condition should account for variation at both temporal scales. Further, the impact of low dissolved oxygen concentrations on biota can vary depending on both magnitude and duration of hypoxia/anoxia.  As such, condition assessment should consider how often concentrations fall below a threshold and for how long. The assessments below speak to each of these needs. 
 
 First, the data can be summarized from the continuous (~6 minute observations) to daily averages using the `anlz_dodlpep()` function.  A user-specified threshold can be supplied to the `thr` argument to summarize the data relative to a value of interest, the default value being the acute threshold of 3 mg/L (an alternative may be the chronic threshold of 4.8 mg/L, @USEPA00).
 
@@ -72,22 +74,22 @@ The last three columns show the monthly summarized data, where `do_mgl` is the a
 
 The `below_ave` and `below_maxrun` columns summarize the DO data differently depending on how hypoxia/anoxia conditions can be described relative to potential impacts on biological resources. The `below_ave` column summarizes undersaturation relative to only the number of times hypoxia conditions occurred, whereas the `below_maxrun` column summarizes undersaturation relative to both the number of instances and duration of hypoxia.  In other words, biota may be stressed differently depending on the number of times hypoxia occurs vs how long it may persist. The two measures may indicate similar information, but not always depending on characteristics of the DO time series.    
 
-The summarized monthly data can be plotted with the `show_domatrix()` function. In this example, the default plot shows the proportion of days in a month when concentrations in a given day fell below a threshold of 3 mg/L. 
+The summarized monthly data for a station can be plotted with the `show_domatrix()` function. In this example, the default plot shows the proportion of days in a month when concentrations in a given day fell below a threshold of 3 mg/L for the Peconic River station. 
 
 ```{r, fig.height = 6, fig.width = 8}
-show_domatrix(dodat, thr = 3, show = 'below_ave')
+show_domatrix(dodat, site = 'Peconic River', thr = 3, show = 'below_ave')
 ```
 
 The maximum number of sequential days in a month when concentrations in a given day fell below the threshold can also be plotted by changing the `show` argument. 
 
 ```{r, fig.height = 6, fig.width = 8}
-show_domatrix(dodat, thr = 3, show = 'below_maxrun')
+show_domatrix(dodat, site = 'Peconic River', thr = 3, show = 'below_maxrun')
 ```
 
 The threshold can also be changed.  For example, the chronic threshold of 4.8 mg/L shows conditions relative to a more conservative threshold. 
 
 ```{r, fig.height = 6, fig.width = 8}
-show_domatrix(dodat, thr = 4.8, show = 'below_ave')
+show_domatrix(dodat, site = 'Peconic River', thr = 4.8, show = 'below_ave')
 ```
 
 Plotting the results provides insights into hypoxia patterns at the site depending on how under-saturated conditions were summarized.  Additional considerations may include:

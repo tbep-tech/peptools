@@ -1,8 +1,9 @@
-#' @title Create a colorized table for reporting dissolved oxygen data 
+#' @title Create a colorized table for reporting dissolved oxygen data by site
 #'
-#' @description Create a colorized table for reporting dissolved oxygen data
+#' @description Create a colorized table for reporting dissolved oxygen data by site
 #'
 #' @param dodat data frame of dissolved oxygen data returned by \code{\link{read_pepdo}}
+#' @param site character string of the site to plot taken from the \code{nms} argument in \code{\link{read_pepdo}}, usually one of \code{"Peconic River"}, \code{"Orient Harbor"}, or \code{"Shelter Island"}
 #' @param show chr string indicating which summary value to plot from \code{\link{anlz_domopep}}, one of \code{'below_ave'} or \code{'below_maxrun'}
 #' @param txtsz numeric for size of text in the plot, applies only if \code{asreact = FALSE}
 #' @param thr numeric indicating appropriate dissolved oxygen thresholds, usually 3 mg/L for acute, 4.8 mg/L for chronic
@@ -18,9 +19,10 @@
 #' @export
 #'
 #' @examples
-#' show_domatrix(dodat)
-show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 3, thr = 4.8, impute = TRUE, yrrng = NULL, family = NA){
-  
+#' show_domatrix(dodat, site = 'Peconic River')
+show_domatrix <- function(dodat, site, show = c('below_ave', 'below_maxrun'), txtsz = 3, thr = 4.8, impute = TRUE, yrrng = NULL, family = NA){
+
+  site <- match.arg(site, levels(dodat$site))
   show <- match.arg(show)
   
   # process data to plot
@@ -36,9 +38,10 @@ show_domatrix <- function(dodat, show = c('below_ave', 'below_maxrun'), txtsz = 
   
   # sort year range
   yrrng <- sort(yrrng)
-  
+
   toplo <- dat %>% 
     dplyr::filter(yr >= yrrng[1] & yr <= yrrng[2]) %>% 
+    dplyr::filter(site %in% !!site) %>% 
     dplyr::mutate(
       below_ave = round(below_ave, 2)
     )
