@@ -5,6 +5,7 @@
 #' @param dat data frame of data returned by \code{\link{read_pepwq}}
 #' @param bay_segment chr string for the bay segment, one of "1a", "1b", "2", or "3"
 #' @param param chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen
+#' @param ylim numeric vector of length two indicating range for the y-axis
 #' @param trgs optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}
 #' @param yrrng numeric vector indicating min, max years to include
 #' @param family optional chr string indicating font family for text labels
@@ -19,7 +20,7 @@
 #'
 #' @examples
 #' show_thrpep(rawdat, bay_segment = '1a', param = 'chl')
-show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('chla', 'sd', 'tn'), trgs = NULL, yrrng = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('chla', 'sd', 'tn'), ylim = NULL, trgs = NULL, yrrng = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
   
   # default targets from data file
   if(is.null(trgs))
@@ -83,6 +84,7 @@ show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('c
     ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = yr, ymin = lwr.ci, ymax = upr.ci, colour = "Annual Median"), size = 0.5, width = 0.5) +
     ggplot2::labs(y = axlab, title = ttl) +
     ggplot2::scale_x_continuous(breaks = seq(yrrng[1], yrrng[2], by = 1)) +
+    ggplot2::coord_cartesian(ylim = ylim) + 
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),

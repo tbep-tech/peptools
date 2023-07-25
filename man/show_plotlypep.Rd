@@ -4,7 +4,13 @@
 \alias{show_plotlypep}
 \title{Plot chlorophyll and secchi data together with matrix outcomes}
 \usage{
-show_plotlypep(dat, bay_segment = c("1a", "1b", "2", "3"), yrrng = NULL)
+show_plotlypep(
+  dat,
+  bay_segment = c("1a", "1b", "2", "3"),
+  yrrng = NULL,
+  chllim = NULL,
+  seclim = NULL
+)
 }
 \arguments{
 \item{dat}{\code{data.frame} formatted from \code{\link{read_pepwq}}}
@@ -12,6 +18,10 @@ show_plotlypep(dat, bay_segment = c("1a", "1b", "2", "3"), yrrng = NULL)
 \item{bay_segment}{chr string for the bay segment, one of "1a", "1b", "2", or "3"}
 
 \item{yrrng}{numeric for year range to plot}
+
+\item{chllim}{numeric vector of length two indicating range for the chlorophyll y-axis}
+
+\item{seclim}{numeric vector of length two indicating range for the secchi y-axis}
 }
 \value{
 An interactive plotly object

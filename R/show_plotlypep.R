@@ -3,6 +3,8 @@
 #' @param dat \code{data.frame} formatted from \code{\link{read_pepwq}}
 #' @param bay_segment chr string for the bay segment, one of "1a", "1b", "2", or "3"
 #' @param yrrng numeric for year range to plot
+#' @param chllim numeric vector of length two indicating range for the chlorophyll y-axis
+#' @param seclim numeric vector of length two indicating range for the secchi y-axis
 #'
 #' @return An interactive plotly object
 #' 
@@ -12,7 +14,8 @@
 #'
 #' @examples
 #' show_plotlypep(rawdat)
-show_plotlypep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), yrrng = NULL){
+show_plotlypep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), yrrng = NULL, chllim = NULL,
+                           seclim = NULL){
   
   bay_segment <- match.arg(bay_segment)
 
@@ -29,10 +32,10 @@ show_plotlypep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), yrrng = N
   
   suppressMessages({
       
-    p1 <- show_thrpep(dat, bay_segment = bay_segment, param = "chla", yrrng = yrrng, txtlab = F, labelexp = F) + 
+    p1 <- show_thrpep(dat, bay_segment = bay_segment, param = "chla", yrrng = yrrng, ylim = chllim, txtlab = F, labelexp = F) + 
       ggtitle(NULL) +
       scale_x_continuous(expand = c(0.01, 0.01), breaks = seq(yrrng[1], yrrng[2]))
-    p2 <- show_thrpep(dat, bay_segment = bay_segment, param = "sd", yrrng = yrrng, txtlab = F, labelexp = F) + 
+    p2 <- show_thrpep(dat, bay_segment = bay_segment, param = "sd", yrrng = yrrng, ylim = seclim, txtlab = F, labelexp = F) + 
       ggtitle(NULL) +
       scale_x_continuous(expand = c(0.01, 0.01), breaks = seq(yrrng[1], yrrng[2]))
     

@@ -8,6 +8,7 @@ show_thrpep(
   dat,
   bay_segment = c("1a", "1b", "2", "3"),
   param = c("chla", "sd", "tn"),
+  ylim = NULL,
   trgs = NULL,
   yrrng = NULL,
   family = NA,
@@ -21,6 +22,8 @@ show_thrpep(
 \item{bay_segment}{chr string for the bay segment, one of "1a", "1b", "2", or "3"}
 
 \item{param}{chr string indicating which water quality value and appropriate threshold to plot, one of "chla" for chlorophyll, "sd" for secchi depth, or "tn" for total nitrogen}
+
+\item{ylim}{numeric vector of length two indicating range for the y-axis}
 
 \item{trgs}{optional \code{data.frame} for annual bay segment water quality thresholds, defaults to \code{\link{peptargets}}}
 
