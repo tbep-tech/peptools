@@ -8,7 +8,7 @@ read_pepdo(
   site = c("01304562", "01304200", "01304650"),
   nms = c("Peconic River", "Orient Harbor", "Shelter Island"),
   startDate = "2013-01-01",
-  endDate = "2022-12-31"
+  endDate = "2023-12-31"
 )
 }
 \arguments{

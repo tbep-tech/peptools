@@ -31,7 +31,7 @@ read_pepent <- function(path = NULL){
   # use API
   if(is.null(path)){
     
-    path <- 'https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/0/query?'
+    path <- 'https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/?f=pjson'
     
     out <- NULL
     for(beach in names){
