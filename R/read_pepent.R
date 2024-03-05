@@ -31,8 +31,8 @@ read_pepent <- function(path = NULL){
   # use API
   if(is.null(path)){
     
-    path <- 'https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/?f=pjson'
-    
+    url <- 'https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/0/query?'
+
     out <- NULL
     for(beach in names){
       
@@ -44,15 +44,15 @@ read_pepent <- function(path = NULL){
       
       qry <- paste0("name='", beach, "'")
       
-      request <- GET(
-        url = path,
+      request <- try(GET(
+        url = url,
         query= list(       
           where = qry,
           outFields = '*',
           f = 'pjson'
         ), 
         ssl_verifypeer = 0L
-      )
+      ), silent = T)
       
       response <- content(request, as = "text", encoding = "UTF-8")
       results <- fromJSON(response, flatten = T)
@@ -82,7 +82,7 @@ read_pepent <- function(path = NULL){
     }
       
   }
-  
+
   # use file import
   if(!is.null(path)){
     out <- readxl::read_excel(path, col_types = 'text') %>% 
