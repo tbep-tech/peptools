@@ -16,6 +16,7 @@ library(peptools)
 library(ggplot2)
 
 data(dodat)
+maxyr <- max(lubridate::year(dodat$DateTime))
 
 mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
@@ -28,7 +29,7 @@ exdat <- read_pepdo(site = c('01304562', '01304200', '01304650'),
                     startDate = '2020-06-01', endDate = '2020-06-30')
 ```
 
-The `dodat` data object included with the package provides DO data from 2013 to 2022 at the three sites.  This takes several minutes to download using the `read_pepdo()` function, so it is included with the package for ease of use.
+The `dodat` data object included with the package provides DO data from 2013 to `r maxyr` at the three sites.  This takes several minutes to download using the `read_pepdo()` function, so it is included with the package for ease of use.
 
 ```{r}
 head(dodat)
