@@ -65,6 +65,7 @@ read_pepent <- function(path = NULL){
       
       # format results
       df <-results$features %>% 
+        dplyr::filter(attributes.type_ == 'Enterococcus') |> 
         dplyr::select(
           Name = attributes.name, 
           FieldNum = attributes.fieldnum,
@@ -74,7 +75,8 @@ read_pepent <- function(path = NULL){
         ) %>% 
         dplyr::mutate(
           Date = Date / 1000,
-          Date = as.POSIXlt(Date, origin = '1970-01-02', tz = 'America/Jamaica') # these were off a day from raw data if 1970-01-01
+          Date = as.POSIXlt(Date, origin = '1970-01-02', tz = 'America/Jamaica'), # these were off a day from raw data if 1970-01-01
+          value = as.numeric(value)
         )
       
       out <- rbind(out, df)
@@ -85,7 +87,10 @@ read_pepent <- function(path = NULL){
 
   # use file import
   if(!is.null(path)){
+    
+    # may need to manually change names of the input file to match
     out <- readxl::read_excel(path, col_types = 'text') %>% 
+      dplyr::filter(Characteristic_Name == 'Enterococcus') %>% 
       dplyr::select(
         Name = Beach_Name,
         FieldNum = Station_Name, 
