@@ -43,7 +43,7 @@ read_pepent <- function(path = NULL){
         beach <- gsub("\\'", "''" ,beach)
       
       qry <- paste0("name='", beach, "'")
-      
+
       request <- try(GET(
         url = url,
         query= list(       
@@ -65,7 +65,7 @@ read_pepent <- function(path = NULL){
       
       # format results
       df <-results$features %>% 
-        dplyr::filter(attributes.type_ == 'Enterococcus') |> 
+        dplyr::filter(attributes.type_ %in% c('Enterococcus', 'Enterococci')) |> 
         dplyr::select(
           Name = attributes.name, 
           FieldNum = attributes.fieldnum,
@@ -90,7 +90,7 @@ read_pepent <- function(path = NULL){
     
     # may need to manually change names of the input file to match
     out <- readxl::read_excel(path, col_types = 'text') %>% 
-      dplyr::filter(Characteristic_Name == 'Enterococcus') %>% 
+      dplyr::filter(Characteristic_Name %in% c('Enterococcus', 'Enterococci')) %>% 
       dplyr::select(
         Name = Beach_Name,
         FieldNum = Station_Name, 
