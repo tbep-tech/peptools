@@ -3,7 +3,7 @@
 \docType{data}
 \name{rawdat}
 \alias{rawdat}
-\title{Raw data from Suffolk County}
+\title{Raw water quality data from Suffolk County}
 \format{
 A \code{data.frame} object
 }
@@ -11,7 +11,7 @@ A \code{data.frame} object
 rawdat
 }
 \description{
-Raw data from Suffolk County
+Raw water quality data from Suffolk County
 }
 \examples{
 \dontrun{

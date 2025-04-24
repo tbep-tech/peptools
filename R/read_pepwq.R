@@ -28,10 +28,10 @@ read_pepwq <- function(path){
     na.omit %>% 
     dplyr::mutate(
       status = stringr::str_extract(value, '>|<'),
-      value = gsub('>|<|^N/A$|^cannot\\sread$|^ND$', '', value), 
-      value = as.numeric(value), 
+      value = gsub('>|<|^N/A$|^cannot\\sread$|^ND$|^PENDING$', '', value), 
+      value = as.numeric(value),
       status = dplyr::case_when(
-        name == 'tn' ~ NA_character_, 
+        name == 'tn' ~ NA_character_,
         T ~ status
       )
     ) %>% 
