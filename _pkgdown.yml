@@ -11,6 +11,7 @@ navbar:
       text: Functions
       href: reference/index.html
 
+articles:
 - title: Articles
   navbar: ~
   contents: 
