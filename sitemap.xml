@@ -1,111 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/404.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/articles/Introduction.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/articles/dissolvedoxygen.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/articles/figures.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/articles/pathogens.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/anlz_attainpep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/anlz_dodlypep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/anlz_domopep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/anlz_entpep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/anlz_medpep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/beaches.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/dodat.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/entdat.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/pepseg.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/pepstations.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/peptargets.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/rawdat.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/read_pepdo.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/read_pepent.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/read_pepwq.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_allthrpep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_boxpep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_domatrix.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_entmatrix.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_matrixpep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_plotlypep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_reactablepep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_segmatrixpep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_sitemappep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_thrpep.html</loc>
-  </url>
-  <url>
-    <loc>https://tbep-tech.github.io/peptools/reference/show_wqmatrixpep.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://tbep-tech.github.io/peptools/404.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/LICENSE.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/articles/Introduction.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/articles/dissolvedoxygen.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/articles/figures.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/articles/index.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/articles/pathogens.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/authors.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/index.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/anlz_attainpep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/anlz_dodlypep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/anlz_domopep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/anlz_entpep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/anlz_medpep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/beaches.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/dodat.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/entdat.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/index.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/pepseg.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/pepstations.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/peptargets.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/rawdat.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/read_pepdo.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/read_pepent.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/read_pepwq.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_allthrpep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_boxpep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_domatrix.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_entmatrix.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_matrixpep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_plotlypep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_reactablepep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_segmatrixpep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_sitemappep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_thrpep.html</loc></url>
+<url><loc>https://tbep-tech.github.io/peptools/reference/show_wqmatrixpep.html</loc></url>
 </urlset>
+
