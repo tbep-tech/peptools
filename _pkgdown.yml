@@ -2,3 +2,19 @@ url: https://tbep-tech.github.io/peptools/
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    left:  [reference, articles]
+    right: [search, github]
+  components:
+    reference:
+      text: Functions
+      href: reference/index.html
+
+- title: Articles
+  navbar: ~
+  contents: 
+  - Introduction
+  - dissolvedoxygen
+  - pathogens
+  - figures
