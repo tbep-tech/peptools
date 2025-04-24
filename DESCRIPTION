@@ -1,6 +1,6 @@
 Package: peptools
 Title: Analysis Tools for Importing, Wrangling, and Summarizing Suffolk County Water Quality Data
-Version: 1.1.0
+Version: 1.2.0
 Date: 2024-03-05
 Authors@R: c(
     person(given = "Marcus",
