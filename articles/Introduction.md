@@ -58,15 +58,18 @@ function. A compressed folder that includes the data can be downloaded
 from
 [here](https://gis.suffolkcountyny.gov/portal/home/item.html?id=5d4b53ec44204219a8da685f1859e096).
 After the data are downloaded and extracted, the Excel file with the raw
-data is named “Peconics SCDHS WQ data - 1976 - 2021.xlsx”, or something
-similar depending on when the data were downloaded. The location of this
-file on your computer is passed to the import function. Below, a local
-file renamed as “currentdata.xlsx” that contains the water quality data
-is imported.
+data is named “Peconics SCDHS WQ data - 1976 - 2nd Q 2026DRAFT - updated
+07212026.xlsx”, or something similar depending on when the data were
+downloaded. The location of this file on your computer is passed to the
+import function. Below, a local file renamed as “currentdata.xlsx” that
+contains the water quality data is imported. The data include a partial
+year for 2026, so only data through 2025 are retained for the examples
+in this vignette.
 
 ``` r
 
-dat <- read_pepwq('../inst/extdata/currentdata.xlsx')
+dat <- read_pepwq('../inst/extdata/currentdata.xlsx') %>%
+  filter(yr <= 2025)
 head(dat)
 #> # A tibble: 6 × 11
 #>   Date       BayStation name  value status    yr    mo StationName   bay_segment
@@ -137,36 +140,36 @@ annual (ann) and monthly (mos) medians by segment.
 medpep <- anlz_medpep(dat)
 medpep
 #> $ann
-#> # A tibble: 1,260 × 5
+#> # A tibble: 1,296 × 5
 #>    bay_segment    yr   val est    var  
 #>    <fct>       <dbl> <dbl> <chr>  <chr>
-#>  1 1a           2024  6.29 lwr.ci chla 
-#>  2 1a           2024  8.39 medv   chla 
-#>  3 1a           2024 11.9  upr.ci chla 
-#>  4 1a           2023  6.6  lwr.ci chla 
-#>  5 1a           2023  8.53 medv   chla 
-#>  6 1a           2023 10.8  upr.ci chla 
-#>  7 1a           2022  4.16 lwr.ci chla 
-#>  8 1a           2022  7.53 medv   chla 
-#>  9 1a           2022  9.97 upr.ci chla 
-#> 10 1a           2021  8.4  lwr.ci chla 
-#> # ℹ 1,250 more rows
+#>  1 1a           2025  3.32 lwr.ci chla 
+#>  2 1a           2025  7.12 medv   chla 
+#>  3 1a           2025 16.8  upr.ci chla 
+#>  4 1a           2024  6.29 lwr.ci chla 
+#>  5 1a           2024  8.39 medv   chla 
+#>  6 1a           2024 11.9  upr.ci chla 
+#>  7 1a           2023  6.6  lwr.ci chla 
+#>  8 1a           2023  8.53 medv   chla 
+#>  9 1a           2023 10.8  upr.ci chla 
+#> 10 1a           2022  4.16 lwr.ci chla 
+#> # ℹ 1,286 more rows
 #> 
 #> $mos
-#> # A tibble: 5,040 × 6
+#> # A tibble: 5,184 × 6
 #>    bay_segment    yr    mo   val est   var  
 #>    <fct>       <dbl> <dbl> <dbl> <chr> <chr>
-#>  1 1a           2024    12  8.82 medv  chla 
-#>  2 1a           2024    11 30.5  medv  chla 
-#>  3 1a           2024    10 15.0  medv  chla 
-#>  4 1a           2024     9 24.5  medv  chla 
-#>  5 1a           2024     8 24.9  medv  chla 
-#>  6 1a           2024     7 11.8  medv  chla 
-#>  7 1a           2024     6 11.6  medv  chla 
-#>  8 1a           2024     5  4.79 medv  chla 
-#>  9 1a           2024     4  3.50 medv  chla 
-#> 10 1a           2024     3  2.24 medv  chla 
-#> # ℹ 5,030 more rows
+#>  1 1a           2025    12 NA    medv  chla 
+#>  2 1a           2025    11 NA    medv  chla 
+#>  3 1a           2025    10  4.88 medv  chla 
+#>  4 1a           2025     9 NA    medv  chla 
+#>  5 1a           2025     8 34.2  medv  chla 
+#>  6 1a           2025     7 19.8  medv  chla 
+#>  7 1a           2025     6 16.8  medv  chla 
+#>  8 1a           2025     5  6.1  medv  chla 
+#>  9 1a           2025     4  1.18 medv  chla 
+#> 10 1a           2025     3 NA    medv  chla 
+#> # ℹ 5,174 more rows
 ```
 
 This output can then be further analyzed with
@@ -182,20 +185,20 @@ magnitude, are indicated by higher integer values.
 ``` r
 
 anlz_attainpep(medpep)
-#> # A tibble: 140 × 4
+#> # A tibble: 144 × 4
 #>    bay_segment    yr chla_sd outcome
 #>    <fct>       <dbl> <chr>   <chr>  
-#>  1 1a           2024 3_3     red    
-#>  2 1a           2023 3_3     red    
-#>  3 1a           2022 2_2     red    
-#>  4 1a           2021 3_2     red    
-#>  5 1a           2020 2_NA    NA     
-#>  6 1a           2019 2_3     red    
-#>  7 1a           2018 2_3     red    
-#>  8 1a           2017 3_3     red    
-#>  9 1a           2016 3_3     red    
-#> 10 1a           2015 2_3     red    
-#> # ℹ 130 more rows
+#>  1 1a           2025 2_3     red    
+#>  2 1a           2024 3_3     red    
+#>  3 1a           2023 3_3     red    
+#>  4 1a           2022 2_2     red    
+#>  5 1a           2021 3_2     red    
+#>  6 1a           2020 2_NA    NA     
+#>  7 1a           2019 2_3     red    
+#>  8 1a           2018 2_3     red    
+#>  9 1a           2017 3_3     red    
+#> 10 1a           2016 3_3     red    
+#> # ℹ 134 more rows
 ```
 
 ### Plotting
@@ -218,12 +221,12 @@ nitrogen or deeper secchi depths in blue. Hovering the mouse pointer
 over a site location will indicate the site name and the median value.
 Clicking on a station point will reveal the underlying plot data.
 
-Here, the 2020 chlorophyll medians are shown for stations in all bay
+Here, the 2025 chlorophyll medians are shown for stations in all bay
 segments.
 
 ``` r
 
-show_sitemappep(dat, yrsel = 2021)
+show_sitemappep(dat, yrsel = 2025)
 ```
 
 Medians for a given month can also be shown.
@@ -251,7 +254,7 @@ This can be done by changing the `relative` argument to `TRUE`.
 
 ``` r
 
-show_sitemappep(dat, yrsel = 2021, relative = T)
+show_sitemappep(dat, yrsel = 2025, relative = T)
 ```
 
 The scaling is also sensitive to outliers. The default is to use the
@@ -266,7 +269,7 @@ mouseover.
 
 ``` r
 
-show_sitemappep(dat, yrsel = 2021, relative = T, maxrel = 0.8)
+show_sitemappep(dat, yrsel = 2025, relative = T, maxrel = 0.8)
 ```
 
 The
@@ -307,11 +310,11 @@ show_thrpep(dat, bay_segment = "1a", param = "tn")
 ![](Introduction_files/figure-html/unnamed-chunk-16-1.png)
 
 The year range to plot can also be specified using the `yrrng` argument,
-where the default is `yrrng = c(1990, 2020)`.
+where the default is the full range of years in the data.
 
 ``` r
 
-show_thrpep(dat, bay_segment = "1a", param = "chla", yrrng = c(1976, 2021))
+show_thrpep(dat, bay_segment = "1a", param = "chla", yrrng = c(2000, 2025))
 ```
 
 ![](Introduction_files/figure-html/unnamed-chunk-17-1.png)
@@ -349,21 +352,21 @@ dat %>%
   .[['ann']] %>% 
   filter(bay_segment == '1a') %>% 
   filter(var == 'chla') %>% 
-  filter(yr >= 1988 & yr <= 2021)
-#> # A tibble: 96 × 5
+  filter(yr >= 1990 & yr <= 2025)
+#> # A tibble: 108 × 5
 #>    bay_segment    yr   val est    var  
 #>    <fct>       <dbl> <dbl> <chr>  <chr>
-#>  1 1a           2021  8.4  lwr.ci chla 
-#>  2 1a           2021 10.3  medv   chla 
-#>  3 1a           2021 17    upr.ci chla 
-#>  4 1a           2020  5.17 lwr.ci chla 
-#>  5 1a           2020  6.74 medv   chla 
-#>  6 1a           2020 10.1  upr.ci chla 
-#>  7 1a           2019  4.75 lwr.ci chla 
-#>  8 1a           2019  6.46 medv   chla 
-#>  9 1a           2019 12.5  upr.ci chla 
-#> 10 1a           2018  5.08 lwr.ci chla 
-#> # ℹ 86 more rows
+#>  1 1a           2025  3.32 lwr.ci chla 
+#>  2 1a           2025  7.12 medv   chla 
+#>  3 1a           2025 16.8  upr.ci chla 
+#>  4 1a           2024  6.29 lwr.ci chla 
+#>  5 1a           2024  8.39 medv   chla 
+#>  6 1a           2024 11.9  upr.ci chla 
+#>  7 1a           2023  6.6  lwr.ci chla 
+#>  8 1a           2023  8.53 medv   chla 
+#>  9 1a           2023 10.8  upr.ci chla 
+#> 10 1a           2022  4.16 lwr.ci chla 
+#> # ℹ 98 more rows
 ```
 
 Similarly, the
@@ -391,12 +394,12 @@ show_boxpep(dat, param = 'sd', bay_segment = "3")
 ![](Introduction_files/figure-html/unnamed-chunk-20-2.png)
 
 A different subset of years and selected year of interest can also be
-viewed by changing the `yrrng` and `yrsel` arguments. Here we show 1980
+viewed by changing the `yrrng` and `yrsel` arguments. Here we show 1990
 compared to monthly averages for the last ten years.
 
 ``` r
 
-show_boxpep(dat, param = 'chla', bay_segment = "1a", yrrng = c(2008, 2018), yrsel = 1990)
+show_boxpep(dat, param = 'chla', bay_segment = "1a", yrrng = c(2016, 2025), yrsel = 1990)
 ```
 
 ![](Introduction_files/figure-html/unnamed-chunk-21-1.png)
@@ -489,7 +492,7 @@ labels.
 ``` r
 
 show_matrixpep(dat, txtsz = NULL) +
-  scale_y_continuous(expand = c(0,0), breaks = c(1976:2021)) + 
+  scale_y_continuous(expand = c(0,0), breaks = c(1990:2025)) +
   coord_flip() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 7))
 ```

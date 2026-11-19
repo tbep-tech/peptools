@@ -75,6 +75,6 @@ table is returned
 
 ``` r
 show_matrixpep(rawdat)
-#> Warning: Removed 6 rows containing missing values or values outside the scale range
+#> Warning: Removed 7 rows containing missing values or values outside the scale range
 #> (`geom_text()`).
 ```

@@ -26,35 +26,35 @@ Median estimates for chlorophyll, secchi, and total nitrogen
 # view median estimates
 anlz_medpep(rawdat)
 #> $ann
-#> # A tibble: 1,260 × 5
+#> # A tibble: 1,332 × 5
 #>    bay_segment    yr   val est    var  
 #>    <fct>       <dbl> <dbl> <chr>  <chr>
-#>  1 1a           2024  6.29 lwr.ci chla 
-#>  2 1a           2024  8.39 medv   chla 
-#>  3 1a           2024 11.9  upr.ci chla 
-#>  4 1a           2023  6.6  lwr.ci chla 
-#>  5 1a           2023  8.53 medv   chla 
-#>  6 1a           2023 10.8  upr.ci chla 
-#>  7 1a           2022  4.16 lwr.ci chla 
-#>  8 1a           2022  7.53 medv   chla 
-#>  9 1a           2022  9.97 upr.ci chla 
-#> 10 1a           2021  8.4  lwr.ci chla 
-#> # ℹ 1,250 more rows
+#>  1 1a           2026  1.54 lwr.ci chla 
+#>  2 1a           2026  1.78 medv   chla 
+#>  3 1a           2026  7.81 upr.ci chla 
+#>  4 1a           2025  3.32 lwr.ci chla 
+#>  5 1a           2025  7.12 medv   chla 
+#>  6 1a           2025 16.8  upr.ci chla 
+#>  7 1a           2024  6.29 lwr.ci chla 
+#>  8 1a           2024  8.39 medv   chla 
+#>  9 1a           2024 11.9  upr.ci chla 
+#> 10 1a           2023  6.6  lwr.ci chla 
+#> # ℹ 1,322 more rows
 #> 
 #> $mos
-#> # A tibble: 5,040 × 6
+#> # A tibble: 5,328 × 6
 #>    bay_segment    yr    mo   val est   var  
 #>    <fct>       <dbl> <dbl> <dbl> <chr> <chr>
-#>  1 1a           2024    12  8.82 medv  chla 
-#>  2 1a           2024    11 30.5  medv  chla 
-#>  3 1a           2024    10 15.0  medv  chla 
-#>  4 1a           2024     9 24.5  medv  chla 
-#>  5 1a           2024     8 24.9  medv  chla 
-#>  6 1a           2024     7 11.8  medv  chla 
-#>  7 1a           2024     6 11.6  medv  chla 
-#>  8 1a           2024     5  4.79 medv  chla 
-#>  9 1a           2024     4  3.50 medv  chla 
-#> 10 1a           2024     3  2.24 medv  chla 
-#> # ℹ 5,030 more rows
+#>  1 1a           2026    12 NA    medv  chla 
+#>  2 1a           2026    11 NA    medv  chla 
+#>  3 1a           2026    10 NA    medv  chla 
+#>  4 1a           2026     9 NA    medv  chla 
+#>  5 1a           2026     8 NA    medv  chla 
+#>  6 1a           2026     7 NA    medv  chla 
+#>  7 1a           2026     6 NA    medv  chla 
+#>  8 1a           2026     5  8.06 medv  chla 
+#>  9 1a           2026     4  1.72 medv  chla 
+#> 10 1a           2026     3  1.54 medv  chla 
+#> # ℹ 5,318 more rows
 #> 
 ```

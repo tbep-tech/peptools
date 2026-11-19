@@ -83,8 +83,10 @@ Use `ptsz = -1` to suppress.
 
 ``` r
 show_boxpep(rawdat, bay_segment = '1a')
-#> Warning: Removed 96 rows containing non-finite outside the scale range
+#> Warning: Removed 102 rows containing non-finite outside the scale range
 #> (`stat_boxplot()`).
-#> Warning: Removed 96 rows containing missing values or values outside the scale range
+#> Warning: Removed 102 rows containing missing values or values outside the scale range
+#> (`geom_point()`).
+#> Warning: Removed 9 rows containing missing values or values outside the scale range
 #> (`geom_point()`).
 ```

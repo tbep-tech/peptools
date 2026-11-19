@@ -31,7 +31,7 @@ All data prior to 1990 are removed - some exist but the data are scarce.
 path <- system.file("extdata", "currentdata.xlsx", package="peptools")
 dat <- read_pepwq(path)
 dat
-#> # A tibble: 40,564 × 11
+#> # A tibble: 41,359 × 11
 #>    Date       BayStation name  value status    yr    mo StationName  bay_segment
 #>    <date>     <chr>      <chr> <dbl> <chr>  <dbl> <dbl> <chr>        <fct>      
 #>  1 1990-01-31 60113      chla    4.8 ""      1990     1 Little Peco… 2          
@@ -44,6 +44,6 @@ dat
 #>  8 1990-01-31 60116      sd      7.5 ""      1990     1 Gardiner's … 3          
 #>  9 1990-01-31 60118      chla    7.3 ""      1990     1 Northwest H… 2          
 #> 10 1990-01-31 60118      sd      7   ""      1990     1 Northwest H… 2          
-#> # ℹ 40,554 more rows
+#> # ℹ 41,349 more rows
 #> # ℹ 2 more variables: Longitude <dbl>, Latitude <dbl>
 ```
