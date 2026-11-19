@@ -10,51 +10,26 @@ entdat
 
 ## Format
 
-A `data.frame` object
+A `data.frame` object with columns for beach name (`Name`), station code
+(`FieldNum`), sample date (`Date`), Enterococcus concentration as
+cfu/100 mL (`value`), and whether the observation was above, below, or
+at the reported value (`status` as `>`, `<`, or `=`)
+
+## Details
+
+Data are from the Suffolk County Department of Health Services Bathing
+Beach Program, available at
+<https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007>.
+See
+[`read_pepent`](https://tbep-tech.github.io/peptools/reference/read_pepent.md)
+for details.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-library(dplyr)
-entdat1 <- read_pepent() %>% 
-  filter(lubridate::year(Date) < 2022)
-
-entdat2 <- read_pepent(path = '~/Desktop/Enterodata_2023.xlsx') %>%
-  filter(lubridate::year(Date) >= 2022)
-
-entdat <- bind_rows(entdat1, entdat2)
+entdat <- read_pepent()
 
 save(entdat, file = 'data/entdat.RData', compress = 'xz')
-
-# or the file can be manually downloaded from here (format is not the same as path input from SCM)
-# https://gis.suffolkcountyny.gov/portal/home/item.html?id=e3b344ff82b74762b625cacaa3e9621a
-entdat <- read.csv('~/Desktop/Beach_Water_Quality_Data.csv', header = T) |> 
-  dplyr::filter(Type %in% c('Enterococcus', 'Enterococci')) %>% 
-  dplyr::select(
-    Name,
-    FieldNum, 
-    Date = ColDate, 
-    value = Result, 
-    status = Character
-  ) %>% 
-  dplyr::mutate(
-    status = gsub('[[:digit:]]+|\\.', '', value), 
-    status = ifelse(status == '', '=', status), 
-    value = as.numeric(gsub('>|<', '', value)),
-    Date = suppressWarnings({dplyr::case_when(
-      grepl('\\/', Date) ~ lubridate::mdy(Date), 
-      grepl("^[[:digit:]]+$", Date) ~ as.Date(as.numeric(Date), origin = "1899-12-30"),
-      T ~ NA
-    )}), 
-    Name = dplyr::case_when(
-      Name == 'Crescent Beach - Shelter Island' ~ 'Crescent Beach - Suffolk', 
-      T ~ Name
-    )
-  ) %>% 
-  dplyr::filter(Name %in% beaches$Name) |> 
-  dplyr::arrange(Name, FieldNum, Date)
-
-save(entdat, file = 'data/entdat.RData')
 } # }
 ```

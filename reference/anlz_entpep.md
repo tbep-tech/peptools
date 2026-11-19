@@ -37,7 +37,7 @@ above the threshold.
 
 ``` r
 anlz_entpep(entdat)
-#> # A tibble: 418 × 4
+#> # A tibble: 476 × 4
 #>    Name               yr samples exceedances
 #>    <chr>           <dbl>   <int>       <int>
 #>  1 Alberts Landing  2010       3           0
@@ -50,5 +50,5 @@ anlz_entpep(entdat)
 #>  8 Alberts Landing  2017       3           0
 #>  9 Alberts Landing  2018       6           1
 #> 10 Alberts Landing  2019       3           0
-#> # ℹ 408 more rows
+#> # ℹ 466 more rows
 ```

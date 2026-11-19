@@ -80,7 +80,7 @@ County Department of Health Services (SCDHS) conducts a comprehensive
 bathing beach water quality monitoring program from May through
 September each year. Sampling is performed by SCDHS staff, with analyses
 conducted by the Department’s accredited Public and Environmental Health
-Laboratory (PEHL). Data are available <a href="https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8" class="external-link">here</a>.</p>
+Laboratory (PEHL). Data are available <a href="https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007" class="external-link">here</a>.</p>
 <p>Information from this monitoring program can be summarized to
 communicate the relative risk of exposure to pathogens at bathing
 beaches in the Peconic Estuary. Functions in the peptools package can be
@@ -169,34 +169,38 @@ Program.</p>
 <span>  <span class="fu"><a href="https://rstudio.github.io/leaflet/reference/map-layers.html" class="external-link">addCircleMarkers</a></span><span class="op">(</span>radius <span class="op">=</span> <span class="fl">6</span>, color <span class="op">=</span> <span class="st">'black'</span>, weight <span class="op">=</span> <span class="fl">1</span>, fillColor <span class="op">=</span> <span class="st">'tomato'</span>, fillOpacity <span class="op">=</span> <span class="fl">0.8</span>, label <span class="op">=</span> <span class="op">~</span><span class="va">Name</span><span class="op">)</span></span></code></pre></div>
 <div class="leaflet html-widget html-fill-item" id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:700px;height:432.632880098888px;"></div>
 <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldGrayCanvas",null,"World Gray",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"World Imagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"World Topo Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["World Gray","World Imagery","World Topo Map"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addCircleMarkers","args":[[41.00013333,41.0391,41.07053333,41.05096667,41.03621667,41.07411667,41.07291667,40.99253333,41.0782,41.09298333,41.00561667,40.9964,41.0605,41.05226667,41.00068333,41.0344,40.89483333,41.01513333,40.9898,41.11078333,41.07081667,41.07011667,41.08598333,41.09416667,40.94198333,40.89703333,40.97738333,41.04941667],[-72.11666667,-72.17883333,-72.37873333,-72.1671,-72.38863333,-72.36563332999999,-71.94861667000001,-72.1057,-71.93561667,-72.36611667,-72.46508333,-72.32688333,-72.41334999999999,-72.41348333000001,-72.28425,-72.1862,-72.49991667,-72.44713333,-72.47195000000001,-72.34914999999999,-72.3736,-72.37558333,-72.35878332999999,-72.37583333000001,-72.56870000000001,-72.48165,-72.53128332999999,-72.33426667000001],6,null,null,{"interactive":true,"className":"","stroke":true,"color":"black","weight":1,"opacity":0.5,"fill":true,"fillColor":"tomato","fillOpacity":0.8},null,null,null,null,["Alberts Landing Beach","Camp Blue Bay Beach","Camp Quinipet Beach","Clearwater Beach","Cornell Cooperative Extension Marine Center Beach","Crescent Beach - Suffolk","Culloden Shores Beach","Devon Yacht Club Beach","East Lake Drive Beach","Fifth Street Park Beach","Fleets Neck Beach","Foster Memorial Beach","Founders Landing Beach","Goose Creek Beach","Havens Beach","Maidstone Beach","Meschutt Beach","Nassau Point Causeway Beach","New Suffolk Beach","Norman E. Klipp Park Beach","Perlman Music Camp Beach","Pridwin Hotel Beach","Shelter Island Heights Beach Club Beach","Silver Sands Motel Beach","South Jamesport Beach","Southampton Peconic Beach &amp; Tennis Club Beach","Veteran's Memorial Park Beach","Wades Beach"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[40.89483333,41.11078333],"lng":[-72.56870000000001,-71.93561667]}},"evals":[],"jsHooks":[]}</script><p>The pathogen data for these beaches can be imported using the
-<code><a href="../reference/read_pepent.html">read_pepent()</a></code> function. This function retrieves data
-directly from an ArcGIS REST service available at <a href="https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/" class="external-link uri">https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/</a>.
-The API is queried by beach names in the <code>beaches</code> data
-object. The queries are done individually for each beach to not exceed
-the 2000 record limit. A spreadhseet including the same data can also be
-downloaded from <a href="https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8" class="external-link">here</a>.</p>
+<code><a href="../reference/read_pepent.html">read_pepent()</a></code> function. This function downloads the “SCDHS
+Bathing Beach Program Water Quality Data” published by Suffolk County <a href="https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007" class="external-link">here</a>.
+The download is a zip file that includes historical data in a csv file,
+recent data as one Excel file per year, and a file of beach sampling
+locations. The function combines the files and keeps the
+<em>Enterococcus</em> records for the beaches in the
+<code>beaches</code> data object. Records are matched to beaches by
+station code (<code>FieldNum</code>) because beach names in the source
+data have changed over time.</p>
 <p>The import function is used as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">entdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_pepent.html">read_pepent</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">entdat</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt;                    Name FieldNum       Date value status</span></span>
-<span><span class="co">#&gt; 1 Alberts Landing Beach      EH7 2010-06-29     4      =</span></span>
-<span><span class="co">#&gt; 2 Alberts Landing Beach      EH7 2010-07-27     4      =</span></span>
+<span><span class="co">#&gt; 1 Alberts Landing Beach      EH7 2010-06-29     4      &lt;</span></span>
+<span><span class="co">#&gt; 2 Alberts Landing Beach      EH7 2010-07-27     4      &lt;</span></span>
 <span><span class="co">#&gt; 3 Alberts Landing Beach      EH7 2010-08-13    28      =</span></span>
-<span><span class="co">#&gt; 4 Alberts Landing Beach      EH7 2011-06-22     4      =</span></span>
-<span><span class="co">#&gt; 5 Alberts Landing Beach      EH7 2011-07-20     4      =</span></span>
-<span><span class="co">#&gt; 6 Alberts Landing Beach      EH7 2011-08-17     4      =</span></span></code></pre>
-<p>The data can also be imported from a local file using the
-<code>path</code> argument.</p>
+<span><span class="co">#&gt; 4 Alberts Landing Beach      EH7 2011-06-22     4      &lt;</span></span>
+<span><span class="co">#&gt; 5 Alberts Landing Beach      EH7 2011-07-20     4      &lt;</span></span>
+<span><span class="co">#&gt; 6 Alberts Landing Beach      EH7 2011-08-17     4      &lt;</span></span></code></pre>
+<p>The data can also be imported from a local copy of the zip file, or a
+folder with its extracted contents, using the <code>path</code>
+argument.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">entdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_pepent.html">read_pepent</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'~/Desktop/pathogen_data.xlsx'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">entdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_pepent.html">read_pepent</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'~/Desktop/Beach_WQ_Data_online.zip'</span><span class="op">)</span></span></code></pre></div>
 <p>The raw data includes concentrations of <em>Enterococcus</em>
 bacteria as cfu/100 mL for swimming beaches in Suffolk County. The
 fields include beach name (<code>Name</code>), field number
-(<code>FieldNum</code>), collection date and time (<code>Date</code> as
-Eastern Standard Time), bacteria concentration (<code>value</code>), and
-<code>status</code> showing if the observation was above or below
-detection (indicated as <code>&gt;</code> or <code>&lt;</code>).</p>
+(<code>FieldNum</code>), collection date (<code>Date</code>), bacteria
+concentration (<code>value</code>), and <code>status</code> showing if
+the observation was above or below detection (indicated as
+<code>&gt;</code> or <code>&lt;</code>).</p>
 <p>The function <code><a href="../reference/anlz_entpep.html">anlz_entpep()</a></code> summarizes the imported data
 at each beach to quantify instances when bacterial concentrations were
 at risk of impacting human health. For Suffolk County, all bathing
@@ -217,7 +221,7 @@ and number of <code>exceedances</code> for the samples. Only the 28
 relevant beaches for the Peconic Estuary are returned.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlz_entpep.html">anlz_entpep</a></span><span class="op">(</span><span class="va">entdat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 418 × 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 476 × 4</span></span></span>
 <span><span class="co">#&gt;    Name               yr samples exceedances</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Alberts Landing  <span style="text-decoration: underline;">2</span>010       3           0</span></span>
@@ -230,14 +234,14 @@ relevant beaches for the Peconic Estuary are returned.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Alberts Landing  <span style="text-decoration: underline;">2</span>017       3           0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Alberts Landing  <span style="text-decoration: underline;">2</span>018       6           1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Alberts Landing  <span style="text-decoration: underline;">2</span>019       3           0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 408 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 466 more rows</span></span></span></code></pre></div>
 <p>The <code><a href="../reference/anlz_entpep.html">anlz_entpep()</a></code> function includes an optional
 arguments for the threshold (<code>thr</code>). The default values are
 104 cfu/100 mL, which can easily be changed. Here we use a threshold of
 50 cfu/100 mL.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlz_entpep.html">anlz_entpep</a></span><span class="op">(</span><span class="va">entdat</span>, thr <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 418 × 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 476 × 4</span></span></span>
 <span><span class="co">#&gt;    Name               yr samples exceedances</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Alberts Landing  <span style="text-decoration: underline;">2</span>010       3           0</span></span>
@@ -250,7 +254,7 @@ arguments for the threshold (<code>thr</code>). The default values are
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Alberts Landing  <span style="text-decoration: underline;">2</span>017       3           0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Alberts Landing  <span style="text-decoration: underline;">2</span>018       6           1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Alberts Landing  <span style="text-decoration: underline;">2</span>019       3           0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 408 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 466 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plotting-results">Plotting results<a class="anchor" aria-label="anchor" href="#plotting-results"></a>
@@ -264,9 +268,9 @@ need management actions to remediate potential public health issues.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_entmatrix.html">show_entmatrix</a></span><span class="op">(</span><span class="va">entdat</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="pathogens_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2024.  Values are number of samples exceeding." width="672"><p class="caption">
+<img src="pathogens_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2026.  Values are number of samples exceeding." width="672"><p class="caption">
 Exceedances of <em>Enterococcus</em> concentrations at Peconic Estuary
-bathing beaches for the years 2010 through 2024. Values are number of
+bathing beaches for the years 2010 through 2026. Values are number of
 samples exceeding.
 </p>
 </div>
@@ -279,9 +283,9 @@ argument.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_entmatrix.html">show_entmatrix</a></span><span class="op">(</span><span class="va">entdat</span>, thr <span class="op">=</span> <span class="fl">35</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="pathogens_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2024.  A different option is used for the threshold argument." width="672"><p class="caption">
+<img src="pathogens_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2026.  A different option is used for the threshold argument." width="672"><p class="caption">
 Exceedances of <em>Enterococcus</em> concentrations at Peconic Estuary
-bathing beaches for the years 2010 through 2024. A different option is
+bathing beaches for the years 2010 through 2026. A different option is
 used for the threshold argument.
 </p>
 </div>
@@ -290,7 +294,7 @@ changed using <code>ggplot</code> elements. Note the use of
 <code>txtsz = NULL</code> to remove the text labels.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_entmatrix.html">show_entmatrix</a></span><span class="op">(</span><span class="va">entdat</span>, txtsz <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">:</span><span class="fl">2024</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">:</span><span class="fl">2026</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">60</span>, hjust <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pathogens_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>

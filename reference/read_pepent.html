@@ -44,7 +44,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_pepent</span><span class="op">(</span>path <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_pepent</span><span class="op">(</span></span>
+<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  url <span class="op">=</span></span>
+<span>    <span class="st">"https://gis.suffolkcountyny.gov/portal/sharing/rest/content/items/b5d1e5c88d8c4fb48a3732cd44cf4007/data"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -52,7 +56,11 @@
 
 
 <dl><dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
-<dd><p>chr string of path for excel file (optional)</p></dd>
+<dd><p>chr string of path to a local copy of the data (optional), see details</p></dd>
+
+
+<dt id="arg-url">url<a class="anchor" aria-label="anchor" href="#arg-url"></a></dt>
+<dd><p>chr string of url for downloading the data, used only if <code>path = NULL</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -61,9 +69,9 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Data are from the ArcGIS REST Services here <a href="https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/" class="external-link">https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/</a>.</p>
-<p>The API is queried by beach names in the <code><a href="beaches.html">beaches</a></code> data object. The queries are done individually for each beach to not exceed the 2000 record limit.</p>
-<p>Data can also be imported from an Excel if the <code>path</code> argument is used for the location to the file.</p>
+    <p>Data are from the Suffolk County Department of Health Services (SCDHS) Bathing Beach Program, available at <a href="https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007" class="external-link">https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007</a>.  The data are provided as a zip file that is downloaded to a temporary directory if <code>path = NULL</code> (default).  The zip file includes historical data as a csv file, more recent data as one Excel file per year, and an Excel file of beach sampling locations.  The historical and recent data files use different formats, both of which are handled by this function.</p>
+<p>Alternatively, the <code>path</code> argument can point to a local copy of the zip file, a folder with the extracted contents of the zip file, or a vector of the individual data files.  The sampling locations file must be included if any of the data files use the recent format.</p>
+<p>Records are matched to the beaches in the <code><a href="beaches.html">beaches</a></code> data object by station code (<code>FieldNum</code>), not beach name.  Beach names in the source data have changed over time and are not unique between data files (e.g., "Crescent Beach - Suffolk" is a Huntington beach in the source data).  Station codes for records in the recent format are obtained from the sampling locations file using the EPA beach id.  The beach names in the output are those in <code><a href="beaches.html">beaches</a></code>.  Only Enterococcus records are returned.</p>
     </div>
 
     <div class="section level2">
@@ -73,12 +81,12 @@
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">entdat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Name FieldNum       Date value status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Alberts Landing Beach      EH7 2010-06-29     4      =</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Alberts Landing Beach      EH7 2010-07-27     4      =</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Alberts Landing Beach      EH7 2010-06-29     4      &lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Alberts Landing Beach      EH7 2010-07-27     4      &lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 Alberts Landing Beach      EH7 2010-08-13    28      =</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Alberts Landing Beach      EH7 2011-06-22     4      =</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Alberts Landing Beach      EH7 2011-07-20     4      =</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Alberts Landing Beach      EH7 2011-08-17     4      =</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Alberts Landing Beach      EH7 2011-06-22     4      &lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Alberts Landing Beach      EH7 2011-07-20     4      &lt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Alberts Landing Beach      EH7 2011-08-17     4      &lt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

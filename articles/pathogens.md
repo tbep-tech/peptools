@@ -14,7 +14,7 @@ bathing beach water quality monitoring program from May through
 September each year. Sampling is performed by SCDHS staff, with analyses
 conducted by the Department’s accredited Public and Environmental Health
 Laboratory (PEHL). Data are available
-[here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8).
+[here](https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007).
 
 Information from this monitoring program can be summarized to
 communicate the relative risk of exposure to pathogens at bathing
@@ -113,14 +113,15 @@ leaflet(sf::st_transform(beaches, 4326)) %>%
 
 The pathogen data for these beaches can be imported using the
 [`read_pepent()`](https://tbep-tech.github.io/peptools/reference/read_pepent.md)
-function. This function retrieves data directly from an ArcGIS REST
-service available at
-<https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/>.
-The API is queried by beach names in the `beaches` data object. The
-queries are done individually for each beach to not exceed the 2000
-record limit. A spreadhseet including the same data can also be
-downloaded from
-[here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8).
+function. This function downloads the “SCDHS Bathing Beach Program Water
+Quality Data” published by Suffolk County
+[here](https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007).
+The download is a zip file that includes historical data in a csv file,
+recent data as one Excel file per year, and a file of beach sampling
+locations. The function combines the files and keeps the *Enterococcus*
+records for the beaches in the `beaches` data object. Records are
+matched to beaches by station code (`FieldNum`) because beach names in
+the source data have changed over time.
 
 The import function is used as follows:
 
@@ -131,27 +132,26 @@ head(entdat)
 ```
 
     #>                    Name FieldNum       Date value status
-    #> 1 Alberts Landing Beach      EH7 2010-06-29     4      =
-    #> 2 Alberts Landing Beach      EH7 2010-07-27     4      =
+    #> 1 Alberts Landing Beach      EH7 2010-06-29     4      <
+    #> 2 Alberts Landing Beach      EH7 2010-07-27     4      <
     #> 3 Alberts Landing Beach      EH7 2010-08-13    28      =
-    #> 4 Alberts Landing Beach      EH7 2011-06-22     4      =
-    #> 5 Alberts Landing Beach      EH7 2011-07-20     4      =
-    #> 6 Alberts Landing Beach      EH7 2011-08-17     4      =
+    #> 4 Alberts Landing Beach      EH7 2011-06-22     4      <
+    #> 5 Alberts Landing Beach      EH7 2011-07-20     4      <
+    #> 6 Alberts Landing Beach      EH7 2011-08-17     4      <
 
-The data can also be imported from a local file using the `path`
-argument.
+The data can also be imported from a local copy of the zip file, or a
+folder with its extracted contents, using the `path` argument.
 
 ``` r
 
-entdat <- read_pepent(path = '~/Desktop/pathogen_data.xlsx')
+entdat <- read_pepent(path = '~/Desktop/Beach_WQ_Data_online.zip')
 ```
 
 The raw data includes concentrations of *Enterococcus* bacteria as
 cfu/100 mL for swimming beaches in Suffolk County. The fields include
-beach name (`Name`), field number (`FieldNum`), collection date and time
-(`Date` as Eastern Standard Time), bacteria concentration (`value`), and
-`status` showing if the observation was above or below detection
-(indicated as `>` or `<`).
+beach name (`Name`), field number (`FieldNum`), collection date
+(`Date`), bacteria concentration (`value`), and `status` showing if the
+observation was above or below detection (indicated as `>` or `<`).
 
 The function
 [`anlz_entpep()`](https://tbep-tech.github.io/peptools/reference/anlz_entpep.md)
@@ -179,7 +179,7 @@ Peconic Estuary are returned.
 ``` r
 
 anlz_entpep(entdat)
-#> # A tibble: 418 × 4
+#> # A tibble: 476 × 4
 #>    Name               yr samples exceedances
 #>    <chr>           <dbl>   <int>       <int>
 #>  1 Alberts Landing  2010       3           0
@@ -192,7 +192,7 @@ anlz_entpep(entdat)
 #>  8 Alberts Landing  2017       3           0
 #>  9 Alberts Landing  2018       6           1
 #> 10 Alberts Landing  2019       3           0
-#> # ℹ 408 more rows
+#> # ℹ 466 more rows
 ```
 
 The
@@ -204,7 +204,7 @@ use a threshold of 50 cfu/100 mL.
 ``` r
 
 anlz_entpep(entdat, thr = 50)
-#> # A tibble: 418 × 4
+#> # A tibble: 476 × 4
 #>    Name               yr samples exceedances
 #>    <chr>           <dbl>   <int>       <int>
 #>  1 Alberts Landing  2010       3           0
@@ -217,7 +217,7 @@ anlz_entpep(entdat, thr = 50)
 #>  8 Alberts Landing  2017       3           0
 #>  9 Alberts Landing  2018       6           1
 #> 10 Alberts Landing  2019       3           0
-#> # ℹ 408 more rows
+#> # ℹ 466 more rows
 ```
 
 ## Plotting results
@@ -236,11 +236,11 @@ show_entmatrix(entdat)
 ```
 
 ![Exceedances of \*Enterococcus\* concentrations at Peconic Estuary
-bathing beaches for the years 2010 through 2024. Values are number of
+bathing beaches for the years 2010 through 2026. Values are number of
 samples exceeding.](pathogens_files/figure-html/unnamed-chunk-9-1.png)
 
 Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing
-beaches for the years 2010 through 2024. Values are number of samples
+beaches for the years 2010 through 2026. Values are number of samples
 exceeding.
 
 The
@@ -258,12 +258,12 @@ show_entmatrix(entdat, thr = 35)
 ```
 
 ![Exceedances of \*Enterococcus\* concentrations at Peconic Estuary
-bathing beaches for the years 2010 through 2024. A different option is
+bathing beaches for the years 2010 through 2026. A different option is
 used for the threshold
 argument.](pathogens_files/figure-html/unnamed-chunk-10-1.png)
 
 Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing
-beaches for the years 2010 through 2024. A different option is used for
+beaches for the years 2010 through 2026. A different option is used for
 the threshold argument.
 
 The matrix is also a `ggplot` object and its layout can be changed using
@@ -273,7 +273,7 @@ labels.
 ``` r
 
 show_entmatrix(entdat, txtsz = NULL) +
-  scale_x_discrete(expand = c(0,0), breaks = c(2000:2024)) + 
+  scale_x_discrete(expand = c(0,0), breaks = c(2000:2026)) + 
   coord_flip() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 7))
 ```
