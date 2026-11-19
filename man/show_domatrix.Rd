@@ -12,7 +12,7 @@ show_domatrix(
   thr = 4.8,
   impute = TRUE,
   yrrng = NULL,
-  family = NA
+  family = ""
 )
 }
 \arguments{

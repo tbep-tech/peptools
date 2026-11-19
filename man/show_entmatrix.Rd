@@ -4,7 +4,7 @@
 \alias{show_entmatrix}
 \title{Create a colorized table for beach pathogen exceedances}
 \usage{
-show_entmatrix(entdat, txtsz = 2, thr = 104, yrrng = NULL, family = NA)
+show_entmatrix(entdat, txtsz = 2, thr = 104, yrrng = NULL, family = "")
 }
 \arguments{
 \item{entdat}{data frame of enterococcus data returned by \code{\link{read_pepent}}}

@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' show_boxpep(rawdat, bay_segment = '1a')
-show_boxpep <- function(dat, param = c('chla', 'sd', 'tn'),  yrsel = NULL, yrrng = NULL, ptsz = 0.5, bay_segment = c('1a', '1b', '2', '3'), trgs = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+show_boxpep <- function(dat, param = c('chla', 'sd', 'tn'),  yrsel = NULL, yrrng = NULL, ptsz = 0.5, bay_segment = c('1a', '1b', '2', '3'), trgs = NULL, family = "", labelexp = TRUE, txtlab = TRUE){
   
   # parameter
   param <- match.arg(param)
@@ -143,7 +143,7 @@ show_boxpep <- function(dat, param = c('chla', 'sd', 'tn'),  yrsel = NULL, yrrng
     )
   
   p <- p + 
-    ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, linetype = 'Threshold'), colour = 'blue', size = 0.75)+
+    ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, linetype = 'Threshold'), colour = 'blue', linewidth = 0.75)+
     ggplot2::scale_linetype_manual(values = 'dotted') +
     ggplot2::guides(linetype = ggplot2::guide_legend(override.aes = list(colour = 'blue')))
     

@@ -9,7 +9,7 @@ show_allthrpep(
   param = c("chla", "sd", "tn"),
   trgs = NULL,
   yrrng = NULL,
-  family = NA,
+  family = "",
   labelexp = TRUE,
   txtlab = TRUE
 )

@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' show_domatrix(dodat, site = 'Peconic River')
-show_domatrix <- function(dodat, site, show = c('below_ave', 'below_maxrun'), txtsz = 3, thr = 4.8, impute = TRUE, yrrng = NULL, family = NA){
+show_domatrix <- function(dodat, site, show = c('below_ave', 'below_maxrun'), txtsz = 3, thr = 4.8, impute = TRUE, yrrng = NULL, family = ""){
 
   site <- match.arg(site, levels(dodat$site))
   show <- match.arg(show)
@@ -61,7 +61,7 @@ show_domatrix <- function(dodat, site, show = c('below_ave', 'below_maxrun'), tx
   if(show == 'below_maxrun')
     mid <- 15
 
-  p <- ggplot2::ggplot(toplo, ggplot2::aes_string(x = 'mo', y = 'yr', fill = show)) + 
+  p <- ggplot2::ggplot(toplo, ggplot2::aes(x = mo, y = yr, fill = .data[[show]])) + 
     ggplot2::geom_tile(colour = 'black', na.rm = TRUE) + 
     ggplot2::facet_wrap(~site, ncol = 1) + 
     ggplot2::scale_x_discrete(expand = c(0, 0)) + 
@@ -74,7 +74,7 @@ show_domatrix <- function(dodat, site, show = c('below_ave', 'below_maxrun'), tx
   
   if(!is.null(txtsz))
     p <- p +
-      ggplot2::geom_text(ggplot2::aes_string(label = show), size = txtsz, family = family, na.rm = TRUE)
+      ggplot2::geom_text(ggplot2::aes(label = .data[[show]]), size = txtsz, family = family, na.rm = TRUE)
   
   return(p)
   

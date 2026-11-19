@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' show_segmatrixpep(rawdat, bay_segment = '1a')
-show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_segment = c('1a', '1b', '2', '3'), abbrev = FALSE, family = NA) {
+show_segmatrixpep <- function(dat, txtsz = 3, trgs = NULL, yrrng = NULL, bay_segment = c('1a', '1b', '2', '3'), abbrev = FALSE, family = "") {
   
   bay_segment <- match.arg(bay_segment)
   

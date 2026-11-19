@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' show_entmatrix(entdat)
-show_entmatrix <- function(entdat, txtsz = 2, thr = 104, yrrng = NULL, family = NA){
+show_entmatrix <- function(entdat, txtsz = 2, thr = 104, yrrng = NULL, family = ""){
 
   # upper limit for color ramp
   top <- 10

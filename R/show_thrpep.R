@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' show_thrpep(rawdat, bay_segment = '1a', param = 'chl')
-show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('chla', 'sd', 'tn'), ylim = NULL, trgs = NULL, yrrng = NULL, family = NA, labelexp = TRUE, txtlab = TRUE){
+show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('chla', 'sd', 'tn'), ylim = NULL, trgs = NULL, yrrng = NULL, family = "", labelexp = TRUE, txtlab = TRUE){
   
   # default targets from data file
   if(is.null(trgs))
@@ -80,8 +80,8 @@ show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('c
   
   p <- ggplot2::ggplot() +
     ggplot2::geom_point(data = toplo, ggplot2::aes(x = yr, y = medv, colour = "Annual Median"), size = 3) +
-    ggplot2::geom_line(data = toplo, ggplot2::aes(x = yr, y = medv, colour = "Annual Median"), linetype = 'solid', size = 0.75) +
-    ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = yr, ymin = lwr.ci, ymax = upr.ci, colour = "Annual Median"), size = 0.5, width = 0.5) +
+    ggplot2::geom_line(data = toplo, ggplot2::aes(x = yr, y = medv, colour = "Annual Median"), linetype = 'solid', linewidth = 0.75) +
+    ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = yr, ymin = lwr.ci, ymax = upr.ci, colour = "Annual Median"), linewidth = 0.5, width = 0.5) +
     ggplot2::labs(y = axlab, title = ttl) +
     ggplot2::scale_x_continuous(breaks = seq(yrrng[1], yrrng[2], by = 1)) +
     ggplot2::coord_cartesian(ylim = ylim) + 
@@ -120,14 +120,15 @@ show_thrpep <- function(dat, bay_segment = c('1a', '1b', '2', '3'), param = c('c
     )
   
   p <- p +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, colour = 'Threshold'), linetype = 'dotted', size = 0.75) +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = thrnum, colour = 'Threshold'), linetype = 'dotted', linewidth = 0.75) +
     ggplot2::scale_colour_manual(values = cols, labels = factor(names(cols), levels = names(cols))) +
     ggplot2::guides(colour = ggplot2::guide_legend(
       override.aes = list(
         shape = c(19, NA),
         colour = cols,
         linetype = c('solid', 'dotted'),
-        size = c(0.75, 0.75)
+        size = c(0.75, 0.75),
+        linewidth = c(0.75, 0.75)
       )
     ))
   

@@ -12,7 +12,7 @@ show_boxpep(
   ptsz = 0.5,
   bay_segment = c("1a", "1b", "2", "3"),
   trgs = NULL,
-  family = NA,
+  family = "",
   labelexp = TRUE,
   txtlab = TRUE
 )

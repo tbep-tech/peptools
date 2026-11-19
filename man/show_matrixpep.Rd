@@ -13,7 +13,7 @@ show_matrixpep(
   asreact = FALSE,
   nrows = 10,
   abbrev = FALSE,
-  family = NA
+  family = ""
 )
 }
 \arguments{

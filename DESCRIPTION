@@ -27,7 +27,7 @@ Imports:
   dataRetrieval,
   DescTools,
   dplyr, 
-  ggplot2, 
+  ggplot2 (>= 4.0.0),
   httr,
   jsonlite,
   leaflet, 

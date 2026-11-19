@@ -11,7 +11,7 @@ show_thrpep(
   ylim = NULL,
   trgs = NULL,
   yrrng = NULL,
-  family = NA,
+  family = "",
   labelexp = TRUE,
   txtlab = TRUE
 )

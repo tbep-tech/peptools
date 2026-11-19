@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' show_wqmatrixpep(rawdat)
-show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = NULL, alpha = 1, bay_segment = c('1a', '1b', '2', '3'), asreact = FALSE, nrows = 10, family = NA){
+show_wqmatrixpep <- function(dat, param = c('chla', 'sd'), txtsz = 3, trgs = NULL, yrrng = NULL, alpha = 1, bay_segment = c('1a', '1b', '2', '3'), asreact = FALSE, nrows = 10, family = ""){
 
   # sanity checks
   param <- match.arg(param)

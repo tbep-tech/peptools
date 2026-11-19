@@ -14,7 +14,7 @@ show_wqmatrixpep(
   bay_segment = c("1a", "1b", "2", "3"),
   asreact = FALSE,
   nrows = 10,
-  family = NA
+  family = ""
 )
 }
 \arguments{

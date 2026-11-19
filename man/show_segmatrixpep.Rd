@@ -11,7 +11,7 @@ show_segmatrixpep(
   yrrng = NULL,
   bay_segment = c("1a", "1b", "2", "3"),
   abbrev = FALSE,
-  family = NA
+  family = ""
 )
 }
 \arguments{
