@@ -15,6 +15,8 @@
 #' 
 #' The color ramp and size scaling of points are reversed for Secchi observations.
 #' 
+#' Three ESRI basemaps can be selected from the layer control on the map: World Gray (default), World Imagery, and World Topo Map.
+#' 
 #' @concept visualize
 #'
 #' @return A \code{\link[leaflet]{leaflet}} object
@@ -58,7 +60,7 @@ show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', '
   if(is.null(yrsel))
     yrsel <- seq(yrrng[1], yrrng[2])
 
-  mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
+  mptyps <- c(`World Gray` = 'Esri.WorldGrayCanvas', `World Imagery` = 'Esri.WorldImagery', `World Topo Map` = 'Esri.WorldTopoMap')
   prj <- '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
   
   # get data to process
@@ -149,8 +151,11 @@ show_sitemappep <- function(dat, yrsel = NULL, mosel = NULL, param = c('chla', '
   labs <- paste('Bay station ', locs$BayStation, ', ', nms, ' ', round(locs$val, 2))
 
   # map
-  out <- mapview::mapview(locs, legend = F, homebutton = F, map.types = mptyps, alpha.regions = 0, alpha = 0, popup = F, label = F, cex = -1) %>% 
-    .@map %>% 
+  out <- leaflet::leaflet(locs) %>% 
+    leaflet::addProviderTiles(mptyps[[1]], group = names(mptyps)[1]) %>% 
+    leaflet::addProviderTiles(mptyps[[2]], group = names(mptyps)[2]) %>% 
+    leaflet::addProviderTiles(mptyps[[3]], group = names(mptyps)[3]) %>% 
+    leaflet::addLayersControl(baseGroups = names(mptyps), options = leaflet::layersControlOptions(collapsed = TRUE)) %>% 
     leaflet::addCircleMarkers(
       data = locs,
       stroke = TRUE,

@@ -17,7 +17,6 @@ library(ggplot2)
 
 data(dodat)
 
-mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
 
 This vignette describes summarizing and reporting dissolved oxygen (DO) data for the Peconic Estuary.  Three continuous USGS monitoring stations collect DO data at locations in the Peconic Estuary: USGS stations 01304562 in the Peconic River, 01304200 in Orient Harbor, and 01304650 in Shelter Island Sound.  Data at these stations can be downloaded using the `read_pepdo()` function.  

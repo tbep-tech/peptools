@@ -14,11 +14,9 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = F, warning = F,
 
 library(peptools)
 library(ggplot2)
-library(mapview)
+library(leaflet)
 library(dplyr)
 library(sf)
-
-mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
 
 ## Basic use
@@ -29,24 +27,38 @@ First we load the peptools package.  Note that we do not need to install it ever
 library(peptools)
 ```
 
-The package includes a `pepstations` data object that includes metadata for each station, including lat/lon and bay segment.  We can use the sf and dplyr package to make this a spatial data object, then plot it with mapview (you may need to install these packages if you don't have them).  Note that the peptools package has built-in mapping functions, this example just shows how to create a map from scratch. 
+The package includes a `pepstations` data object that includes metadata for each station, including lat/lon and bay segment.  We can use the sf and dplyr package to make this a spatial data object, then plot it with leaflet (you may need to install these packages if you don't have them).  Note that the peptools package has built-in mapping functions, this example just shows how to create a map from scratch. 
 
 ```{r}
 library(sf)
 library(dplyr)
-library(mapview)
+library(leaflet)
 
 locs <- pepstations %>% 
   sf::st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326) %>% 
   dplyr::mutate(bay_segment = as.character(bay_segment))
 
-mapview(locs, zcol = 'bay_segment', layer.name = 'Bay segment')   
+pal <- colorFactor('Set1', domain = locs$bay_segment)
+
+leaflet(locs) %>% 
+  addProviderTiles('Esri.WorldGrayCanvas', group = 'World Gray') %>% 
+  addProviderTiles('Esri.WorldImagery', group = 'World Imagery') %>% 
+  addProviderTiles('Esri.WorldTopoMap', group = 'World Topo Map') %>% 
+  addLayersControl(baseGroups = c('World Gray', 'World Imagery', 'World Topo Map')) %>% 
+  addCircleMarkers(radius = 6, color = 'black', weight = 1, fillColor = ~pal(bay_segment), 
+                   fillOpacity = 0.8, label = ~paste('Bay station', BayStation)) %>% 
+  addLegend('bottomright', pal = pal, values = ~bay_segment, title = 'Bay segment')
 ```
 
 The `pepseg` data object also included with the package shows the polygons for the bay segments.
 
 ```{r}
-mapview(pepseg)
+leaflet(sf::st_transform(pepseg, 4326)) %>% 
+  addProviderTiles('Esri.WorldGrayCanvas', group = 'World Gray') %>% 
+  addProviderTiles('Esri.WorldImagery', group = 'World Imagery') %>% 
+  addProviderTiles('Esri.WorldTopoMap', group = 'World Topo Map') %>% 
+  addLayersControl(baseGroups = c('World Gray', 'World Imagery', 'World Topo Map')) %>% 
+  addPolygons(color = 'black', weight = 1, fillOpacity = 0.4)
 ```
 
 The water quality data can be imported using the `read_pepwq()` function.  A compressed folder that includes the data can be downloaded from [here](https://gis.suffolkcountyny.gov/portal/home/item.html?id=5d4b53ec44204219a8da685f1859e096).  After the data are downloaded and extracted, the Excel file with the raw data is named "Peconics SCDHS WQ data - 1976 - 2021.xlsx", or something similar depending on when the data were downloaded.  The location of this file on your computer is passed to the import function. Below, a local file renamed as "currentdata.xlsx" that contains the water quality data is imported. 

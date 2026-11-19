@@ -15,7 +15,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message = F, warning = F,
 library(peptools)
 library(ggplot2)
 
-mptyps <- c("CartoDB.Positron", "CartoDB.DarkMatter", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap")
 ```
 
 Regular monitoring of swimming beach pathogens is conducted by Suffolk County Department of Health Services (SCDHS).  As noted on the Suffolk County website (https://www.suffolkcountyny.gov/Departments/Health-Services/Environmental-Quality/Ecology/Beach-Monitoring-Program), water quality at swimming beaches can be adversely affected by episodic sources such as stormwater runoff, wastewater discharges from boats or land-based septic systems, and fecal material from pets and wildlife. To provide information on the potential presence of pathogens public in swimming areas that may be impacted by such contamination, the Suffolk County Department of Health Services (SCDHS) conducts a comprehensive bathing beach water quality monitoring program from May through September each year. Sampling is performed by SCDHS staff, with analyses conducted by the Department’s accredited Public and Environmental Health Laboratory (PEHL). Data are available [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8).
@@ -35,8 +34,15 @@ beaches
 The beaches can be mapped as follows:
 
 ```{r}
-library(mapview)
-mapview(beaches)
+library(leaflet)
+library(sf)
+
+leaflet(sf::st_transform(beaches, 4326)) %>% 
+  addProviderTiles('Esri.WorldGrayCanvas', group = 'World Gray') %>% 
+  addProviderTiles('Esri.WorldImagery', group = 'World Imagery') %>% 
+  addProviderTiles('Esri.WorldTopoMap', group = 'World Topo Map') %>% 
+  addLayersControl(baseGroups = c('World Gray', 'World Imagery', 'World Topo Map')) %>% 
+  addCircleMarkers(radius = 6, color = 'black', weight = 1, fillColor = 'tomato', fillOpacity = 0.8)
 ```
 
 The pathogen data for these beaches can be imported using the `read_pepent()` function. This function retrieves data directly from an ArcGIS REST service available at <https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/>. The API is queried by beach names in the `beaches` data object. The queries are done individually for each beach to not exceed the 2000 record limit. A spreadhseet including the same data can also be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8). 
