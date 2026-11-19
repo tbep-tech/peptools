@@ -42,7 +42,7 @@ leaflet(sf::st_transform(beaches, 4326)) %>%
   addProviderTiles('Esri.WorldImagery', group = 'World Imagery') %>% 
   addProviderTiles('Esri.WorldTopoMap', group = 'World Topo Map') %>% 
   addLayersControl(baseGroups = c('World Gray', 'World Imagery', 'World Topo Map')) %>% 
-  addCircleMarkers(radius = 6, color = 'black', weight = 1, fillColor = 'tomato', fillOpacity = 0.8)
+  addCircleMarkers(radius = 6, color = 'black', weight = 1, fillColor = 'tomato', fillOpacity = 0.8, label = ~Name)
 ```
 
 The pathogen data for these beaches can be imported using the `read_pepent()` function. This function retrieves data directly from an ArcGIS REST service available at <https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/>. The API is queried by beach names in the `beaches` data object. The queries are done individually for each beach to not exceed the 2000 record limit. A spreadhseet including the same data can also be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8). 

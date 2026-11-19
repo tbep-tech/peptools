@@ -58,7 +58,7 @@ leaflet(sf::st_transform(pepseg, 4326)) %>%
   addProviderTiles('Esri.WorldImagery', group = 'World Imagery') %>% 
   addProviderTiles('Esri.WorldTopoMap', group = 'World Topo Map') %>% 
   addLayersControl(baseGroups = c('World Gray', 'World Imagery', 'World Topo Map')) %>% 
-  addPolygons(color = 'black', weight = 1, fillOpacity = 0.4)
+  addPolygons(color = 'grey', weight = 1, fillOpacity = 0.4, label = ~paste('Bay segment', bay_segment))
 ```
 
 The water quality data can be imported using the `read_pepwq()` function.  A compressed folder that includes the data can be downloaded from [here](https://gis.suffolkcountyny.gov/portal/home/item.html?id=5d4b53ec44204219a8da685f1859e096).  After the data are downloaded and extracted, the Excel file with the raw data is named "Peconics SCDHS WQ data - 1976 - 2021.xlsx", or something similar depending on when the data were downloaded.  The location of this file on your computer is passed to the import function. Below, a local file renamed as "currentdata.xlsx" that contains the water quality data is imported. 
