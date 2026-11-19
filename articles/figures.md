@@ -1,0 +1,108 @@
+# Figures
+
+The code below can be used to create and save the different matrix
+graphics for reporting purposes. A couple things to note when using this
+code:
+
+- Always make sure you’re using the most current version of the package.
+- The figures get saved to the desktop, e.g., `~/Desktop/fig.png`. This
+  can be changed as needed.
+- The figure dimensions and resolution are in the
+  [`png()`](https://rdrr.io/r/grDevices/png.html) function, in inches
+  and dots per inch. The current dimensions are approximations that will
+  likely need to be changed depending on intended use.
+- Make sure to always use
+  [`dev.off()`](https://rdrr.io/r/grDevices/dev.html) after
+  [`png()`](https://rdrr.io/r/grDevices/png.html) for each figure.
+  Otherwise the figures won’t save correctly.
+- The transparency for the colors in the chlorophyll and secchi plots
+  are set to 50% to make them more distinct from the combined water
+  quality matrix. This will avoid confusion for what the colors mean
+  between the figure types. This can be modified using the `alpha`
+  argument.
+- The `txtsz` argument for each plot can be used to modify the size of
+  the text in the cells for each figure. This may need to be changed
+  depending on the overall dimensions.
+
+``` r
+
+# setup -------------------------------------------------------------------
+
+# # install peptools, only do if the package is updated
+# install.packages('remotes')
+# remotes::install_github('tbep-tech/peptools')
+library(peptools)
+
+# update data to most recent ----------------------------------------------
+
+# wq data, replace path with manually downloaded file
+path <- system.file("extdata", "currentdata.xlsx", package="peptools")
+rawdat <- read_pepwq(path)
+
+# do data, takes a few minutes and make sure the date in endDate is updated
+dodat <- read_pepdo(
+  site = c("01304562", "01304200", "01304650"),
+  nms = c("Peconic River", "Orient Harbor", "Shelter Island"),
+  startDate = "2013-01-01",
+  endDate = "2024-12-31"
+)
+
+# pathogen data, API no longer working, use data(pepent)
+entdat <- read_pepent()
+
+# alternatively, use existing data ----------------------------------------
+
+data(rawdat)
+data(dodat)
+data(entdat)
+
+# secchi matrix -----------------------------------------------------------
+
+p <- show_wqmatrixpep(rawdat, param = 'sd', txtsz = 3, alpha = 0.5) 
+
+png('~/Desktop/sdmatrix.png', height = 7, width = 3, res = 300, units = 'in')
+print(p)
+dev.off()
+
+# chl matrix --------------------------------------------------------------
+
+p <- show_wqmatrixpep(rawdat, param = 'chl', txtsz = 3, alpha = 0.5) 
+
+png('~/Desktop/chlmatrix.png', height = 7, width = 3, res = 300, units = 'in')
+print(p)
+dev.off()
+
+# wq matrix ---------------------------------------------------------------
+
+p <- show_matrixpep(rawdat, txtsz = 3) 
+
+png('~/Desktop/wqmatrix.png', height = 7, width = 3, res = 300, units = 'in')
+print(p)
+dev.off()
+
+# do matrix ---------------------------------------------------------------
+
+p1 <- show_domatrix(dodat, site = 'Peconic River', thr = 4.8, txtsz = 3) 
+p2 <- show_domatrix(dodat, site = 'Orient Harbor', thr = 4.8, txtsz = 3) 
+p3 <- show_domatrix(dodat, site = 'Shelter Island', thr = 4.8, txtsz = 3) 
+
+png('~/Desktop/domatrix1.png', height = 3, width = 5, res = 300, units = 'in')
+print(p1)
+dev.off()
+
+png('~/Desktop/domatrix2.png', height = 3, width = 5, res = 300, units = 'in')
+print(p2)
+dev.off()
+
+png('~/Desktop/domatrix3.png', height = 3, width = 5, res = 300, units = 'in')
+print(p3)
+dev.off()
+
+# pathogen matrix ---------------------------------------------------------
+
+p <- show_entmatrix(entdat, thr = 104, txtsz = 2) 
+
+png('~/Desktop/entmatrix.png', height = 6, width = 7, res = 300, units = 'in')
+print(p)
+dev.off()
+```
