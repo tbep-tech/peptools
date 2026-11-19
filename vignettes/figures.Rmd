@@ -41,10 +41,10 @@ dodat <- read_pepdo(
   site = c("01304562", "01304200", "01304650"),
   nms = c("Peconic River", "Orient Harbor", "Shelter Island"),
   startDate = "2013-01-01",
-  endDate = "2024-12-31"
+  endDate = "2025-12-31"
 )
 
-# pathogen data, API no longer working, use data(pepent)
+# pathogen data, downloads current data from Suffolk County
 entdat <- read_pepent()
 
 # alternatively, use existing data ----------------------------------------

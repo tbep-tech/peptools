@@ -197,10 +197,10 @@ show_boxpep(dat, param = 'chla', bay_segment = "1a")
 show_boxpep(dat, param = 'sd', bay_segment = "3")
 ```
 
-A different subset of years and selected year of interest can also be viewed by changing the `yrrng` and `yrsel` arguments.  Here we show 1990 compared to monthly averages for the last ten years.
+A different subset of years and selected year of interest can also be viewed by changing the `yrrng` and `yrsel` arguments.  Here we show 2000 compared to monthly averages for the last ten years.
 
 ```{r, fig.height = 5, fig.width = 8}
-show_boxpep(dat, param = 'chla', bay_segment = "1a", yrrng = c(2016, 2025), yrsel = 1990)
+show_boxpep(dat, param = 'chla', bay_segment = "1a", yrrng = c(2016, 2025), yrsel = 2000)
 ```
 
 The `show_thrpep()` function is useful to understand annual variation in chlorophyll, secchi, or total nitrogen in each bay segment.  For chlorophyll and secchi, the information from these plots can provide an understanding of how the annual reporting outcomes are determined.  An outcome integer from zero to three is assigned to each bay segment for each annual estimate of chlorophyll and secchi depth.  These outcomes are based on both the exceedance of the annual estimate above the threshold (blue lines in `show_thrpep()`) and duration of the exceedance for the years prior.  The following graphic describes this logic [@Janicki99].
