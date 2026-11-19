@@ -28,8 +28,6 @@ Imports:
   DescTools,
   dplyr, 
   ggplot2 (>= 4.0.0),
-  httr,
-  jsonlite,
   leaflet, 
   lubridate,
   plotly,

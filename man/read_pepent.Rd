@@ -4,10 +4,16 @@
 \alias{read_pepent}
 \title{Import raw enterococcus data}
 \usage{
-read_pepent(path = NULL)
+read_pepent(
+  path = NULL,
+  url =
+    "https://gis.suffolkcountyny.gov/portal/sharing/rest/content/items/b5d1e5c88d8c4fb48a3732cd44cf4007/data"
+)
 }
 \arguments{
-\item{path}{chr string of path for excel file (optional)}
+\item{path}{chr string of path to a local copy of the data (optional), see details}
+
+\item{url}{chr string of url for downloading the data, used only if \code{path = NULL}}
 }
 \value{
 data.frame
@@ -16,11 +22,11 @@ data.frame
 Import raw enterococcus data
 }
 \details{
-Data are from the ArcGIS REST Services here \url{https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/}.  
+Data are from the Suffolk County Department of Health Services (SCDHS) Bathing Beach Program, available at \url{https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007}.  The data are provided as a zip file that is downloaded to a temporary directory if \code{path = NULL} (default).  The zip file includes historical data as a csv file, more recent data as one Excel file per year, and an Excel file of beach sampling locations.  The historical and recent data files use different formats, both of which are handled by this function.
 
-The API is queried by beach names in the \code{\link{beaches}} data object. The queries are done individually for each beach to not exceed the 2000 record limit. 
+Alternatively, the \code{path} argument can point to a local copy of the zip file, a folder with the extracted contents of the zip file, or a vector of the individual data files.  The sampling locations file must be included if any of the data files use the recent format.
 
-Data can also be imported from an Excel if the \code{path} argument is used for the location to the file.
+Records are matched to the beaches in the \code{\link{beaches}} data object by station code (\code{FieldNum}), not beach name.  Beach names in the source data have changed over time and are not unique between data files (e.g., "Crescent Beach - Suffolk" is a Huntington beach in the source data).  Station codes for records in the recent format are obtained from the sampling locations file using the EPA beach id.  The beach names in the output are those in \code{\link{beaches}}.  Only Enterococcus records are returned.
 }
 \examples{
 \dontrun{

@@ -17,7 +17,7 @@ library(ggplot2)
 
 ```
 
-Regular monitoring of swimming beach pathogens is conducted by Suffolk County Department of Health Services (SCDHS).  As noted on the Suffolk County website (https://www.suffolkcountyny.gov/Departments/Health-Services/Environmental-Quality/Ecology/Beach-Monitoring-Program), water quality at swimming beaches can be adversely affected by episodic sources such as stormwater runoff, wastewater discharges from boats or land-based septic systems, and fecal material from pets and wildlife. To provide information on the potential presence of pathogens public in swimming areas that may be impacted by such contamination, the Suffolk County Department of Health Services (SCDHS) conducts a comprehensive bathing beach water quality monitoring program from May through September each year. Sampling is performed by SCDHS staff, with analyses conducted by the Department’s accredited Public and Environmental Health Laboratory (PEHL). Data are available [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8).
+Regular monitoring of swimming beach pathogens is conducted by Suffolk County Department of Health Services (SCDHS).  As noted on the Suffolk County website (https://www.suffolkcountyny.gov/Departments/Health-Services/Environmental-Quality/Ecology/Beach-Monitoring-Program), water quality at swimming beaches can be adversely affected by episodic sources such as stormwater runoff, wastewater discharges from boats or land-based septic systems, and fecal material from pets and wildlife. To provide information on the potential presence of pathogens public in swimming areas that may be impacted by such contamination, the Suffolk County Department of Health Services (SCDHS) conducts a comprehensive bathing beach water quality monitoring program from May through September each year. Sampling is performed by SCDHS staff, with analyses conducted by the Department’s accredited Public and Environmental Health Laboratory (PEHL). Data are available [here](https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007).
 
 Information from this monitoring program can be summarized to communicate the relative risk of exposure to pathogens at bathing beaches in the Peconic Estuary. Functions in the peptools package can be used to import the pathogen data provided by SCHDS and PEHL, analyze relative exceedances of pathogen criterion, and plot the results in an easily interpretable format.  This vignette describes use of these functions.
 
@@ -45,7 +45,7 @@ leaflet(sf::st_transform(beaches, 4326)) %>%
   addCircleMarkers(radius = 6, color = 'black', weight = 1, fillColor = 'tomato', fillOpacity = 0.8, label = ~Name)
 ```
 
-The pathogen data for these beaches can be imported using the `read_pepent()` function. This function retrieves data directly from an ArcGIS REST service available at <https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/>. The API is queried by beach names in the `beaches` data object. The queries are done individually for each beach to not exceed the 2000 record limit. A spreadhseet including the same data can also be downloaded from [here](https://gisportal.suffolkcountyny.gov/gis/home/item.html?id=025cb4dadb57413980dbd7e760b94da8). 
+The pathogen data for these beaches can be imported using the `read_pepent()` function. This function downloads the "SCDHS Bathing Beach Program Water Quality Data" published by Suffolk County [here](https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007). The download is a zip file that includes historical data in a csv file, recent data as one Excel file per year, and a file of beach sampling locations. The function combines the files and keeps the *Enterococcus* records for the beaches in the `beaches` data object. Records are matched to beaches by station code (`FieldNum`) because beach names in the source data have changed over time.
 
 The import function is used as follows: 
 
@@ -57,13 +57,13 @@ head(entdat)
 head(entdat)
 ```
 
-The data can also be imported from a local file using the `path` argument. 
+The data can also be imported from a local copy of the zip file, or a folder with its extracted contents, using the `path` argument.
 
 ```{r, eval = F}
-entdat <- read_pepent(path = '~/Desktop/pathogen_data.xlsx')
+entdat <- read_pepent(path = '~/Desktop/Beach_WQ_Data_online.zip')
 ```
 
-The raw data includes concentrations of *Enterococcus* bacteria as cfu/100 mL for swimming beaches in Suffolk County.  The fields include beach name (`Name`), field number (`FieldNum`), collection date and time (`Date` as Eastern Standard Time), bacteria concentration (`value`), and `status` showing if the observation was above or below detection (indicated as `>` or `<`).  
+The raw data includes concentrations of *Enterococcus* bacteria as cfu/100 mL for swimming beaches in Suffolk County.  The fields include beach name (`Name`), field number (`FieldNum`), collection date (`Date`), bacteria concentration (`value`), and `status` showing if the observation was above or below detection (indicated as `>` or `<`).  
 
 The function `anlz_entpep()` summarizes the imported data at each beach to quantify instances when bacterial concentrations were at risk of impacting human health. For Suffolk County, all bathing beaches are ranked by relative risk of exposure to harmful bacteria. Factors considered in the ranking include pollution threats (outfalls, discharges, runoff, marinas, etc.), beach location, historical monitoring data, and beach use.  Most beaches in the Peconic Estuary are Tier 3 (lowest tier). For the peptools package, the *Enterococcus* data were used to count the number of instances at each beach when concentrations were above 104 cfu/ml.  Although this does not mean a beach was closed, relative exceedances provide a coarse measure of potential risk of exposure to harmful pathogens. 
 
@@ -83,13 +83,13 @@ anlz_entpep(entdat, thr = 50)
 
 A summary graphic can be plotted using the `show_entmatrix()` function. This creates an annual reporting matrix for the relative risk of pathogen exposure at 28 selected beaches in the Peconic Estuary. Tracking the number of exceedances of bacterial concentrations provides a framework for identifying locations that may need management actions to remediate potential public health issues.  
 
-```{r, fig.height = 7, fig.width = 7, fig.cap = 'Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2024.  Values are number of samples exceeding.'}
+```{r, fig.height = 7, fig.width = 7, fig.cap = 'Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2026.  Values are number of samples exceeding.'}
 show_entmatrix(entdat)
 ```
 
 The `anlz_entpep()` function is used internally in `show_entmatrix()`, such that the optional argument for the threshold (`thr`) also applies in the plotting function.  Appropriate thresholds should be identified. Potential alternatives can be viewed by using a different value for the `thr` argument. 
 
-```{r, fig.height = 7, fig.width = 7, fig.cap = 'Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2024.  A different option is used for the threshold argument.'}
+```{r, fig.height = 7, fig.width = 7, fig.cap = 'Exceedances of *Enterococcus* concentrations at Peconic Estuary bathing beaches for the years 2010 through 2026.  A different option is used for the threshold argument.'}
 show_entmatrix(entdat, thr = 35)
 ```
 
@@ -97,7 +97,7 @@ The matrix is also a `ggplot` object and its layout can be changed using `ggplot
 
 ```{r, fig.height = 4, fig.width = 8}
 show_entmatrix(entdat, txtsz = NULL) +
-  scale_x_discrete(expand = c(0,0), breaks = c(2000:2024)) + 
+  scale_x_discrete(expand = c(0,0), breaks = c(2000:2026)) + 
   coord_flip() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 7))
 ```

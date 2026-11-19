@@ -1,127 +1,189 @@
 #' Import raw enterococcus data
-#' 
+#'
 #' Import raw enterococcus data
 #'
-#' @param path chr string of path for excel file (optional)
-#' 
+#' @param path chr string of path to a local copy of the data (optional), see details
+#' @param url chr string of url for downloading the data, used only if \code{path = NULL}
+#'
 #' @return data.frame
 #' @export
 #'
 #' @importFrom dplyr "%>%"
-#' 
-#' @details Data are from the ArcGIS REST Services here \url{https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/}.  
-#' 
-#' The API is queried by beach names in the \code{\link{beaches}} data object. The queries are done individually for each beach to not exceed the 2000 record limit. 
-#' 
-#' Data can also be imported from an Excel if the \code{path} argument is used for the location to the file.  
-#' 
+#'
+#' @details Data are from the Suffolk County Department of Health Services (SCDHS) Bathing Beach Program, available at \url{https://gis.suffolkcountyny.gov/portal/home/item.html?id=b5d1e5c88d8c4fb48a3732cd44cf4007}.  The data are provided as a zip file that is downloaded to a temporary directory if \code{path = NULL} (default).  The zip file includes historical data as a csv file, more recent data as one Excel file per year, and an Excel file of beach sampling locations.  The historical and recent data files use different formats, both of which are handled by this function.
+#'
+#' Alternatively, the \code{path} argument can point to a local copy of the zip file, a folder with the extracted contents of the zip file, or a vector of the individual data files.  The sampling locations file must be included if any of the data files use the recent format.
+#'
+#' Records are matched to the beaches in the \code{\link{beaches}} data object by station code (\code{FieldNum}), not beach name.  Beach names in the source data have changed over time and are not unique between data files (e.g., "Crescent Beach - Suffolk" is a Huntington beach in the source data).  Station codes for records in the recent format are obtained from the sampling locations file using the EPA beach id.  The beach names in the output are those in \code{\link{beaches}}.  Only Enterococcus records are returned.
+#'
 #' @concept read
-#' 
-#' @import httr jsonlite
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' entdat <- read_pepent()
 #' }
 #' head(entdat)
-read_pepent <- function(path = NULL){
+read_pepent <- function(path = NULL, url = 'https://gis.suffolkcountyny.gov/portal/sharing/rest/content/items/b5d1e5c88d8c4fb48a3732cd44cf4007/data'){
 
-  names <- beaches$Name
-  
-  # use API
+  # download and get files
   if(is.null(path)){
-    
-    url <- 'https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/0/query?'
 
-    out <- NULL
-    for(beach in names){
-      
-      # cat(beach, '\n')
-      
-      # use two single quotes if one quote found, otherwise query doesn't work
-      if(grepl("\\'", beach))
-        beach <- gsub("\\'", "''" ,beach)
-      
-      qry <- paste0("name='", beach, "'")
+    tmpzip <- tempfile(fileext = '.zip')
+    on.exit(unlink(tmpzip), add = TRUE)
+    utils::download.file(url, tmpzip, mode = 'wb', quiet = TRUE)
+    path <- tmpzip
 
-      request <- try(GET(
-        url = url,
-        query= list(       
-          where = qry,
-          outFields = '*',
-          f = 'pjson'
-        ), 
-        ssl_verifypeer = 0L
-      ), silent = T)
-      
-      response <- content(request, as = "text", encoding = "UTF-8")
-      results <- fromJSON(response, flatten = T)
-      
-      exceeds <- results$exceededTransferLimit
-      
-      # stop if limit exceeded
-      if(exceeds)
-        stop('request limit exceeded for ', beach)
-      
-      # format results
-      df <-results$features %>% 
-        dplyr::filter(attributes.type_ %in% c('Enterococcus', 'Enterococci')) |> 
-        dplyr::select(
-          Name = attributes.name, 
-          FieldNum = attributes.fieldnum,
-          Date = attributes.coldate, 
-          value = attributes.result,
-          status = attributes.character_
-        ) %>% 
-        dplyr::mutate(
-          Date = Date / 1000,
-          Date = as.POSIXlt(Date, origin = '1970-01-02', tz = 'America/Jamaica'), # these were off a day from raw data if 1970-01-01
-          value = as.numeric(value)
-        )
-      
-      out <- rbind(out, df)
-      
-    }
-      
   }
 
-  # use file import
-  if(!is.null(path)){
-    
-    # may need to manually change names of the input file to match
-    out <- readxl::read_excel(path, col_types = 'text') %>% 
-      dplyr::filter(Characteristic_Name %in% c('Enterococcus', 'Enterococci')) %>% 
-      dplyr::select(
-        Name = Beach_Name,
-        FieldNum = Station_Name, 
-        Date = Start_Date, 
-        value = Result_Value, 
-        status = Result_Type
-      ) %>% 
-      dplyr::mutate(
-        status = gsub('[[:digit:]]+|\\.', '', value), 
-        status = ifelse(status == '', '=', status), 
-        value = as.numeric(gsub('>|<', '', value)),
-        Date = suppressWarnings({dplyr::case_when(
-          grepl('\\/', Date) ~ lubridate::mdy(Date), 
-          grepl("^[[:digit:]]+$", Date) ~ as.Date(as.numeric(Date), origin = "1899-12-30"),
-          T ~ NA
-        )}), 
-        Name = dplyr::case_when(
-          Name == 'Crescent Beach - Shelter Island' ~ 'Crescent Beach - Suffolk', 
-          T ~ Name
-        )
-      ) %>% 
-      dplyr::filter(Name %in% names)
-    
-      if(any(is.na(out$Date)))
-        warning('Date conversion failed for some entries, must be MM/DD/YYYY or numeric')
-    
+  fls <- NULL
+  for(pth in path){
+
+    if(!file.exists(pth))
+      stop('file or folder not found: ', pth)
+
+    # unzip to temporary folder
+    if(grepl('\\.zip$', pth, ignore.case = TRUE)){
+      tmpdir <- tempfile()
+      on.exit(unlink(tmpdir, recursive = TRUE), add = TRUE)
+      utils::unzip(pth, exdir = tmpdir)
+      pth <- tmpdir
     }
-  
-  out <- out %>% 
+
+    if(dir.exists(pth))
+      pth <- list.files(pth, recursive = TRUE, full.names = TRUE)
+
+    fls <- c(fls, pth)
+
+  }
+
+  fls <- grep('\\.(csv|xlsx?)$', fls, ignore.case = TRUE, value = TRUE)
+  fls <- fls[!grepl('^~\\$', basename(fls))]
+  if(length(fls) == 0)
+    stop('no csv or Excel files found')
+
+  # import each file, identify format by column names
+  old <- list()
+  new <- list()
+  locs <- NULL
+  for(fl in fls){
+
+    if(grepl('\\.csv$', fl, ignore.case = TRUE))
+      dat <- utils::read.csv(fl, check.names = FALSE, stringsAsFactors = FALSE)
+    if(!grepl('\\.csv$', fl, ignore.case = TRUE))
+      dat <- suppressWarnings(readxl::read_excel(fl, sheet = 1, guess_max = 1e5))
+
+    dat <- as.data.frame(dat)
+    names(dat) <- toupper(gsub('[[:space:]]+', '', names(dat)))
+
+    if(all(c('FIELDNUM', 'COLDATE', 'CHARACTER', 'RESULT', 'TYPE') %in% names(dat)))
+      old[[fl]] <- dat
+    else if(all(c('EPA_BEACH_ID', 'SAMPLE_COLLECTION_DATE', 'INDICATOR_BACTERIA', 'REMARK', 'RESULT') %in% names(dat)))
+      new[[fl]] <- dat
+    else if(all(c('EPABEACHID', 'BEACHCODE') %in% names(dat)))
+      locs <- dat
+    else
+      warning('format not recognized, skipping file: ', basename(fl))
+
+  }
+
+  if(length(old) + length(new) == 0)
+    stop('no data files with a recognized format found')
+
+  ents <- c('ENTEROCOCCUS', 'ENTEROCOCCI')
+
+  # historical format
+  oldout <- NULL
+  if(length(old) > 0)
+    oldout <- dplyr::bind_rows(old) %>%
+      dplyr::filter(toupper(trimws(TYPE)) %in% ents) %>%
+      dplyr::select(
+        FieldNum = FIELDNUM,
+        Date = COLDATE,
+        value = RESULT,
+        status = CHARACTER
+      ) %>%
+      dplyr::mutate(
+        Date = pepent_date(Date),
+        status = trimws(status)
+      )
+
+  # recent format
+  newout <- NULL
+  if(length(new) > 0){
+
+    if(is.null(locs))
+      stop('sampling locations file with EPA beach ids and beach codes is required for data in recent format')
+
+    locs <- locs %>%
+      dplyr::select(EPA_BEACH_ID = EPABEACHID, FieldNum = BEACHCODE) %>%
+      dplyr::mutate(dplyr::across(dplyr::everything(), trimws)) %>%
+      dplyr::distinct()
+
+    newout <- dplyr::bind_rows(lapply(new, function(x) dplyr::mutate(x, SAMPLE_COLLECTION_DATE = pepent_date(SAMPLE_COLLECTION_DATE)))) %>%
+      dplyr::filter(toupper(trimws(INDICATOR_BACTERIA)) %in% ents) %>%
+      dplyr::mutate(EPA_BEACH_ID = trimws(EPA_BEACH_ID)) %>%
+      dplyr::left_join(locs, by = 'EPA_BEACH_ID') %>%
+      dplyr::select(
+        FieldNum,
+        Date = SAMPLE_COLLECTION_DATE,
+        value = RESULT,
+        status = REMARK
+      ) %>%
+      dplyr::mutate(
+        status = dplyr::case_when(
+          grepl('less', status, ignore.case = TRUE) ~ '<',
+          grepl('greater', status, ignore.case = TRUE) ~ '>',
+          TRUE ~ '='
+        )
+      )
+
+  }
+
+  # combine, match to beaches by station code
+  bchs <- sf::st_drop_geometry(beaches) %>%
+    dplyr::select(Name, FieldNum)
+
+  out <- dplyr::bind_rows(
+      dplyr::mutate(oldout, value = as.character(value)),
+      dplyr::mutate(newout, value = as.character(value))
+    ) %>%
+    dplyr::mutate(
+      FieldNum = toupper(trimws(FieldNum)),
+      value = suppressWarnings(as.numeric(gsub('[^0-9.]', '', value)))
+    ) %>%
+    dplyr::inner_join(bchs, by = 'FieldNum') %>%
+    dplyr::select(Name, FieldNum, Date, value, status) %>%
+    dplyr::distinct() %>%
     dplyr::arrange(Name, FieldNum, Date)
 
+  if(any(is.na(out$Date)))
+    warning('date conversion failed for some entries')
+
   return(out)
-  
+
+}
+
+#' Convert dates for beach pathogen data
+#'
+#' @param x vector of dates as Date, POSIXct, Excel numeric, or character in month/day/year or year-month-day format
+#'
+#' @return Date vector
+#'
+#' @noRd
+pepent_date <- function(x){
+
+  if(inherits(x, c('Date', 'POSIXt')))
+    return(as.Date(format(x, '%Y-%m-%d')))
+
+  if(is.numeric(x))
+    return(as.Date(x, origin = '1899-12-30'))
+
+  x <- trimws(as.character(x))
+  out <- as.Date(rep(NA_character_, length(x)))
+  isnum <- grepl('^[[:digit:]]+(\\.[[:digit:]]+)?$', x)
+  out[isnum] <- as.Date(as.numeric(x[isnum]), origin = '1899-12-30')
+  out[!isnum] <- as.Date(suppressWarnings(lubridate::parse_date_time(x[!isnum], orders = c('mdy', 'ymd', 'mdy HMS', 'ymd HMS'))))
+
+  return(out)
+
 }
