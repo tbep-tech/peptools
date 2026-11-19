@@ -58,7 +58,7 @@ days in the month.
 data(dodat)
 dat <- anlz_domopep(dodat)
 dat
-#> # A tibble: 316 × 6
+#> # A tibble: 352 × 6
 #>    site             yr mo    do_mgl below_ave below_maxrun
 #>    <fct>         <dbl> <ord>  <dbl>     <dbl>        <dbl>
 #>  1 Peconic River  2013 Jan    11.6      0                0
@@ -71,5 +71,5 @@ dat
 #>  8 Peconic River  2013 Aug     3.13     0.774           15
 #>  9 Peconic River  2013 Sep     4.81     0.633            6
 #> 10 Peconic River  2013 Oct     6.03     0.258            7
-#> # ℹ 306 more rows
+#> # ℹ 342 more rows
 ```

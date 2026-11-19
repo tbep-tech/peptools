@@ -394,12 +394,12 @@ show_boxpep(dat, param = 'sd', bay_segment = "3")
 ![](Introduction_files/figure-html/unnamed-chunk-20-2.png)
 
 A different subset of years and selected year of interest can also be
-viewed by changing the `yrrng` and `yrsel` arguments. Here we show 1990
+viewed by changing the `yrrng` and `yrsel` arguments. Here we show 2000
 compared to monthly averages for the last ten years.
 
 ``` r
 
-show_boxpep(dat, param = 'chla', bay_segment = "1a", yrrng = c(2016, 2025), yrsel = 1990)
+show_boxpep(dat, param = 'chla', bay_segment = "1a", yrrng = c(2016, 2025), yrsel = 2000)
 ```
 
 ![](Introduction_files/figure-html/unnamed-chunk-21-1.png)

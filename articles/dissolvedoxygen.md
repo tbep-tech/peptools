@@ -17,7 +17,7 @@ exdat <- read_pepdo(site = c('01304562', '01304200', '01304650'),
 ```
 
 The `dodat` data object included with the package provides DO data from
-2013 to 2024 at the three sites. This takes several minutes to download
+2013 to 2025 at the three sites. This takes several minutes to download
 using the
 [`read_pepdo()`](https://tbep-tech.github.io/peptools/reference/read_pepdo.md)
 function, so it is included with the package for ease of use.
@@ -26,12 +26,12 @@ function, so it is included with the package for ease of use.
 
 head(dodat)
 #>            site            DateTime do_mgl
-#> 1 Orient Harbor 2013-01-01 00:00:00   11.2
-#> 2 Orient Harbor 2013-01-01 00:06:00   11.2
-#> 3 Orient Harbor 2013-01-01 00:12:00   11.2
-#> 4 Orient Harbor 2013-01-01 00:18:00   11.2
-#> 5 Orient Harbor 2013-01-01 00:24:00   11.2
-#> 6 Orient Harbor 2013-01-01 00:30:00   11.2
+#> 1 Peconic River 2013-01-01 00:00:00   11.1
+#> 2 Peconic River 2013-01-01 00:06:00   11.1
+#> 3 Peconic River 2013-01-01 00:12:00   11.1
+#> 4 Peconic River 2013-01-01 00:18:00   11.1
+#> 5 Peconic River 2013-01-01 00:24:00   11.1
+#> 6 Peconic River 2013-01-01 00:30:00   11.1
 ```
 
 A plot of the raw data:
@@ -74,7 +74,7 @@ threshold of 4.8 mg/L, \[1\]).
 # 3 mg/l is acute, 4.8 mg/l is chronic
 dlysum <- anlz_dodlypep(dodat, thr = 3)
 dlysum
-#> # A tibble: 9,601 × 7
+#> # A tibble: 10,696 × 7
 #>    site          Date          yr    mo do_mgl below below_cumsum
 #>    <fct>         <date>     <dbl> <dbl>  <dbl> <dbl>        <dbl>
 #>  1 Peconic River 2013-01-01  2013     1   11.0     0            0
@@ -87,7 +87,7 @@ dlysum
 #>  8 Peconic River 2013-01-08  2013     1   12.1     0            0
 #>  9 Peconic River 2013-01-09  2013     1   12.0     0            0
 #> 10 Peconic River 2013-01-10  2013     1   11.7     0            0
-#> # ℹ 9,591 more rows
+#> # ℹ 10,686 more rows
 ```
 
 The last three columns show the daily summarized data. The `do_mgl`
@@ -118,7 +118,7 @@ month.
 
 mosum <- anlz_domopep(dodat, thr = 3)
 mosum
-#> # A tibble: 316 × 6
+#> # A tibble: 352 × 6
 #>    site             yr mo    do_mgl below_ave below_maxrun
 #>    <fct>         <dbl> <ord>  <dbl>     <dbl>        <dbl>
 #>  1 Peconic River  2013 Jan    11.6      0                0
@@ -131,7 +131,7 @@ mosum
 #>  8 Peconic River  2013 Aug     3.13     0.774           15
 #>  9 Peconic River  2013 Sep     4.81     0.633            6
 #> 10 Peconic River  2013 Oct     6.03     0.258            7
-#> # ℹ 306 more rows
+#> # ℹ 342 more rows
 ```
 
 The last three columns show the monthly summarized data, where `do_mgl`

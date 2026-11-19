@@ -19,7 +19,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">peptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,8 +55,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Dissolved Oxygen</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Dissolved Oxygen</h1>
             
       
 
@@ -76,18 +75,18 @@ downloaded using the <code><a href="../reference/read_pepdo.html">read_pepdo()</
 <span>                    nms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Peconic River'</span>, <span class="st">'Orient Harbor'</span>, <span class="st">'Shelter Island'</span><span class="op">)</span>, </span>
 <span>                    startDate <span class="op">=</span> <span class="st">'2020-06-01'</span>, endDate <span class="op">=</span> <span class="st">'2020-06-30'</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>dodat</code> data object included with the package provides
-DO data from 2013 to 2024 at the three sites. This takes several minutes
+DO data from 2013 to 2025 at the three sites. This takes several minutes
 to download using the <code><a href="../reference/read_pepdo.html">read_pepdo()</a></code> function, so it is
 included with the package for ease of use.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dodat</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            site            DateTime do_mgl</span></span>
-<span><span class="co">#&gt; 1 Orient Harbor 2013-01-01 00:00:00   11.2</span></span>
-<span><span class="co">#&gt; 2 Orient Harbor 2013-01-01 00:06:00   11.2</span></span>
-<span><span class="co">#&gt; 3 Orient Harbor 2013-01-01 00:12:00   11.2</span></span>
-<span><span class="co">#&gt; 4 Orient Harbor 2013-01-01 00:18:00   11.2</span></span>
-<span><span class="co">#&gt; 5 Orient Harbor 2013-01-01 00:24:00   11.2</span></span>
-<span><span class="co">#&gt; 6 Orient Harbor 2013-01-01 00:30:00   11.2</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Peconic River 2013-01-01 00:00:00   11.1</span></span>
+<span><span class="co">#&gt; 2 Peconic River 2013-01-01 00:06:00   11.1</span></span>
+<span><span class="co">#&gt; 3 Peconic River 2013-01-01 00:12:00   11.1</span></span>
+<span><span class="co">#&gt; 4 Peconic River 2013-01-01 00:18:00   11.1</span></span>
+<span><span class="co">#&gt; 5 Peconic River 2013-01-01 00:24:00   11.1</span></span>
+<span><span class="co">#&gt; 6 Peconic River 2013-01-01 00:30:00   11.1</span></span></code></pre></div>
 <p>A plot of the raw data:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">dodat</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">DateTime</span>, y <span class="op">=</span> <span class="va">do_mgl</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -120,7 +119,7 @@ alternative may be the chronic threshold of 4.8 mg/L, <span class="citation">[1]
 <code class="sourceCode R"><span><span class="co"># 3 mg/l is acute, 4.8 mg/l is chronic</span></span>
 <span><span class="va">dlysum</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anlz_dodlypep.html">anlz_dodlypep</a></span><span class="op">(</span><span class="va">dodat</span>, thr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">dlysum</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9,601 × 7</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10,696 × 7</span></span></span>
 <span><span class="co">#&gt;    site          Date          yr    mo do_mgl below below_cumsum</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Peconic River 2013-01-01  <span style="text-decoration: underline;">2</span>013     1   11.0     0            0</span></span>
@@ -133,7 +132,7 @@ alternative may be the chronic threshold of 4.8 mg/L, <span class="citation">[1]
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Peconic River 2013-01-08  <span style="text-decoration: underline;">2</span>013     1   12.1     0            0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Peconic River 2013-01-09  <span style="text-decoration: underline;">2</span>013     1   12.0     0            0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Peconic River 2013-01-10  <span style="text-decoration: underline;">2</span>013     1   11.7     0            0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 9,591 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 10,686 more rows</span></span></span></code></pre></div>
 <p>The last three columns show the daily summarized data. The
 <code>do_mgl</code> column shows the average DO concentration for each
 day, the <code>below</code> column shows a 1 (yes) or 0 (no) if the
@@ -156,7 +155,7 @@ which are then summarized by month.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mosum</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anlz_domopep.html">anlz_domopep</a></span><span class="op">(</span><span class="va">dodat</span>, thr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">mosum</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 316 × 6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 352 × 6</span></span></span>
 <span><span class="co">#&gt;    site             yr mo    do_mgl below_ave below_maxrun</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Peconic River  <span style="text-decoration: underline;">2</span>013 Jan    11.6      0                0</span></span>
@@ -169,7 +168,7 @@ which are then summarized by month.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Peconic River  <span style="text-decoration: underline;">2</span>013 Aug     3.13     0.774           15</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Peconic River  <span style="text-decoration: underline;">2</span>013 Sep     4.81     0.633            6</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Peconic River  <span style="text-decoration: underline;">2</span>013 Oct     6.03     0.258            7</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 306 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 342 more rows</span></span></span></code></pre></div>
 <p>The last three columns show the monthly summarized data, where
 <code>do_mgl</code> is the average of all daily DO averages across the
 month, <code>below_ave</code> is the proportion of days in a month when

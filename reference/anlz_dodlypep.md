@@ -47,7 +47,7 @@ the observed record is below the threshold.
 data(dodat)
 dat <- anlz_dodlypep(dodat)
 dat
-#> # A tibble: 9,601 × 7
+#> # A tibble: 10,696 × 7
 #>    site          Date          yr    mo do_mgl below below_cumsum
 #>    <fct>         <date>     <dbl> <dbl>  <dbl> <dbl>        <dbl>
 #>  1 Peconic River 2013-01-01  2013     1   11.0     0            0
@@ -60,5 +60,5 @@ dat
 #>  8 Peconic River 2013-01-08  2013     1   12.1     0            0
 #>  9 Peconic River 2013-01-09  2013     1   12.0     0            0
 #> 10 Peconic River 2013-01-10  2013     1   11.7     0            0
-#> # ℹ 9,591 more rows
+#> # ℹ 10,686 more rows
 ```
