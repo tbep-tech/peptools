@@ -108,7 +108,7 @@ leaflet(sf::st_transform(beaches, 4326)) %>%
   addProviderTiles('Esri.WorldImagery', group = 'World Imagery') %>% 
   addProviderTiles('Esri.WorldTopoMap', group = 'World Topo Map') %>% 
   addLayersControl(baseGroups = c('World Gray', 'World Imagery', 'World Topo Map')) %>% 
-  addCircleMarkers(radius = 6, color = 'black', weight = 1, fillColor = 'tomato', fillOpacity = 0.8)
+  addCircleMarkers(radius = 6, color = 'black', weight = 1, fillColor = 'tomato', fillOpacity = 0.8, label = ~Name)
 ```
 
 The pathogen data for these beaches can be imported using the

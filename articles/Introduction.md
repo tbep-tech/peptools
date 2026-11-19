@@ -49,7 +49,7 @@ leaflet(sf::st_transform(pepseg, 4326)) %>%
   addProviderTiles('Esri.WorldImagery', group = 'World Imagery') %>% 
   addProviderTiles('Esri.WorldTopoMap', group = 'World Topo Map') %>% 
   addLayersControl(baseGroups = c('World Gray', 'World Imagery', 'World Topo Map')) %>% 
-  addPolygons(color = 'black', weight = 1, fillOpacity = 0.4)
+  addPolygons(color = 'grey', weight = 1, fillOpacity = 0.4, label = ~paste('Bay segment', bay_segment))
 ```
 
 The water quality data can be imported using the
