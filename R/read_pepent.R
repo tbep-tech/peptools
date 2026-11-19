@@ -31,8 +31,8 @@ read_pepent <- function(path = NULL){
   # use API
   if(is.null(path)){
     
-    path <- 'https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/0/query?'
-    
+    url <- 'https://gis.suffolkcountyny.gov/hosted/rest/services/Hosted/Beach_Water_Quality_Data/FeatureServer/0/query?'
+
     out <- NULL
     for(beach in names){
       
@@ -43,16 +43,16 @@ read_pepent <- function(path = NULL){
         beach <- gsub("\\'", "''" ,beach)
       
       qry <- paste0("name='", beach, "'")
-      
-      request <- GET(
-        url = path,
+
+      request <- try(GET(
+        url = url,
         query= list(       
           where = qry,
           outFields = '*',
           f = 'pjson'
         ), 
         ssl_verifypeer = 0L
-      )
+      ), silent = T)
       
       response <- content(request, as = "text", encoding = "UTF-8")
       results <- fromJSON(response, flatten = T)
@@ -65,6 +65,7 @@ read_pepent <- function(path = NULL){
       
       # format results
       df <-results$features %>% 
+        dplyr::filter(attributes.type_ %in% c('Enterococcus', 'Enterococci')) |> 
         dplyr::select(
           Name = attributes.name, 
           FieldNum = attributes.fieldnum,
@@ -74,7 +75,8 @@ read_pepent <- function(path = NULL){
         ) %>% 
         dplyr::mutate(
           Date = Date / 1000,
-          Date = as.POSIXlt(Date, origin = '1970-01-02', tz = 'America/Jamaica') # these were off a day from raw data if 1970-01-01
+          Date = as.POSIXlt(Date, origin = '1970-01-02', tz = 'America/Jamaica'), # these were off a day from raw data if 1970-01-01
+          value = as.numeric(value)
         )
       
       out <- rbind(out, df)
@@ -82,10 +84,13 @@ read_pepent <- function(path = NULL){
     }
       
   }
-  
+
   # use file import
   if(!is.null(path)){
+    
+    # may need to manually change names of the input file to match
     out <- readxl::read_excel(path, col_types = 'text') %>% 
+      dplyr::filter(Characteristic_Name %in% c('Enterococcus', 'Enterococci')) %>% 
       dplyr::select(
         Name = Beach_Name,
         FieldNum = Station_Name, 

@@ -1,6 +1,6 @@
 Package: peptools
 Title: Analysis Tools for Importing, Wrangling, and Summarizing Suffolk County Water Quality Data
-Version: 1.1.1
+Version: 1.2.1
 Date: 2026-11-19
 Authors@R: c(
     person(given = "Marcus",
@@ -47,11 +47,11 @@ Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
 RoxygenNote: 7.3.3
+URL: <https://github.com/tbep-tech/peptools>, 
+    <https://tbep-tech.github.io/peptools>
 Suggests: 
   knitr, 
   patchwork,
   rmarkdown,
   tibble
 VignetteBuilder: knitr
-URL: https://tbep-tech.github.io/peptools,
-    https://tbep-tech.github.io/peptools/
