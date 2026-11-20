@@ -4,7 +4,7 @@ template:
 
 navbar:
   structure:
-    left:  [reference, articles]
+    left:  [reference, articles, news]
     right: [search, github]
   components:
     reference:
@@ -14,8 +14,29 @@ navbar:
 articles:
 - title: Articles
   navbar: ~
-  contents: 
+  contents:
   - Introduction
   - dissolvedoxygen
   - pathogens
   - figures
+
+reference:
+- title: Read data
+  desc: |
+    Functions for reading data.
+  contents: starts_with('read')
+- title: Analyze data
+  desc: |
+    Functions for analyzing data.
+  contents: starts_with('anlz')
+- title: Show data
+  desc: |
+    Functions for plotting data.
+  contents: starts_with('show')
+- title: Internal datasets
+  desc: |
+    Supporting datasets used by the other functions.
+  contents:
+  - -starts_with('read')
+  - -starts_with('anlz')
+  - -starts_with('show')

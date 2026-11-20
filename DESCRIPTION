@@ -45,8 +45,8 @@ Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
 RoxygenNote: 7.3.3
-URL: <https://github.com/tbep-tech/peptools>, 
-    <https://tbep-tech.github.io/peptools>
+URL: https://github.com/tbep-tech/peptools, https://tbep-tech.github.io/peptools
+BugReports: https://github.com/tbep-tech/peptools/issues
 Suggests: 
   knitr, 
   patchwork,
