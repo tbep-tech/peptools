@@ -13,7 +13,7 @@ Begin by installing the package from
 available on the tbep-tech GitHub group web page:
 <https://github.com/tbep-tech/peptools>. Note that peptools only needs
 to be installed once, but it needs to be loaded every new R session
-(i.e., [`library(peptools)`](https://rdrr.io/r/base/library.html)).
+(i.e., [`library(peptools)`](https://github.com/tbep-tech/peptools)).
 
 ``` r
 

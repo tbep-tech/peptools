@@ -13,7 +13,7 @@ Begin by installing the package from
 available on the tbep-tech GitHub group web page:
 <https://github.com/tbep-tech/peptools>. Note that peptools only needs
 to be installed once, but it needs to be loaded every new R session
-(i.e., [`library(peptools)`](https://rdrr.io/r/base/library.html)).
+(i.e., [`library(peptools)`](https://github.com/tbep-tech/peptools)).
 
 ``` r
 
@@ -31,7 +31,20 @@ library(peptools)
 
 # Package index
 
-## All functions
+## Read data
+
+Functions for reading data.
+
+- [`read_pepdo()`](https://tbep-tech.github.io/peptools/reference/read_pepdo.md)
+  : Import dissolved oxygen data
+- [`read_pepent()`](https://tbep-tech.github.io/peptools/reference/read_pepent.md)
+  : Import raw enterococcus data
+- [`read_pepwq()`](https://tbep-tech.github.io/peptools/reference/read_pepwq.md)
+  : Import raw water quality data
+
+## Analyze data
+
+Functions for analyzing data.
 
 - [`anlz_attainpep()`](https://tbep-tech.github.io/peptools/reference/anlz_attainpep.md)
   : Get attainment categories
@@ -43,26 +56,11 @@ library(peptools)
   : Count beach exceedances for enterococcus
 - [`anlz_medpep()`](https://tbep-tech.github.io/peptools/reference/anlz_medpep.md)
   : Estimate annual medians
-- [`beaches`](https://tbep-tech.github.io/peptools/reference/beaches.md)
-  : Bathing beaches
-- [`dodat`](https://tbep-tech.github.io/peptools/reference/dodat.md) :
-  Dissolved oxygen data for USGS stations
-- [`entdat`](https://tbep-tech.github.io/peptools/reference/entdat.md) :
-  Raw beach pathogen data from Suffolk County
-- [`pepseg`](https://tbep-tech.github.io/peptools/reference/pepseg.md) :
-  Polygon shapefile of segment boundaries
-- [`pepstations`](https://tbep-tech.github.io/peptools/reference/pepstations.md)
-  : Bay stations by segment
-- [`peptargets`](https://tbep-tech.github.io/peptools/reference/peptargets.md)
-  : Bay segment targets
-- [`rawdat`](https://tbep-tech.github.io/peptools/reference/rawdat.md) :
-  Raw water quality data from Suffolk County
-- [`read_pepdo()`](https://tbep-tech.github.io/peptools/reference/read_pepdo.md)
-  : Import dissolved oxygen data
-- [`read_pepent()`](https://tbep-tech.github.io/peptools/reference/read_pepent.md)
-  : Import raw enterococcus data
-- [`read_pepwq()`](https://tbep-tech.github.io/peptools/reference/read_pepwq.md)
-  : Import raw water quality data
+
+## Show data
+
+Functions for plotting data.
+
 - [`show_allthrpep()`](https://tbep-tech.github.io/peptools/reference/show_allthrpep.md)
   : Plot annual water quality value and thresholds for all segments
 - [`show_boxpep()`](https://tbep-tech.github.io/peptools/reference/show_boxpep.md)
@@ -86,6 +84,25 @@ library(peptools)
   : Plot annual water quality value and thresholds for a segment
 - [`show_wqmatrixpep()`](https://tbep-tech.github.io/peptools/reference/show_wqmatrixpep.md)
   : Create a colorized table for chlorophyll or secchi exceedances
+
+## Internal datasets
+
+Supporting datasets used by the other functions.
+
+- [`beaches`](https://tbep-tech.github.io/peptools/reference/beaches.md)
+  : Bathing beaches
+- [`dodat`](https://tbep-tech.github.io/peptools/reference/dodat.md) :
+  Dissolved oxygen data for USGS stations
+- [`entdat`](https://tbep-tech.github.io/peptools/reference/entdat.md) :
+  Raw beach pathogen data from Suffolk County
+- [`pepseg`](https://tbep-tech.github.io/peptools/reference/pepseg.md) :
+  Polygon shapefile of segment boundaries
+- [`pepstations`](https://tbep-tech.github.io/peptools/reference/pepstations.md)
+  : Bay stations by segment
+- [`peptargets`](https://tbep-tech.github.io/peptools/reference/peptargets.md)
+  : Bay segment targets
+- [`rawdat`](https://tbep-tech.github.io/peptools/reference/rawdat.md) :
+  Raw water quality data from Suffolk County
 
 # Articles
 

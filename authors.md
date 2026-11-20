@@ -11,6 +11,9 @@
 
 ## Citation
 
+Source:
+[`DESCRIPTION`](https://github.com/tbep-tech/peptools/blob/master/DESCRIPTION)
+
 Beck M, Morrison G, Greening H (2026). *peptools: Analysis Tools for
 Importing, Wrangling, and Summarizing Suffolk County Water Quality
 Data*. R package version 2.0.0, <https://github.com/tbep-tech/peptools>.

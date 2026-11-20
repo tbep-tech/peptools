@@ -23,8 +23,10 @@
     <li><a class="dropdown-item" href="../articles/pathogens.html">Beach Pathogens</a></li>
     <li><a class="dropdown-item" href="../articles/figures.html">Figures</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tbep-tech/peptools/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -36,9 +38,39 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="read-data">Read data<a class="anchor" aria-label="anchor" href="#read-data"></a></h2>
+
+      <div class="section-desc"><p>Functions for reading data.</p></div>
+
+      <dl></dl></div><div class="section level2">
 
 
+
+
+      <dl><dt>
+
+          <code><a href="read_pepdo.html">read_pepdo()</a></code>
+
+        </dt>
+        <dd>Import dissolved oxygen data</dd>
+
+        <dt>
+
+          <code><a href="read_pepent.html">read_pepent()</a></code>
+
+        </dt>
+        <dd>Import raw enterococcus data</dd>
+
+        <dt>
+
+          <code><a href="read_pepwq.html">read_pepwq()</a></code>
+
+        </dt>
+        <dd>Import raw water quality data</dd>
+      </dl></div><div class="section level2">
+      <h2 id="analyze-data">Analyze data<a class="anchor" aria-label="anchor" href="#analyze-data"></a></h2>
+
+      <div class="section-desc"><p>Functions for analyzing data.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -79,78 +111,17 @@
 
         </dt>
         <dd>Estimate annual medians</dd>
+      </dl></div><div class="section level2">
+      <h2 id="show-data">Show data<a class="anchor" aria-label="anchor" href="#show-data"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>Functions for plotting data.</p></div>
 
-          <code><a href="beaches.html">beaches</a></code>
+      <dl></dl></div><div class="section level2">
 
-        </dt>
-        <dd>Bathing beaches</dd>
 
-        <dt>
 
-          <code><a href="dodat.html">dodat</a></code>
 
-        </dt>
-        <dd>Dissolved oxygen data for USGS stations</dd>
-
-        <dt>
-
-          <code><a href="entdat.html">entdat</a></code>
-
-        </dt>
-        <dd>Raw beach pathogen data from Suffolk County</dd>
-
-        <dt>
-
-          <code><a href="pepseg.html">pepseg</a></code>
-
-        </dt>
-        <dd>Polygon shapefile of segment boundaries</dd>
-
-        <dt>
-
-          <code><a href="pepstations.html">pepstations</a></code>
-
-        </dt>
-        <dd>Bay stations by segment</dd>
-
-        <dt>
-
-          <code><a href="peptargets.html">peptargets</a></code>
-
-        </dt>
-        <dd>Bay segment targets</dd>
-
-        <dt>
-
-          <code><a href="rawdat.html">rawdat</a></code>
-
-        </dt>
-        <dd>Raw water quality data from Suffolk County</dd>
-
-        <dt>
-
-          <code><a href="read_pepdo.html">read_pepdo()</a></code>
-
-        </dt>
-        <dd>Import dissolved oxygen data</dd>
-
-        <dt>
-
-          <code><a href="read_pepent.html">read_pepent()</a></code>
-
-        </dt>
-        <dd>Import raw enterococcus data</dd>
-
-        <dt>
-
-          <code><a href="read_pepwq.html">read_pepwq()</a></code>
-
-        </dt>
-        <dd>Import raw water quality data</dd>
-
-        <dt>
+      <dl><dt>
 
           <code><a href="show_allthrpep.html">show_allthrpep()</a></code>
 
@@ -226,8 +197,67 @@
 
         </dt>
         <dd>Create a colorized table for chlorophyll or secchi exceedances</dd>
+      </dl></div><div class="section level2">
+      <h2 id="internal-datasets">Internal datasets<a class="anchor" aria-label="anchor" href="#internal-datasets"></a></h2>
+
+      <div class="section-desc"><p>Supporting datasets used by the other functions.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="beaches.html">beaches</a></code>
+
+        </dt>
+        <dd>Bathing beaches</dd>
+
+        <dt>
+
+          <code><a href="dodat.html">dodat</a></code>
+
+        </dt>
+        <dd>Dissolved oxygen data for USGS stations</dd>
+
+        <dt>
+
+          <code><a href="entdat.html">entdat</a></code>
+
+        </dt>
+        <dd>Raw beach pathogen data from Suffolk County</dd>
+
+        <dt>
+
+          <code><a href="pepseg.html">pepseg</a></code>
+
+        </dt>
+        <dd>Polygon shapefile of segment boundaries</dd>
+
+        <dt>
+
+          <code><a href="pepstations.html">pepstations</a></code>
+
+        </dt>
+        <dd>Bay stations by segment</dd>
+
+        <dt>
+
+          <code><a href="peptargets.html">peptargets</a></code>
+
+        </dt>
+        <dd>Bay segment targets</dd>
+
+        <dt>
+
+          <code><a href="rawdat.html">rawdat</a></code>
+
+        </dt>
+        <dd>Raw water quality data from Suffolk County</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
